@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChangeNOW - Web3.0 Crypto Exchange</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="time">9:31</div>
+            <div class="status-icons">
+                <div class="signal-bars">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar active"></span>
+                </div>
+                <div class="wifi-icon">📶</div>
+                <div class="battery">64%</div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="site-name">changenow.io</div>
+        </div>
+
+        <!-- Risk Warning -->
+        <div class="risk-warning">
+            <p>Don't invest unless you're prepared to lose all the money you invest. This is a high-risk investment and you are unlikely to be protected if something goes wrong.</p>
+            <a href="#" class="learn-more">Take 2 mins to learn more</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <h1 class="main-title">Web3.0 Crypto Exchange Service</h1>
+            <p class="subtitle">Cryptocurrency exchange service. Review risks before swapping.</p>
+
+            <!-- Exchange Tabs -->
+            <div class="exchange-tabs">
+                <button class="tab active">Crypto Exchange</button>
+                <button class="tab">Fiat Options</button>
+            </div>
+
+            <!-- Exchange Form -->
+            <div class="exchange-form">
+                <!-- You Send Section -->
+                <div class="exchange-section">
+                    <label class="section-label">You Send</label>
+                    <div class="input-container">
+                        <input type="number" class="amount-input" value="1" id="sendAmount">
+                        <div class="currency-selector" id="sendCurrency">
+                            <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC" class="coin-icon">
+                            <span class="currency-code">BTC</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Swap Button -->
+                <div class="swap-container">
+                    <button class="swap-button" id="swapButton">⇅</button>
+                </div>
+
+                <!-- You Get Section -->
+                <div class="exchange-section">
+                    <label class="section-label">You Get</label>
+                    <div class="input-container">
+                        <input type="number" class="amount-input" value="1" id="receiveAmount" readonly>
+                        <div class="currency-selector" id="receiveCurrency">
+                            <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH" class="coin-icon">
+                            <span class="currency-code">ETH</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exchange Button -->
+            <button class="exchange-button">
+                <span class="button-text">Explore</span>
+            </button>
+
+            <!-- Footer -->
+            <div class="footer">
+                <div class="footer-text">Buy crypto with</div>
+                <div class="trustpilot">
+                    <span class="trustpilot-star">★</span>
+                    <span class="trustpilot-text">Trustpilot</span>
+                </div>
+            </div>
+
+            <!-- Cookie Notice -->
+            <div class="cookie-notice">
+                <p>We use cookies. By using ChangeNOW, you agree to <a href="#" class="link">Terms of Use</a> and <a href="#" class="link">Privacy Policy</a></p>
+                <button class="accept-button">Accept</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
