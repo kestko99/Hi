@@ -284,6 +284,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial calculation
     calculate();
     
+    // Force update display with correct values
+    setTimeout(() => {
+        calculate();
+    }, 100);
+    
     // Refresh button
     const refreshBtn = document.querySelector('.refresh-btn');
     if (refreshBtn) {
