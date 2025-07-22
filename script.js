@@ -61,6 +61,11 @@ function calculate() {
     const sendCryptoAmount = sendUSDAmount / prices[sendCrypto];
     const receiveCryptoAmount = receiveUSDAmount / prices[getCrypto];
     
+    // Make sure amounts are valid numbers
+    if (isNaN(sendCryptoAmount) || isNaN(receiveCryptoAmount)) {
+        return;
+    }
+    
 
     
     // Update all displays
