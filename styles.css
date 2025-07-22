@@ -221,61 +221,58 @@ body {
     gap: 12px;
 }
 
-.usd-display {
-    background: linear-gradient(135deg, rgba(0, 212, 170, 0.15) 0%, rgba(0, 212, 170, 0.08) 100%);
+.input-wrapper.primary {
+    background: linear-gradient(135deg, rgba(0, 212, 170, 0.08) 0%, rgba(0, 212, 170, 0.04) 100%);
     border: 2px solid rgba(0, 212, 170, 0.3);
-    border-radius: 16px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
 }
 
-.usd-display::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent 0%, rgba(0, 212, 170, 0.1) 50%, transparent 100%);
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-.usd-display:hover {
+.input-wrapper.primary:hover {
     border-color: rgba(0, 212, 170, 0.5);
-    box-shadow: 0 0 30px rgba(0, 212, 170, 0.25);
-    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(0, 212, 170, 0.2);
 }
 
-.usd-symbol {
+.input-wrapper.primary:focus-within {
+    border-color: rgba(0, 212, 170, 0.7);
+    box-shadow: 0 0 40px rgba(0, 212, 170, 0.3);
+}
+
+.usd-input {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.input-wrapper .usd-symbol {
     font-size: 28px;
     color: #00d4aa;
     font-weight: 700;
+    margin-right: 8px;
 }
 
-.usd-amount {
-    font-size: 32px;
-    color: #ffffff;
-    font-weight: 800;
-    flex: 1;
-    text-shadow: 0 0 20px rgba(0, 212, 170, 0.5);
+.crypto-equivalent {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    font-size: 14px;
+    color: #a0a0b2;
 }
 
-.usd-label {
-    font-size: 16px;
-    color: #00d4aa;
+.crypto-amount {
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+.crypto-icon-small {
+    width: 20px;
+    height: 20px;
+}
+
+.crypto-code {
+    font-weight: 500;
 }
 
 .input-wrapper {

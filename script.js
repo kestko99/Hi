@@ -4,38 +4,44 @@ const BTC_TO_USD = 95000; // 1 BTC = $95,000
 const ETH_TO_USD = 3070; // 1 ETH = $3,070
 
 // Get DOM elements
-const sendAmountInput = document.getElementById('sendAmount');
-const getAmountInput = document.getElementById('getAmount');
-const sendUSDElement = document.getElementById('sendUSD');
-const getUSDElement = document.getElementById('getUSD');
+const sendUSDInput = document.getElementById('sendUSD');
+const getUSDInput = document.getElementById('getUSD');
+const sendCryptoElement = document.getElementById('sendCrypto');
+const getCryptoElement = document.getElementById('getCrypto');
 const refreshBtn = document.querySelector('.refresh-btn');
 const acceptBtn = document.querySelector('.accept-btn');
 const cookieNotice = document.querySelector('.cookie-notice');
 const tabs = document.querySelectorAll('.tab');
+const exchangeBtn = document.querySelector('.exchange-btn');
+const btnAmount = document.querySelector('.btn-amount');
 
-// Format USD with commas
-function formatUSD(amount) {
-    return amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+// Format numbers
+function formatNumber(amount, decimals = 2) {
+    return amount.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-// Calculate exchange amount and USD values
+// Calculate exchange from USD input
 function calculateExchange() {
-    const sendAmount = parseFloat(sendAmountInput.value) || 0;
-    const getAmount = sendAmount * EXCHANGE_RATE;
+    const sendUSD = parseFloat(sendUSDInput.value) || 0;
     
-    // Update crypto amounts
-    getAmountInput.value = getAmount.toFixed(7);
+    // Calculate crypto amounts
+    const sendBTC = sendUSD / BTC_TO_USD;
+    const getETH = sendBTC * EXCHANGE_RATE;
+    const getUSD = getETH * ETH_TO_USD;
     
-    // Calculate and update USD values
-    const sendUSD = sendAmount * BTC_TO_USD;
-    const getUSD = getAmount * ETH_TO_USD;
+    // Update crypto displays
+    sendCryptoElement.textContent = sendBTC.toFixed(8);
+    getCryptoElement.textContent = getETH.toFixed(8);
     
-    sendUSDElement.textContent = formatUSD(sendUSD);
-    getUSDElement.textContent = formatUSD(getUSD);
+    // Update receive USD
+    getUSDInput.value = formatNumber(getUSD);
+    
+    // Update button amount
+    btnAmount.textContent = `$${formatNumber(sendUSD)} → $${formatNumber(getUSD)}`;
 }
 
 // Event listeners
-sendAmountInput.addEventListener('input', calculateExchange);
+sendUSDInput.addEventListener('input', calculateExchange);
 
 // Refresh rate animation
 refreshBtn.addEventListener('click', function() {
