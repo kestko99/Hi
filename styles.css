@@ -258,9 +258,10 @@ body {
     color: #ffffff;
 }
 
-.crypto-icon-small {
-    width: 20px;
-    height: 20px;
+.crypto-emoji {
+    font-size: 20px;
+    font-weight: 700;
+    color: #00d4aa;
 }
 
 .crypto-code {

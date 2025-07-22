@@ -1,11 +1,11 @@
-// Crypto data with updated logo URLs
+// Crypto data with emoji symbols
 const cryptoData = {
-    BTC: { name: 'Bitcoin', price: 95000, icon: 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/btc.png' },
-    ETH: { name: 'Ethereum', price: 3070, icon: 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/eth.png' },
-    SOL: { name: 'Solana', price: 175, icon: 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/sol.png' },
-    USDT: { name: 'Tether', price: 1, icon: 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/usdt.png' },
-    USDC: { name: 'USD Coin', price: 1, icon: 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/usdc.png' },
-    LTC: { name: 'Litecoin', price: 105, icon: 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/ltc.png' }
+    BTC: { name: 'Bitcoin', price: 95000, emoji: '₿' },
+    ETH: { name: 'Ethereum', price: 3070, emoji: 'Ξ' },
+    SOL: { name: 'Solana', price: 175, emoji: '◎' },
+    USDT: { name: 'Tether', price: 1, emoji: '₮' },
+    USDC: { name: 'USD Coin', price: 1, emoji: '$' },
+    LTC: { name: 'Litecoin', price: 105, emoji: 'Ł' }
 };
 
 // Exchange rates (simplified - in real app would fetch from API)
