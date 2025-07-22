@@ -35,15 +35,36 @@ body {
 
 /* Header */
 .header {
-    text-align: center;
-    padding: 15px;
-    background-color: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 212, 170, 0.3);
 }
 
 .site-title {
-    font-size: 20px;
-    font-weight: 300;
+    font-size: 24px;
+    font-weight: 600;
     color: #ffffff;
+    letter-spacing: -0.5px;
 }
 
 /* Warning Banner */
@@ -65,20 +86,41 @@ body {
 .container {
     flex: 1;
     padding: 20px;
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 212, 170, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 40% 40%, rgba(0, 123, 255, 0.08) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .main-title {
-    font-size: 36px;
-    font-weight: 300;
+    font-size: 38px;
+    font-weight: 200;
     margin-bottom: 15px;
     line-height: 1.2;
+    background: linear-gradient(135deg, #ffffff 0%, #c0c0c0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .subtitle {
-    color: #8b8b9f;
+    color: #a0a0b2;
     font-size: 18px;
     margin-bottom: 30px;
     font-weight: 300;
+    opacity: 0.9;
 }
 
 /* Tab Navigation */
@@ -116,32 +158,49 @@ body {
 
 /* Exchange Form */
 .exchange-form {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
-    padding: 24px;
+    background: 
+        linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%),
+        rgba(255, 255, 255, 0.01);
+    backdrop-filter: blur(40px) saturate(150%);
+    -webkit-backdrop-filter: blur(40px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 28px;
+    padding: 32px 24px;
     margin-bottom: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
 .exchange-form::before {
     content: '';
     position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(0, 212, 170, 0.1) 0%, transparent 70%);
-    animation: pulse 10s infinite;
+    top: -100px;
+    right: -100px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(0, 212, 170, 0.2) 0%, transparent 70%);
+    animation: float 20s infinite ease-in-out;
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.5; }
-    50% { transform: scale(1.1); opacity: 0.3; }
+.exchange-form::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, transparent 70%);
+    animation: float 20s infinite ease-in-out reverse;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -30px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
 }
 
 .input-group {
@@ -156,12 +215,45 @@ body {
     margin-bottom: 10px;
 }
 
-.usd-value {
-    margin-top: 8px;
+.dual-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.usd-display {
+    background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(0, 212, 170, 0.05) 100%);
+    border: 1px solid rgba(0, 212, 170, 0.2);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.usd-display:hover {
+    border-color: rgba(0, 212, 170, 0.4);
+    box-shadow: 0 0 20px rgba(0, 212, 170, 0.15);
+}
+
+.usd-symbol {
+    font-size: 20px;
+    color: #00d4aa;
+    font-weight: 600;
+}
+
+.usd-amount {
+    font-size: 24px;
+    color: #ffffff;
+    font-weight: 700;
+    flex: 1;
+}
+
+.usd-label {
     font-size: 14px;
     color: #8b8b9f;
-    padding-left: 16px;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .input-wrapper {
@@ -200,9 +292,16 @@ body {
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    padding: 8px 12px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.currency-selector:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .crypto-icon {
@@ -224,9 +323,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
+    padding: 20px 16px;
+    margin: 16px -8px;
     font-size: 14px;
-    color: #8b8b9f;
+    color: #a0a0b2;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .refresh-btn {

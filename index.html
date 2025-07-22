@@ -19,7 +19,10 @@
 
     <!-- Header -->
     <header class="header">
-        <h1 class="site-title">nexabit.io</h1>
+        <div class="logo-container">
+            <div class="logo">N</div>
+            <h1 class="site-title">NexaBit</h1>
+        </div>
     </header>
 
     <!-- Warning Banner -->
@@ -69,16 +72,22 @@
             <!-- You Get -->
             <div class="input-group">
                 <label>You Get</label>
-                <div class="input-wrapper">
-                    <input type="number" value="0.3078897" readonly class="amount-input" id="getAmount">
-                    <div class="currency-selector">
-                        <span class="lock-icon">🔒</span>
-                        <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH" class="crypto-icon">
-                        <span>ETH</span>
-                        <span class="dropdown-arrow">▼</span>
+                <div class="dual-input-container">
+                    <div class="input-wrapper">
+                        <input type="number" value="0.3078897" readonly class="amount-input" id="getAmount">
+                        <div class="currency-selector">
+                            <span class="lock-icon">🔒</span>
+                            <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH" class="crypto-icon">
+                            <span>ETH</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                    </div>
+                    <div class="usd-display">
+                        <span class="usd-symbol">$</span>
+                        <span class="usd-amount" id="getUSD">945.73</span>
+                        <span class="usd-label">USD</span>
                     </div>
                 </div>
-                <div class="usd-value">≈ $<span id="getUSD">945.73</span> USD</div>
             </div>
 
             <!-- Exchange Button -->
