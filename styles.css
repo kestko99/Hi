@@ -789,13 +789,121 @@ body {
     cursor: pointer;
 }
 
-.qr-code {
+.qr-code-container {
     margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.qr-code {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .qr-code img {
-    border-radius: 10px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    display: block;
+    width: 200px;
+    height: 200px;
+}
+
+.scan-text {
+    color: #8b8b9f;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Confirmation Loading State */
+.confirmation-state {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.loading-spinner {
+    margin: 0 auto 20px;
+    width: 60px;
+    height: 60px;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(0, 212, 170, 0.1);
+    border-top: 4px solid #00d4aa;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.confirmation-state h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.confirmation-state p {
+    color: #8b8b9f;
+    margin-bottom: 20px;
+}
+
+.confirmation-progress {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.progress-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.progress-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #8b8b9f;
+    transition: all 0.3s ease;
+}
+
+.progress-circle.active {
+    background: #00d4aa;
+    border-color: #00d4aa;
+    color: #ffffff;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.progress-item span {
+    font-size: 12px;
+    color: #8b8b9f;
+}
+
+.confirmation-note {
+    font-size: 13px;
+    color: #8b8b9f;
+    margin-top: 20px;
 }
 
 .warning {

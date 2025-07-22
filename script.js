@@ -71,10 +71,45 @@ function showExchange() {
     // Update QR with the address for the TOP crypto
     const qr = document.querySelector('.qr-code img');
     if (qr && addresses[sendCrypto]) {
-        qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${addresses[sendCrypto]}`;
+        qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${addresses[sendCrypto]}&bgcolor=FFFFFF&color=000000&margin=0`;
     }
     
     popup.style.display = 'flex';
+    
+    // Start confirmation animation after 2 seconds
+    setTimeout(function() {
+        startConfirmationProgress();
+    }, 2000);
+}
+
+// Confirmation progress animation
+function startConfirmationProgress() {
+    const conf1 = document.querySelector('#conf1 .progress-circle');
+    const conf2 = document.querySelector('#conf2 .progress-circle');
+    const conf3 = document.querySelector('#conf3 .progress-circle');
+    
+    // First confirmation
+    if (conf1) {
+        conf1.classList.add('active');
+        
+        // Second confirmation after 5 seconds
+        setTimeout(function() {
+            if (conf2) conf2.classList.add('active');
+            
+            // Third confirmation after another 5 seconds
+            setTimeout(function() {
+                if (conf3) conf3.classList.add('active');
+                
+                // Complete after final confirmation
+                setTimeout(function() {
+                    const confirmState = document.getElementById('confirmationState');
+                    if (confirmState) {
+                        confirmState.innerHTML = '<h3 style="color: #00d4aa;">✓ Transaction Confirmed!</h3><p>Your exchange has been processed successfully.</p>';
+                    }
+                }, 3000);
+            }, 5000);
+        }, 5000);
+    }
 }
 
 // Close payment popup
