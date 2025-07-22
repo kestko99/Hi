@@ -116,14 +116,13 @@ paymentOptions.forEach(option => {
 refreshBtn.style.transition = 'transform 0.5s ease';
 
 // Risk modal elements
-const learnMoreLink = document.querySelector('.learn-more');
+const riskInfoBtn = document.getElementById('riskInfoBtn');
 const riskModal = document.getElementById('riskModal');
 const closeModal = document.getElementById('closeModal');
 const understandBtn = document.getElementById('understandBtn');
 
 // Show risk modal
-learnMoreLink.addEventListener('click', function(e) {
-    e.preventDefault();
+riskInfoBtn.addEventListener('click', function() {
     riskModal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 });

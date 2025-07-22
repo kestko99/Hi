@@ -23,12 +23,14 @@ body {
 .header {
     padding: 20px;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo-container {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 12px;
 }
 
@@ -53,19 +55,34 @@ body {
     letter-spacing: -0.5px;
 }
 
-/* Warning Banner */
-.warning-banner {
-    background: linear-gradient(90deg, rgba(61, 61, 92, 0.8) 0%, rgba(61, 61, 92, 0.6) 100%);
-    backdrop-filter: blur(10px);
-    padding: 15px 20px;
-    font-size: 13px;
-    line-height: 1.5;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+/* Risk Info Button */
+.risk-info-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    border-radius: 12px;
+    padding: 10px 16px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.learn-more {
-    color: #00d4aa;
-    text-decoration: none;
+.risk-info-btn:hover {
+    background: rgba(255, 68, 68, 0.2);
+    border-color: rgba(255, 68, 68, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 68, 68, 0.2);
+}
+
+.risk-icon {
+    font-size: 16px;
+}
+
+.risk-text {
+    font-size: 14px;
+    font-weight: 500;
 }
 
 /* Main Content */
@@ -676,6 +693,21 @@ body {
 
 .modal-body {
     padding: 24px;
+}
+
+.warning-notice {
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+.warning-notice p {
+    margin: 0;
+    color: #ffaaaa;
+    line-height: 1.6;
+    font-size: 14px;
 }
 
 .risk-section, .tips-section {
