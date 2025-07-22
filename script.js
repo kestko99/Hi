@@ -52,9 +52,12 @@ function calculate() {
     const getCryptoEl = document.getElementById('getCrypto');
     if (getCryptoEl) getCryptoEl.textContent = receiveCryptoAmount.toFixed(8);
     
-    // Update receive USD
+    // Update receive USD - ALWAYS the USD amount with fee, never crypto * price
     const getUSDEl = document.getElementById('getUSD');
-    if (getUSDEl) getUSDEl.value = receiveUSD.toFixed(2);
+    if (getUSDEl) {
+        const usdAfterFee = usdValue * 0.995; // This should ALWAYS be close to the send amount
+        getUSDEl.value = usdAfterFee.toFixed(2);
+    }
     
     // Update button
     const btnAmount = document.querySelector('.btn-amount');
