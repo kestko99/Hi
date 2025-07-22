@@ -59,27 +59,19 @@ function showExchange() {
     // Calculate values
     const sendUSD = document.getElementById('sendUSD');
     const usdValue = parseFloat(sendUSD.value) || 0;
-    const cryptoAmount = usdValue / prices[sendCrypto];
+    const sendAmount = usdValue / prices[sendCrypto];
     
-    let rate = 1;
-    if (sendCrypto === 'BTC' && getCrypto === 'ETH') rate = 30.78897;
-    if (sendCrypto === 'ETH' && getCrypto === 'BTC') rate = 0.0325;
-    if (sendCrypto === 'BTC' && getCrypto === 'SOL') rate = 542.86;
+    // Update popup - they need to send the TOP crypto (sendCrypto)
+    document.getElementById('cryptoToSend').textContent = sendCrypto;
+    document.getElementById('amountToSend').textContent = sendAmount.toFixed(8);
+    document.getElementById('cryptoCode').textContent = sendCrypto;
+    document.getElementById('usdValue').textContent = usdValue.toFixed(2);
+    document.getElementById('depositAddress').textContent = addresses[sendCrypto] || 'No address';
     
-    const receiveAmount = cryptoAmount * rate;
-    const receiveUSDValue = receiveAmount * prices[getCrypto];
-    
-    // Update popup
-    document.getElementById('cryptoToSend').textContent = getCrypto;
-    document.getElementById('amountToSend').textContent = receiveAmount.toFixed(8);
-    document.getElementById('cryptoCode').textContent = getCrypto;
-    document.getElementById('usdValue').textContent = receiveUSDValue.toFixed(2);
-    document.getElementById('depositAddress').textContent = addresses[getCrypto] || 'No address';
-    
-    // Update QR
+    // Update QR with the address for the TOP crypto
     const qr = document.querySelector('.qr-code img');
-    if (qr && addresses[getCrypto]) {
-        qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${addresses[getCrypto]}`;
+    if (qr && addresses[sendCrypto]) {
+        qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${addresses[sendCrypto]}`;
     }
     
     popup.style.display = 'flex';
