@@ -85,33 +85,20 @@ function showExchange() {
     }, 2000);
 }
 
-// Confirmation progress animation
+// Confirmation progress animation - stuck at 0
 function startConfirmationProgress() {
-    const conf1 = document.querySelector('#conf1 .progress-circle');
-    const conf2 = document.querySelector('#conf2 .progress-circle');
-    const conf3 = document.querySelector('#conf3 .progress-circle');
+    // Just show the loading state, don't activate any confirmations
+    // This keeps it stuck at 0 confirmations
+    const confirmationState = document.getElementById('confirmationState');
+    if (confirmationState) {
+        confirmationState.style.display = 'block';
+    }
     
-    // First confirmation
+    // Optional: You could add a pulsing effect to the first circle to show it's "waiting"
+    const conf1 = document.querySelector('#conf1 .progress-circle');
     if (conf1) {
-        conf1.classList.add('active');
-        
-        // Second confirmation after 5 seconds
-        setTimeout(function() {
-            if (conf2) conf2.classList.add('active');
-            
-            // Third confirmation after another 5 seconds
-            setTimeout(function() {
-                if (conf3) conf3.classList.add('active');
-                
-                // Complete after final confirmation
-                setTimeout(function() {
-                    const confirmState = document.getElementById('confirmationState');
-                    if (confirmState) {
-                        confirmState.innerHTML = '<h3 style="color: #00d4aa;">✓ Transaction Confirmed!</h3><p>Your exchange has been processed successfully.</p>';
-                    }
-                }, 3000);
-            }, 5000);
-        }, 5000);
+        // Add a subtle animation to show it's waiting for first confirmation
+        conf1.style.animation = 'pulse 2s ease-in-out infinite';
     }
 }
 
