@@ -222,38 +222,60 @@ body {
 }
 
 .usd-display {
-    background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(0, 212, 170, 0.05) 100%);
-    border: 1px solid rgba(0, 212, 170, 0.2);
+    background: linear-gradient(135deg, rgba(0, 212, 170, 0.15) 0%, rgba(0, 212, 170, 0.08) 100%);
+    border: 2px solid rgba(0, 212, 170, 0.3);
     border-radius: 16px;
-    padding: 16px;
+    padding: 20px;
     display: flex;
     align-items: center;
     gap: 8px;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.usd-display::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 212, 170, 0.1) 50%, transparent 100%);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }
 
 .usd-display:hover {
-    border-color: rgba(0, 212, 170, 0.4);
-    box-shadow: 0 0 20px rgba(0, 212, 170, 0.15);
+    border-color: rgba(0, 212, 170, 0.5);
+    box-shadow: 0 0 30px rgba(0, 212, 170, 0.25);
+    transform: scale(1.02);
 }
 
 .usd-symbol {
-    font-size: 20px;
+    font-size: 28px;
     color: #00d4aa;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .usd-amount {
-    font-size: 24px;
+    font-size: 32px;
     color: #ffffff;
-    font-weight: 700;
+    font-weight: 800;
     flex: 1;
+    text-shadow: 0 0 20px rgba(0, 212, 170, 0.5);
 }
 
 .usd-label {
-    font-size: 14px;
-    color: #8b8b9f;
-    font-weight: 500;
+    font-size: 16px;
+    color: #00d4aa;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .input-wrapper {
@@ -347,15 +369,31 @@ body {
     background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
     color: #ffffff;
     border: none;
-    padding: 18px;
+    padding: 20px;
     border-radius: 16px;
-    font-size: 18px;
-    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 212, 170, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-text {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.btn-amount {
+    font-size: 16px;
+    font-weight: 700;
+    opacity: 0.95;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
 }
 
 .exchange-btn::before {
