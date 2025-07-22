@@ -62,6 +62,17 @@ function calculate() {
     const sendCryptoAmount = sendUSDAmount / prices[sendCrypto];
     const receiveCryptoAmount = receiveUSDAmount / prices[getCrypto];
     
+    // Debug log
+    console.log('Calculate Debug:', {
+        sendCrypto, getCrypto,
+        sendPrice: prices[sendCrypto],
+        getPrice: prices[getCrypto],
+        sendUSDAmount,
+        receiveUSDAmount,
+        sendCryptoAmount,
+        receiveCryptoAmount
+    });
+    
     // Update all displays
     if (getUSDInput) getUSDInput.value = receiveUSDAmount.toFixed(2);
     if (sendCryptoSpan) sendCryptoSpan.textContent = sendCryptoAmount.toFixed(8);
