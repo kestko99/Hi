@@ -171,6 +171,7 @@ function selectCrypto(type) {
 
 // When page loads
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded, initializing...');
     // USD input
     const sendUSD = document.getElementById('sendUSD');
     if (sendUSD) {
