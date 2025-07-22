@@ -659,8 +659,8 @@ body {
     color: #00d4aa;
 }
 
-/* Risk Modal */
-.risk-modal, .crypto-modal {
+/* Modals */
+.risk-modal, .crypto-modal, .payment-modal {
     display: none;
     position: fixed;
     top: 0;
@@ -671,6 +671,162 @@ body {
     backdrop-filter: blur(10px);
     z-index: 1000;
     overflow-y: auto;
+}
+
+/* Payment Modal Styles */
+.payment-content {
+    background: linear-gradient(135deg, #1a1a2e 0%, #252547 100%);
+    min-height: 100vh;
+    max-width: 500px;
+    margin: 0 auto;
+    animation: slideIn 0.3s ease-out;
+}
+
+.payment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: #00d4aa;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.payment-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.payment-body {
+    padding: 20px;
+}
+
+.payment-summary {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.payment-summary h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-item.highlight {
+    color: #00d4aa;
+}
+
+.summary-amount {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.payment-methods h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.payment-method-option {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.payment-method-option:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(0, 212, 170, 0.3);
+    transform: translateX(5px);
+}
+
+.method-icon {
+    font-size: 32px;
+}
+
+.method-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.method-name {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.method-desc {
+    font-size: 14px;
+    color: #8b8b9f;
+}
+
+.method-arrow {
+    font-size: 24px;
+    color: #8b8b9f;
+}
+
+.payment-timer {
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    color: #8b8b9f;
+}
+
+.timer {
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #00d4aa;
+}
+
+.confirmation-notice {
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+}
+
+.notice-icon {
+    font-size: 20px;
+}
+
+.confirmation-notice p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #ffaaaa;
 }
 
 .modal-content {

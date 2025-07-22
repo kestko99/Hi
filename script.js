@@ -151,24 +151,68 @@ window.onload = function() {
     
     // Exchange button
     const exchangeBtn = document.getElementById('exchangeBtn');
-    if (exchangeBtn) {
+    const paymentModal = document.getElementById('paymentModal');
+    
+    if (exchangeBtn && paymentModal) {
         exchangeBtn.onclick = function() {
-            // Get the selected crypto address
-            const address = addresses[getCrypto];
+            // Update payment summary
+            const payAmount = document.getElementById('summaryPayAmount');
+            const receiveAmount = document.getElementById('summaryReceiveAmount');
+            const rateDisplay = document.getElementById('summaryRate');
             
-            exchangeBtn.disabled = true;
-            exchangeBtn.innerHTML = '<span class="btn-text">Processing...</span>';
+            const usdValue = parseFloat(sendUSD.value) || 0;
+            const cryptoAmount = usdValue / prices[sendCrypto];
+            const rate = rates[`${sendCrypto}-${getCrypto}`] || 1;
+            const receiveValue = cryptoAmount * rate;
             
-            setTimeout(function() {
-                exchangeBtn.innerHTML = '<span class="btn-text">✓ Success</span>';
-                setTimeout(function() {
-                    exchangeBtn.disabled = false;
-                    exchangeBtn.innerHTML = '<span class="btn-text">Exchange</span><span class="btn-amount">$0 → $0</span>';
-                    calculate();
-                }, 2000);
-            }, 2000);
+            if (payAmount) payAmount.textContent = `$${usdValue.toFixed(2)} USD`;
+            if (receiveAmount) receiveAmount.textContent = `${receiveValue.toFixed(8)} ${getCrypto}`;
+            if (rateDisplay) rateDisplay.textContent = `1 ${sendCrypto} = ${rate.toFixed(5)} ${getCrypto}`;
+            
+            // Show payment modal
+            paymentModal.style.display = 'block';
+            
+            // Start timer
+            startPaymentTimer();
         };
     }
+    
+    // Back button
+    const backBtn = document.getElementById('backBtn');
+    if (backBtn && paymentModal) {
+        backBtn.onclick = function() {
+            paymentModal.style.display = 'none';
+        };
+    }
+    
+    // Payment timer
+    function startPaymentTimer() {
+        let seconds = 899; // 14:59 in seconds
+        const timerEl = document.getElementById('paymentTimer');
+        
+        const interval = setInterval(function() {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            if (timerEl) {
+                timerEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+            }
+            
+            seconds--;
+            if (seconds < 0) {
+                clearInterval(interval);
+                if (timerEl) timerEl.textContent = 'Expired';
+            }
+        }, 1000);
+    }
+    
+    // Payment method selection
+    const paymentMethods = document.querySelectorAll('.payment-method-option');
+    paymentMethods.forEach(function(method) {
+        method.onclick = function() {
+            const methodType = method.getAttribute('data-method');
+            alert(`${methodType} payment selected. After payment, wait for 3 confirmations.`);
+        };
+    });
     
     // Initialize
     calculate();
