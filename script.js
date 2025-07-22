@@ -91,5 +91,34 @@ paymentOptions.forEach(option => {
 // Add smooth transitions
 refreshBtn.style.transition = 'transform 0.5s ease';
 
+// Risk modal elements
+const learnMoreLink = document.querySelector('.learn-more');
+const riskModal = document.getElementById('riskModal');
+const closeModal = document.getElementById('closeModal');
+const understandBtn = document.getElementById('understandBtn');
+
+// Show risk modal
+learnMoreLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    riskModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+});
+
+// Close modal functions
+function closeRiskModal() {
+    riskModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+closeModal.addEventListener('click', closeRiskModal);
+understandBtn.addEventListener('click', closeRiskModal);
+
+// Close modal when clicking outside
+riskModal.addEventListener('click', function(e) {
+    if (e.target === riskModal) {
+        closeRiskModal();
+    }
+});
+
 // Initialize
 calculateExchange();

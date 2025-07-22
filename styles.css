@@ -502,6 +502,156 @@ body {
     margin-bottom: 8px;
 }
 
+/* Risk Modal */
+.risk-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1a1a2e 0%, #252547 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: #8b8b9f;
+    font-size: 32px;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.risk-section, .tips-section {
+    margin-bottom: 24px;
+}
+
+.risk-section h3, .tips-section h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: #ffffff;
+}
+
+.risk-section ul, .tips-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.risk-section li, .tips-section li {
+    padding: 12px 0;
+    padding-left: 24px;
+    position: relative;
+    color: #c0c0c0;
+    line-height: 1.6;
+}
+
+.risk-section li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #ff4444;
+    font-size: 20px;
+}
+
+.tips-section li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #00d4aa;
+    font-size: 20px;
+}
+
+.warning-box {
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 24px;
+}
+
+.warning-box p {
+    margin: 0;
+    color: #ffaaaa;
+    line-height: 1.6;
+}
+
+.modal-footer {
+    padding: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.understand-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
+    color: #ffffff;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.understand-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 212, 170, 0.4);
+}
+
 /* Responsive adjustments */
 @media (max-width: 414px) {
     body {
@@ -514,5 +664,10 @@ body {
     
     .subtitle {
         font-size: 16px;
+    }
+    
+    .modal-content {
+        margin: 10px;
+        max-width: calc(100% - 20px);
     }
 }
