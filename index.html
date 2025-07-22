@@ -43,15 +43,21 @@
             <!-- You Send -->
             <div class="input-group">
                 <label>You Send</label>
-                <div class="input-wrapper">
-                    <input type="number" value="0.01" step="0.001" class="amount-input" id="sendAmount">
-                    <div class="currency-selector">
-                        <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC" class="crypto-icon">
-                        <span>BTC</span>
-                        <span class="dropdown-arrow">▼</span>
+                <div class="dual-input-container">
+                    <div class="input-wrapper">
+                        <input type="number" value="0.01" step="0.001" class="amount-input" id="sendAmount">
+                        <div class="currency-selector">
+                            <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC" class="crypto-icon">
+                            <span>BTC</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                    </div>
+                    <div class="usd-display">
+                        <span class="usd-symbol">$</span>
+                        <span class="usd-amount" id="sendUSD">950.00</span>
+                        <span class="usd-label">USD</span>
                     </div>
                 </div>
-                <div class="usd-value">≈ $<span id="sendUSD">950.00</span> USD</div>
             </div>
 
             <!-- Exchange Rate Display -->
