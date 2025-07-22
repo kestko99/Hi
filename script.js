@@ -31,57 +31,54 @@ const cryptoEmojis = {
 let sendCrypto = 'BTC';
 let getCrypto = 'ETH';
 
-// Simple calculate function
+// Calculate exchange amounts
 function calculate() {
-    const sendUSD = document.getElementById('sendUSD');
-    if (!sendUSD) return;
+    // Get all elements
+    const sendUSDInput = document.getElementById('sendUSD');
+    const getUSDInput = document.getElementById('getUSD');
+    const sendCryptoSpan = document.getElementById('sendCrypto');
+    const getCryptoSpan = document.getElementById('getCrypto');
+    const sendCodeSpan = document.getElementById('sendCryptoCode');
+    const getCodeSpan = document.getElementById('getCryptoCode');
+    const sendEmojiSpan = document.getElementById('sendCryptoEmoji');
+    const getEmojiSpan = document.getElementById('getCryptoEmoji');
+    const exchangeRateSpan = document.querySelector('.exchange-rate span');
+    const btnAmount = document.querySelector('.btn-amount');
     
-    const usdValue = parseFloat(sendUSD.value) || 0;
-    const sendCryptoAmount = usdValue / prices[sendCrypto];
+    // Get USD amount being sent
+    const sendUSDAmount = parseFloat(sendUSDInput?.value) || 0;
     
-    // Calculate receive amount with fee
-    const receiveUSD = usdValue * 0.995; // 0.5% exchange fee
-    const receiveCryptoAmount = receiveUSD / prices[getCrypto];
+    // Calculate amounts
+    const fee = 0.005; // 0.5% fee
+    const receiveUSDAmount = sendUSDAmount * (1 - fee);
     
+    // Calculate crypto amounts based on USD values and prices
+    const sendCryptoAmount = sendUSDAmount / prices[sendCrypto];
+    const receiveCryptoAmount = receiveUSDAmount / prices[getCrypto];
     
-    // Update send crypto display
-    const sendCryptoEl = document.getElementById('sendCrypto');
-    if (sendCryptoEl) sendCryptoEl.textContent = sendCryptoAmount.toFixed(8);
+    // Update all displays
+    if (getUSDInput) getUSDInput.value = receiveUSDAmount.toFixed(2);
+    if (sendCryptoSpan) sendCryptoSpan.textContent = sendCryptoAmount.toFixed(8);
+    if (getCryptoSpan) getCryptoSpan.textContent = receiveCryptoAmount.toFixed(8);
     
-    // Update receive crypto display
-    const getCryptoEl = document.getElementById('getCrypto');
-    if (getCryptoEl) getCryptoEl.textContent = receiveCryptoAmount.toFixed(8);
+    // Update crypto codes
+    if (sendCodeSpan) sendCodeSpan.textContent = sendCrypto;
+    if (getCodeSpan) getCodeSpan.textContent = getCrypto;
     
-    // Update receive USD - ALWAYS the USD amount with fee, never crypto * price
-    const getUSDEl = document.getElementById('getUSD');
-    if (getUSDEl) {
-        const usdAfterFee = usdValue * 0.995; // This should ALWAYS be close to the send amount
-        getUSDEl.value = usdAfterFee.toFixed(2);
+    // Update crypto emojis
+    if (sendEmojiSpan) sendEmojiSpan.textContent = cryptoEmojis[sendCrypto] || '?';
+    if (getEmojiSpan) getEmojiSpan.textContent = cryptoEmojis[getCrypto] || '?';
+    
+    // Update exchange rate
+    if (exchangeRateSpan) {
+        const rate = prices[sendCrypto] / prices[getCrypto];
+        exchangeRateSpan.textContent = `Estimated rate: 1 ${sendCrypto} ≈ ${rate.toFixed(6)} ${getCrypto}`;
     }
     
     // Update button
-    const btnAmount = document.querySelector('.btn-amount');
     if (btnAmount) {
-        btnAmount.textContent = `$${usdValue.toFixed(2)} → $${receiveUSD.toFixed(2)}`;
+        btnAmount.textContent = `$${sendUSDAmount.toFixed(2)} → $${receiveUSDAmount.toFixed(2)}`;
     }
-    
-    // Update exchange rate display
-    const rateDisplay = document.querySelector('.exchange-rate span');
-    if (rateDisplay) {
-        const displayRate = prices[sendCrypto] / prices[getCrypto];
-        rateDisplay.textContent = `Estimated rate: 1 ${sendCrypto} ≈ ${displayRate.toFixed(5)} ${getCrypto}`;
-    }
-    
-    // Update crypto codes and emojis
-    const sendCodeEl = document.getElementById('sendCryptoCode');
-    const sendEmojiEl = document.getElementById('sendCryptoEmoji');
-    const getCodeEl = document.getElementById('getCryptoCode');
-    const getEmojiEl = document.getElementById('getCryptoEmoji');
-    
-    if (sendCodeEl) sendCodeEl.textContent = sendCrypto;
-    if (sendEmojiEl) sendEmojiEl.textContent = cryptoEmojis[sendCrypto] || '?';
-    if (getCodeEl) getCodeEl.textContent = getCrypto;
-    if (getEmojiEl) getEmojiEl.textContent = cryptoEmojis[getCrypto] || '?';
 }
 
 // Show exchange popup
