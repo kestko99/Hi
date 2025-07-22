@@ -14,7 +14,7 @@ const addresses = {
     BTC: 'bc1qkvzrkcvn67zj5xaxa4klwdr0gc69dddp2786g7',
     USDT: '0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877', // Same as ETH for USDT
     USDC: '0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877', // Same as ETH for USDC
-    LTC: 'LXyYjUbVHgvmFv3d3mZzCqVxqNgU9K6Xpz' // Example LTC address
+    LTC: 'LhLP7GWPo9UMB6xxi8hyenUNvN7mmr2cLk'
 };
 
 // Current selections
