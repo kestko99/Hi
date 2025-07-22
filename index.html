@@ -121,50 +121,38 @@
             </div>
             
             <div class="payment-body">
-                <div class="payment-summary">
-                    <h3>Order Summary</h3>
-                    <div class="summary-item">
-                        <span>You Pay</span>
-                        <span class="summary-amount" id="summaryPayAmount">$950.00 USD</span>
+                <div class="payment-instructions">
+                    <h3>Send <span id="paymentCrypto">ETH</span> to Complete Exchange</h3>
+                    <p>To receive your exchanged cryptocurrency, you need to send the exact amount shown below:</p>
+                </div>
+
+                <div class="send-crypto-box">
+                    <div class="amount-to-send">
+                        <span class="send-label">Amount to Send</span>
+                        <div class="send-amount-display">
+                            <span class="crypto-amount-large" id="cryptoAmountToSend">0.30788970</span>
+                            <span class="crypto-symbol" id="cryptoSymbol">ETH</span>
+                        </div>
+                        <span class="usd-equivalent">≈ $<span id="usdEquivalent">945.73</span> USD</span>
                     </div>
-                    <div class="summary-item">
-                        <span>You Receive</span>
-                        <span class="summary-amount" id="summaryReceiveAmount">0.30788970 ETH</span>
-                    </div>
-                    <div class="summary-item highlight">
-                        <span>Exchange Rate</span>
-                        <span id="summaryRate">1 BTC = 30.78897 ETH</span>
+                    
+                    <div class="wallet-address-box">
+                        <span class="address-label">Send to this address:</span>
+                        <div class="address-display">
+                            <span class="address-text" id="walletAddress">0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877</span>
+                            <button class="copy-btn" onclick="copyAddress()">📋 Copy</button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="payment-methods">
-                    <h3>Select Payment Method</h3>
-                    
-                    <div class="payment-method-option" data-method="card">
-                        <div class="method-icon">💳</div>
-                        <div class="method-info">
-                            <span class="method-name">Credit/Debit Card</span>
-                            <span class="method-desc">Instant payment with Visa/Mastercard</span>
-                        </div>
-                        <span class="method-arrow">›</span>
+                <div class="exchange-info">
+                    <div class="info-item">
+                        <span>You will receive:</span>
+                        <strong id="receiveInfo">$950.00 USD worth of BTC</strong>
                     </div>
-
-                    <div class="payment-method-option" data-method="bank">
-                        <div class="method-icon">🏦</div>
-                        <div class="method-info">
-                            <span class="method-name">Bank Transfer</span>
-                            <span class="method-desc">Direct bank payment (1-3 days)</span>
-                        </div>
-                        <span class="method-arrow">›</span>
-                    </div>
-
-                    <div class="payment-method-option" data-method="crypto">
-                        <div class="method-icon">₿</div>
-                        <div class="method-info">
-                            <span class="method-name">Crypto Payment</span>
-                            <span class="method-desc">Pay with another cryptocurrency</span>
-                        </div>
-                        <span class="method-arrow">›</span>
+                    <div class="info-item">
+                        <span>Exchange rate:</span>
+                        <strong id="rateInfo">1 ETH = 0.0325 BTC</strong>
                     </div>
                 </div>
 

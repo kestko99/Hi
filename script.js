@@ -155,19 +155,29 @@ window.onload = function() {
     
     if (exchangeBtn && paymentModal) {
         exchangeBtn.onclick = function() {
-            // Update payment summary
-            const payAmount = document.getElementById('summaryPayAmount');
-            const receiveAmount = document.getElementById('summaryReceiveAmount');
-            const rateDisplay = document.getElementById('summaryRate');
-            
+            // Calculate amounts
             const usdValue = parseFloat(sendUSD.value) || 0;
             const cryptoAmount = usdValue / prices[sendCrypto];
             const rate = rates[`${sendCrypto}-${getCrypto}`] || 1;
             const receiveValue = cryptoAmount * rate;
             
-            if (payAmount) payAmount.textContent = `$${usdValue.toFixed(2)} USD`;
-            if (receiveAmount) receiveAmount.textContent = `${receiveValue.toFixed(8)} ${getCrypto}`;
-            if (rateDisplay) rateDisplay.textContent = `1 ${sendCrypto} = ${rate.toFixed(5)} ${getCrypto}`;
+            // Update payment modal with receiving crypto info
+            const paymentCrypto = document.getElementById('paymentCrypto');
+            const cryptoAmountToSend = document.getElementById('cryptoAmountToSend');
+            const cryptoSymbol = document.getElementById('cryptoSymbol');
+            const usdEquivalent = document.getElementById('usdEquivalent');
+            const walletAddress = document.getElementById('walletAddress');
+            const receiveInfo = document.getElementById('receiveInfo');
+            const rateInfo = document.getElementById('rateInfo');
+            
+            // User needs to send the crypto they selected in bottom (getCrypto)
+            if (paymentCrypto) paymentCrypto.textContent = getCrypto;
+            if (cryptoAmountToSend) cryptoAmountToSend.textContent = receiveValue.toFixed(8);
+            if (cryptoSymbol) cryptoSymbol.textContent = getCrypto;
+            if (usdEquivalent) usdEquivalent.textContent = (receiveValue * prices[getCrypto]).toFixed(2);
+            if (walletAddress) walletAddress.textContent = addresses[getCrypto] || 'No address set';
+            if (receiveInfo) receiveInfo.textContent = `$${usdValue.toFixed(2)} USD worth of ${sendCrypto}`;
+            if (rateInfo) rateInfo.textContent = `1 ${getCrypto} = ${(1/rate).toFixed(5)} ${sendCrypto}`;
             
             // Show payment modal
             paymentModal.style.display = 'block';
@@ -205,14 +215,13 @@ window.onload = function() {
         }, 1000);
     }
     
-    // Payment method selection
-    const paymentMethods = document.querySelectorAll('.payment-method-option');
-    paymentMethods.forEach(function(method) {
-        method.onclick = function() {
-            const methodType = method.getAttribute('data-method');
-            alert(`${methodType} payment selected. After payment, wait for 3 confirmations.`);
-        };
-    });
+    // Copy address function
+    window.copyAddress = function() {
+        const addressText = document.getElementById('walletAddress').textContent;
+        navigator.clipboard.writeText(addressText).then(function() {
+            alert('Address copied to clipboard!');
+        });
+    };
     
     // Initialize
     calculate();
