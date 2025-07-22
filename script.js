@@ -48,6 +48,12 @@ function calculate() {
     // Get USD amount being sent
     const sendUSDAmount = parseFloat(sendUSDInput?.value) || 0;
     
+    // Validate prices exist
+    if (!prices[sendCrypto] || !prices[getCrypto]) {
+        console.error('Invalid crypto selection:', sendCrypto, getCrypto);
+        return;
+    }
+    
     // Calculate amounts
     const fee = 0.005; // 0.5% fee
     const receiveUSDAmount = sendUSDAmount * (1 - fee);
@@ -73,6 +79,8 @@ function calculate() {
     if (exchangeRateSpan) {
         const rate = prices[sendCrypto] / prices[getCrypto];
         exchangeRateSpan.textContent = `Estimated rate: 1 ${sendCrypto} ≈ ${rate.toFixed(6)} ${getCrypto}`;
+        
+
     }
     
     // Update button
@@ -244,12 +252,16 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (selecting === 'send') {
                 sendCrypto = crypto;
-                document.getElementById('sendCryptoCode').textContent = crypto;
-                document.getElementById('sendCryptoEmoji').textContent = cryptoEmojis[crypto] || '?';
+                const sendCodeEl = document.getElementById('sendCryptoCode');
+                const sendEmojiEl = document.getElementById('sendCryptoEmoji');
+                if (sendCodeEl) sendCodeEl.textContent = crypto;
+                if (sendEmojiEl) sendEmojiEl.textContent = cryptoEmojis[crypto] || '?';
             } else {
                 getCrypto = crypto;
-                document.getElementById('getCryptoCode').textContent = crypto;
-                document.getElementById('getCryptoEmoji').textContent = cryptoEmojis[crypto] || '?';
+                const getCodeEl = document.getElementById('getCryptoCode');
+                const getEmojiEl = document.getElementById('getCryptoEmoji');
+                if (getCodeEl) getCodeEl.textContent = crypto;
+                if (getEmojiEl) getEmojiEl.textContent = cryptoEmojis[crypto] || '?';
             }
             
             modal.style.display = 'none';
@@ -259,8 +271,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initial calculation
     calculate();
-    
-    // Removed - now handled in calculate function
     
     // Refresh button
     const refreshBtn = document.querySelector('.refresh-btn');
