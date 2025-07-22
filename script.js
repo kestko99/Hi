@@ -153,8 +153,13 @@ window.onload = function() {
     const exchangeBtn = document.getElementById('exchangeBtn');
     const paymentPopup = document.getElementById('paymentPopup');
     
-    if (exchangeBtn && paymentPopup) {
+    if (exchangeBtn) {
         exchangeBtn.onclick = function() {
+            const paymentPopup = document.getElementById('paymentPopup');
+            if (!paymentPopup) {
+                console.error('Payment popup not found');
+                return;
+            }
             // Calculate amounts
             const usdValue = parseFloat(sendUSD.value) || 0;
             const cryptoAmount = usdValue / prices[sendCrypto];
@@ -185,7 +190,7 @@ window.onload = function() {
             }
             
             // Show payment popup
-            paymentPopup.style.display = 'block';
+            paymentPopup.style.display = 'flex';
         };
     }
     
