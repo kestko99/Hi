@@ -48,10 +48,12 @@ body {
 
 /* Warning Banner */
 .warning-banner {
-    background-color: #3d3d5c;
+    background: linear-gradient(90deg, rgba(61, 61, 92, 0.8) 0%, rgba(61, 61, 92, 0.6) 100%);
+    backdrop-filter: blur(10px);
     padding: 15px 20px;
     font-size: 13px;
     line-height: 1.5;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .learn-more {
@@ -144,6 +146,7 @@ body {
 
 .input-group {
     margin-bottom: 20px;
+    position: relative;
 }
 
 .input-group label {
@@ -151,6 +154,14 @@ body {
     color: #8b8b9f;
     font-size: 14px;
     margin-bottom: 10px;
+}
+
+.usd-value {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #8b8b9f;
+    padding-left: 16px;
+    font-weight: 400;
 }
 
 .input-wrapper {
@@ -289,19 +300,22 @@ body {
 }
 
 .payment-option {
-    background-color: #252547;
-    border: 1px solid #3d3d5c;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
     padding: 15px 20px;
     cursor: pointer;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .payment-option:hover {
-    border-color: #00d4aa;
+    border-color: rgba(0, 212, 170, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 212, 170, 0.2);
 }
 
 .payment-option img {
