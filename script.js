@@ -1,7 +1,26 @@
-// Exchange rates
-const EXCHANGE_RATE = 30.78897; // 1 BTC = 30.78897 ETH
-const BTC_TO_USD = 95000; // 1 BTC = $95,000
-const ETH_TO_USD = 3070; // 1 ETH = $3,070
+// Crypto data
+const cryptoData = {
+    BTC: { name: 'Bitcoin', price: 95000, icon: 'https://cryptologos.cc/logos/bitcoin-btc-logo.png' },
+    ETH: { name: 'Ethereum', price: 3070, icon: 'https://cryptologos.cc/logos/ethereum-eth-logo.png' },
+    SOL: { name: 'Solana', price: 175, icon: 'https://cryptologos.cc/logos/solana-sol-logo.png' },
+    USDT: { name: 'Tether', price: 1, icon: 'https://cryptologos.cc/logos/tether-usdt-logo.png' },
+    USDC: { name: 'USD Coin', price: 1, icon: 'https://cryptologos.cc/logos/usd-coin-usdc-logo.png' },
+    LTC: { name: 'Litecoin', price: 105, icon: 'https://cryptologos.cc/logos/litecoin-ltc-logo.png' }
+};
+
+// Exchange rates (simplified - in real app would fetch from API)
+const exchangeRates = {
+    BTC: { ETH: 30.78897, SOL: 542.86, USDT: 95000, USDC: 95000, LTC: 904.76 },
+    ETH: { BTC: 0.0325, SOL: 17.54, USDT: 3070, USDC: 3070, LTC: 29.24 },
+    SOL: { BTC: 0.00184, ETH: 0.057, USDT: 175, USDC: 175, LTC: 1.67 },
+    USDT: { BTC: 0.0000105, ETH: 0.000326, SOL: 0.00571, USDC: 1, LTC: 0.00952 },
+    USDC: { BTC: 0.0000105, ETH: 0.000326, SOL: 0.00571, USDT: 1, LTC: 0.00952 },
+    LTC: { BTC: 0.00111, ETH: 0.0342, SOL: 0.6, USDT: 105, USDC: 105 }
+};
+
+// Current selected cryptos
+let sendCrypto = 'BTC';
+let getCrypto = 'ETH';
 
 // Get DOM elements
 const sendUSDInput = document.getElementById('sendUSD');
@@ -25,19 +44,24 @@ function calculateExchange() {
     const sendUSD = parseFloat(sendUSDInput.value) || 0;
     
     // Calculate crypto amounts
-    const sendBTC = sendUSD / BTC_TO_USD;
-    const getETH = sendBTC * EXCHANGE_RATE;
-    const getUSD = getETH * ETH_TO_USD;
+    const sendAmount = sendUSD / cryptoData[sendCrypto].price;
+    const exchangeRate = exchangeRates[sendCrypto][getCrypto] || 0;
+    const getAmount = sendAmount * exchangeRate;
+    const getUSD = getAmount * cryptoData[getCrypto].price;
     
     // Update crypto displays
-    sendCryptoElement.textContent = sendBTC.toFixed(8);
-    getCryptoElement.textContent = getETH.toFixed(8);
+    sendCryptoElement.textContent = sendAmount.toFixed(8);
+    getCryptoElement.textContent = getAmount.toFixed(8);
     
     // Update receive USD
     getUSDInput.value = formatNumber(getUSD);
     
     // Update button amount
     btnAmount.textContent = `$${formatNumber(sendUSD)} → $${formatNumber(getUSD)}`;
+    
+    // Update exchange rate display
+    const rateDisplay = document.querySelector('.exchange-rate span');
+    rateDisplay.textContent = `Estimated rate: 1 ${sendCrypto} ≈ ${exchangeRate.toFixed(5)} ${getCrypto}`;
 }
 
 // Event listeners
@@ -118,6 +142,74 @@ riskModal.addEventListener('click', function(e) {
     if (e.target === riskModal) {
         closeRiskModal();
     }
+});
+
+// Crypto selection
+const cryptoModal = document.getElementById('cryptoModal');
+const closeCryptoModal = document.getElementById('closeCryptoModal');
+const sendCryptoDisplay = document.getElementById('sendCryptoDisplay');
+const getCryptoDisplay = document.getElementById('getCryptoDisplay');
+let currentSelectionType = 'send'; // 'send' or 'get'
+
+// Open crypto selector
+sendCryptoDisplay.addEventListener('click', function() {
+    currentSelectionType = 'send';
+    cryptoModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+});
+
+getCryptoDisplay.addEventListener('click', function() {
+    currentSelectionType = 'get';
+    cryptoModal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+});
+
+// Close crypto modal
+function closeCryptoModalFunc() {
+    cryptoModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+closeCryptoModal.addEventListener('click', closeCryptoModalFunc);
+cryptoModal.addEventListener('click', function(e) {
+    if (e.target === cryptoModal) closeCryptoModalFunc();
+});
+
+// Select crypto
+document.querySelectorAll('.crypto-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const selectedCrypto = this.dataset.crypto;
+        const selectedPrice = this.dataset.price;
+        
+        if (currentSelectionType === 'send') {
+            sendCrypto = selectedCrypto;
+            document.getElementById('sendCryptoCode').textContent = selectedCrypto;
+            document.getElementById('sendCryptoIcon').src = cryptoData[selectedCrypto].icon;
+        } else {
+            getCrypto = selectedCrypto;
+            document.getElementById('getCryptoCode').textContent = selectedCrypto;
+            document.getElementById('getCryptoIcon').src = cryptoData[selectedCrypto].icon;
+        }
+        
+        closeCryptoModalFunc();
+        calculateExchange();
+    });
+});
+
+// Search functionality
+const cryptoSearch = document.getElementById('cryptoSearch');
+cryptoSearch.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    document.querySelectorAll('.crypto-item').forEach(item => {
+        const cryptoName = item.querySelector('.crypto-name').textContent.toLowerCase();
+        const cryptoSymbol = item.querySelector('.crypto-symbol').textContent.toLowerCase();
+        
+        if (cryptoName.includes(searchTerm) || cryptoSymbol.includes(searchTerm)) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
+    });
 });
 
 // Initialize

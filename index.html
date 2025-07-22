@@ -47,10 +47,11 @@
                             <span class="dropdown-arrow">▼</span>
                         </div>
                     </div>
-                    <div class="crypto-equivalent">
+                    <div class="crypto-equivalent" id="sendCryptoDisplay">
                         <span class="crypto-amount" id="sendCrypto">0.01</span>
-                        <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC" class="crypto-icon-small">
-                        <span class="crypto-code">BTC</span>
+                        <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC" class="crypto-icon-small" id="sendCryptoIcon">
+                        <span class="crypto-code" id="sendCryptoCode">BTC</span>
+                        <span class="change-crypto">▼</span>
                     </div>
                 </div>
             </div>
@@ -73,10 +74,11 @@
                             <span class="lock-icon">🔒</span>
                         </div>
                     </div>
-                    <div class="crypto-equivalent">
+                    <div class="crypto-equivalent" id="getCryptoDisplay">
                         <span class="crypto-amount" id="getCrypto">0.3078897</span>
-                        <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH" class="crypto-icon-small">
-                        <span class="crypto-code">ETH</span>
+                        <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH" class="crypto-icon-small" id="getCryptoIcon">
+                        <span class="crypto-code" id="getCryptoCode">ETH</span>
+                        <span class="change-crypto">▼</span>
                     </div>
                 </div>
             </div>
@@ -113,6 +115,78 @@
 
     <!-- Bottom Navigation Bar -->
     <div class="bottom-bar"></div>
+
+    <!-- Crypto Selection Modal -->
+    <div class="crypto-modal" id="cryptoModal">
+        <div class="modal-content crypto-select-content">
+            <div class="modal-header">
+                <h2>Select Cryptocurrency</h2>
+                <button class="close-modal" id="closeCryptoModal">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="crypto-search">
+                    <input type="text" placeholder="Search cryptocurrency..." class="crypto-search-input" id="cryptoSearch">
+                </div>
+                
+                <div class="crypto-list" id="cryptoList">
+                    <div class="crypto-item" data-crypto="BTC" data-price="95000">
+                        <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC">
+                        <div class="crypto-info">
+                            <span class="crypto-name">Bitcoin</span>
+                            <span class="crypto-symbol">BTC</span>
+                        </div>
+                        <span class="crypto-price">$95,000</span>
+                    </div>
+                    
+                    <div class="crypto-item" data-crypto="ETH" data-price="3070">
+                        <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH">
+                        <div class="crypto-info">
+                            <span class="crypto-name">Ethereum</span>
+                            <span class="crypto-symbol">ETH</span>
+                        </div>
+                        <span class="crypto-price">$3,070</span>
+                    </div>
+                    
+                    <div class="crypto-item" data-crypto="SOL" data-price="175">
+                        <img src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="SOL">
+                        <div class="crypto-info">
+                            <span class="crypto-name">Solana</span>
+                            <span class="crypto-symbol">SOL</span>
+                        </div>
+                        <span class="crypto-price">$175</span>
+                    </div>
+                    
+                    <div class="crypto-item" data-crypto="USDT" data-price="1">
+                        <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="USDT">
+                        <div class="crypto-info">
+                            <span class="crypto-name">Tether</span>
+                            <span class="crypto-symbol">USDT</span>
+                        </div>
+                        <span class="crypto-price">$1.00</span>
+                    </div>
+                    
+                    <div class="crypto-item" data-crypto="USDC" data-price="1">
+                        <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png" alt="USDC">
+                        <div class="crypto-info">
+                            <span class="crypto-name">USD Coin</span>
+                            <span class="crypto-symbol">USDC</span>
+                        </div>
+                        <span class="crypto-price">$1.00</span>
+                    </div>
+                    
+                    <div class="crypto-item" data-crypto="LTC" data-price="105">
+                        <img src="https://cryptologos.cc/logos/litecoin-ltc-logo.png" alt="LTC">
+                        <div class="crypto-info">
+                            <span class="crypto-name">Litecoin</span>
+                            <span class="crypto-symbol">LTC</span>
+                        </div>
+                        <span class="crypto-price">$105</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Risk Modal -->
     <div class="risk-modal" id="riskModal">
