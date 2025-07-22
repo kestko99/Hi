@@ -1,11 +1,11 @@
 // Crypto prices and data
 const prices = {
-    BTC: 95000,
-    ETH: 3070,
-    SOL: 175,
-    USDT: 1,
-    USDC: 1,
-    LTC: 105
+    BTC: 98000,   // ~$98,000
+    ETH: 3400,    // ~$3,400
+    SOL: 240,     // ~$240
+    USDT: 1,      // $1 (stablecoin)
+    USDC: 1,      // $1 (stablecoin)
+    LTC: 110      // ~$110
 };
 
 const addresses = {
