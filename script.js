@@ -37,20 +37,22 @@ function calculate() {
     if (!sendUSD) return;
     
     const usdValue = parseFloat(sendUSD.value) || 0;
-    const cryptoAmount = usdValue / prices[sendCrypto];
+    const sendCryptoAmount = usdValue / prices[sendCrypto];
     
-    // Calculate dynamic exchange rate based on current prices
-    const rate = prices[sendCrypto] / prices[getCrypto];
-    const receiveAmount = cryptoAmount * rate * 0.995; // 0.5% exchange fee
-    const receiveUSD = receiveAmount * prices[getCrypto];
+    // Calculate receive amount with fee
+    const receiveUSD = usdValue * 0.995; // 0.5% exchange fee
+    const receiveCryptoAmount = receiveUSD / prices[getCrypto];
     
-    // Update displays
+    // Update send crypto display
     const sendCryptoEl = document.getElementById('sendCrypto');
-    const getCryptoEl = document.getElementById('getCrypto');
-    const getUSDEl = document.getElementById('getUSD');
+    if (sendCryptoEl) sendCryptoEl.textContent = sendCryptoAmount.toFixed(8);
     
-    if (sendCryptoEl) sendCryptoEl.textContent = cryptoAmount.toFixed(8);
-    if (getCryptoEl) getCryptoEl.textContent = receiveAmount.toFixed(8);
+    // Update receive crypto display
+    const getCryptoEl = document.getElementById('getCrypto');
+    if (getCryptoEl) getCryptoEl.textContent = receiveCryptoAmount.toFixed(8);
+    
+    // Update receive USD
+    const getUSDEl = document.getElementById('getUSD');
     if (getUSDEl) getUSDEl.value = receiveUSD.toFixed(2);
     
     // Update button
@@ -65,6 +67,12 @@ function calculate() {
         const displayRate = prices[sendCrypto] / prices[getCrypto];
         rateDisplay.textContent = `Estimated rate: 1 ${sendCrypto} ≈ ${displayRate.toFixed(5)} ${getCrypto}`;
     }
+    
+    // Update crypto codes and emojis
+    document.getElementById('sendCryptoCode').textContent = sendCrypto;
+    document.getElementById('sendCryptoEmoji').textContent = cryptoEmojis[sendCrypto] || '?';
+    document.getElementById('getCryptoCode').textContent = getCrypto;
+    document.getElementById('getCryptoEmoji').textContent = cryptoEmojis[getCrypto] || '?';
 }
 
 // Show exchange popup
@@ -246,7 +254,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial calculation
     calculate();
     
-    // Set initial emojis
-    document.getElementById('sendCryptoEmoji').textContent = cryptoEmojis[sendCrypto] || '?';
-    document.getElementById('getCryptoEmoji').textContent = cryptoEmojis[getCrypto] || '?';
+    // Removed - now handled in calculate function
 });
