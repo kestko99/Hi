@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexaBit - Crypto Exchange</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nexabit.io/">
+    <meta property="og:title" content="NexaBit - Instant Crypto Exchange">
+    <meta property="og:description" content="Exchange cryptocurrencies instantly. Support for BTC, ETH, SOL, USDT, USDC, and LTC. Best rates, secure transactions.">
+    <meta property="og:image" content="https://i.ibb.co/8g7H7Ryw/IMG-8207.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="NexaBit Crypto Exchange Platform">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://nexabit.io/">
+    <meta property="twitter:title" content="NexaBit - Instant Crypto Exchange">
+    <meta property="twitter:description" content="Exchange cryptocurrencies instantly. Support for BTC, ETH, SOL, USDT, USDC, and LTC. Best rates, secure transactions.">
+    <meta property="twitter:image" content="https://i.ibb.co/8g7H7Ryw/IMG-8207.jpg">
+    <meta property="twitter:image:alt" content="NexaBit Crypto Exchange Platform">
+    
+    <!-- Additional Meta Tags -->
+    <meta name="description" content="Exchange cryptocurrencies instantly with NexaBit. Support for BTC, ETH, SOL, USDT, USDC, and LTC. Best rates, secure transactions.">
+    <meta name="theme-color" content="#00d4aa">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+</head>
+<body>
+
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container">
+            <div class="logo">N</div>
+            <h1 class="site-title">NexaBit</h1>
+        </div>
+        <button class="risk-info-btn" id="riskInfoBtn">
+            <span class="risk-icon">⚠️</span>
+            <span class="risk-text">Risk Info</span>
+        </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <h2 class="main-title">Web3.0 Crypto Exchange Service</h2>
+        <p class="subtitle">Cryptocurrency exchange service. Review risks before swapping.</p>
+
+        <!-- Section Title -->
+        <div class="section-header">
+            <h3 class="section-title">Crypto Exchange</h3>
+        </div>
+
+        <!-- Exchange Form -->
+        <div class="exchange-form">
+            <!-- You Send -->
+            <div class="input-group">
+                <label>You Send</label>
+                <div class="dual-input-container">
+                    <div class="input-wrapper primary">
+                        <span class="usd-symbol">$</span>
+                        <input type="number" value="950" step="1" class="amount-input usd-input" id="sendUSD">
+                        <div class="currency-selector">
+                            <span>USD</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                    </div>
+                    <div class="crypto-equivalent clickable" id="sendCryptoDisplay">
+                        <span class="crypto-amount" id="sendCrypto">0.01000000</span>
+                        <span class="crypto-emoji" id="sendCryptoEmoji">₿</span>
+                        <span class="crypto-code" id="sendCryptoCode">BTC</span>
+                        <span class="change-crypto">▼</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exchange Rate Display -->
+            <div class="exchange-rate">
+                <span>Estimated rate: 1 BTC ≈ 30.78897 ETH</span>
+                <button class="refresh-btn">↻</button>
+            </div>
+
+            <!-- You Get -->
+            <div class="input-group">
+                <label>You Get</label>
+                <div class="dual-input-container">
+                    <div class="input-wrapper primary">
+                        <span class="usd-symbol">$</span>
+                        <input type="number" value="945.73" readonly class="amount-input usd-input" id="getUSD">
+                        <div class="currency-selector">
+                            <span>USD</span>
+                            <span class="lock-icon">🔒</span>
+                        </div>
+                    </div>
+                    <div class="crypto-equivalent clickable" id="getCryptoDisplay">
+                        <span class="crypto-amount" id="getCrypto">0.30788970</span>
+                        <span class="crypto-emoji" id="getCryptoEmoji">Ξ</span>
+                        <span class="crypto-code" id="getCryptoCode">ETH</span>
+                        <span class="change-crypto">▼</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exchange Button -->
+            <button class="exchange-btn" id="exchangeBtn">
+                <span class="btn-text">Exchange</span>
+                <span class="btn-amount">$950.00 → $945.73</span>
+            </button>
+        </div>
+
+        <!-- Buy Crypto Section -->
+        <div class="buy-crypto-section">
+            <h3>Buy crypto with</h3>
+            <div class="payment-options">
+                <button class="payment-option">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard">
+                </button>
+                <button class="payment-option">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="Visa">
+                </button>
+            </div>
+        </div>
+    </main>
+
+
+
+    <!-- Bottom Navigation Bar -->
+    <div class="bottom-bar"></div>
+
+    <!-- Payment Popup -->
+    <div class="payment-popup" id="paymentPopup" style="display: none;">
+        <div class="popup-box">
+            <button class="close-popup" id="closePopup">×</button>
+            
+            <h2>Send <span id="cryptoToSend">ETH</span> Now</h2>
+            
+            <div class="amount-box">
+                <div class="big-amount">
+                    <span id="amountToSend">0.30788970</span>
+                    <span id="cryptoCode">ETH</span>
+                </div>
+                <div class="usd-value">≈ $<span id="usdValue">945.73</span></div>
+            </div>
+            
+            <div class="address-section">
+                <label>Send to:</label>
+                <div class="address-box">
+                    <span id="depositAddress">Loading...</span>
+                    <button onclick="copyAddress()">Copy</button>
+                </div>
+            </div>
+            
+            <div class="qr-code-container">
+                <div class="qr-code">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=placeholder&bgcolor=FFFFFF&color=000000&margin=0" alt="QR Code">
+                </div>
+                <span class="scan-text">Scan to send</span>
+            </div>
+            
+            <div class="warning">
+                ⚠️ Requires 3 confirmations
+            </div>
+            
+            <!-- Confirmation Loading State -->
+            <div class="confirmation-state" id="confirmationState" style="display: block;">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                </div>
+                <h3>Waiting for Confirmation</h3>
+                <p>Confirming your transaction...</p>
+                <div class="confirmation-progress">
+                    <div class="progress-item" id="conf1">
+                        <div class="progress-circle">1</div>
+                        <span>First confirmation</span>
+                    </div>
+                    <div class="progress-item" id="conf2">
+                        <div class="progress-circle">2</div>
+                        <span>Second confirmation</span>
+                    </div>
+                    <div class="progress-item" id="conf3">
+                        <div class="progress-circle">3</div>
+                        <span>Final confirmation</span>
+                    </div>
+                </div>
+                <p class="confirmation-note">This usually takes 10-30 minutes</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Crypto Selection Modal -->
+    <div class="crypto-modal" id="cryptoModal">
+        <div class="modal-content crypto-select-content">
+            <div class="modal-header">
+                <h2>Select Cryptocurrency</h2>
+                <button class="close-modal" id="closeCryptoModal">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="crypto-search">
+                    <input type="text" placeholder="Search cryptocurrency..." class="crypto-search-input" id="cryptoSearch">
+                </div>
+                
+                <div class="crypto-list" id="cryptoList">
+                    <div class="crypto-item" data-crypto="BTC" data-price="95000">
+                        <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/btc.png" alt="BTC">
+                        <div class="crypto-info">
+                            <span class="crypto-name">Bitcoin</span>
+                            <span class="crypto-symbol">BTC</span>
+                        </div>
+                        <span class="crypto-price">$95,000</span>
+                    </div>
+                    
+                    <div class="crypto-item" data-crypto="ETH" data-price="3070">
+                        <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/eth.png" alt="ETH">
+                        <div class="crypto-info">
+                            <span class="crypto-name">Ethereum</span>
+                            <span class="crypto-symbol">ETH</span>
+                        </div>
+                        <span class="crypto-price">$3,070</span>
+                    </div>
+                    
+                    <div class="crypto-item" data-crypto="SOL" data-price="175">
+                        <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/sol.png" alt="SOL">
+                        <div class="crypto-info">
+                            <span class="crypto-name">Solana</span>
+                            <span class="crypto-symbol">SOL</span>
+                        </div>
+                        <span class="crypto-price">$175</span>
+                    </div>
+                    
+                    <div class="crypto-item" data-crypto="USDT" data-price="1">
+                        <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/usdt.png" alt="USDT">
+                        <div class="crypto-info">
+                            <span class="crypto-name">Tether</span>
+                            <span class="crypto-symbol">USDT</span>
+                        </div>
+                        <span class="crypto-price">$1.00</span>
+                    </div>
+                    
+                    <div class="crypto-item" data-crypto="USDC" data-price="1">
+                        <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/usdc.png" alt="USDC">
+                        <div class="crypto-info">
+                            <span class="crypto-name">USD Coin</span>
+                            <span class="crypto-symbol">USDC</span>
+                        </div>
+                        <span class="crypto-price">$1.00</span>
+                    </div>
+                    
+                    <div class="crypto-item" data-crypto="LTC" data-price="105">
+                        <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/ltc.png" alt="LTC">
+                        <div class="crypto-info">
+                            <span class="crypto-name">Litecoin</span>
+                            <span class="crypto-symbol">LTC</span>
+                        </div>
+                        <span class="crypto-price">$105</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Risk Modal -->
+    <div class="risk-modal" id="riskModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚠️ Crypto Investment Risks</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="warning-notice">
+                    <p>Don't invest unless you're prepared to lose all the money you invest. This is a high-risk investment and you are unlikely to be protected if something goes wrong.</p>
+                </div>
+                
+                <div class="risk-section">
+                    <h3>🔴 Key Risks</h3>
+                    <ul>
+                        <li><strong>Extreme Volatility:</strong> Crypto prices can drop 50%+ in days</li>
+                        <li><strong>Total Loss:</strong> You could lose 100% of your investment</li>
+                        <li><strong>No Protection:</strong> Unlike banks, crypto has no government insurance</li>
+                        <li><strong>Irreversible:</strong> Transactions cannot be reversed if sent to wrong address</li>
+                        <li><strong>Scams:</strong> The crypto space has many fraudulent projects</li>
+                    </ul>
+                </div>
+
+                <div class="tips-section">
+                    <h3>💡 Safety Tips</h3>
+                    <ul>
+                        <li><strong>Only invest what you can afford to lose</strong></li>
+                        <li><strong>Research thoroughly</strong> before investing in any cryptocurrency</li>
+                        <li><strong>Use secure wallets</strong> and enable 2-factor authentication</li>
+                        <li><strong>Never share</strong> your private keys or seed phrases</li>
+                        <li><strong>Start small</strong> and learn before making larger investments</li>
+                        <li><strong>Be skeptical</strong> of promises of guaranteed returns</li>
+                    </ul>
+                </div>
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="understand-btn" id="understandBtn">I Understand the Risks</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
