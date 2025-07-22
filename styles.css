@@ -126,38 +126,7 @@ body {
     opacity: 0.9;
 }
 
-/* Tab Navigation */
-.tab-nav {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-    border-bottom: 1px solid #3d3d5c;
-}
 
-.tab {
-    background: none;
-    border: none;
-    color: #8b8b9f;
-    padding: 15px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    position: relative;
-    transition: color 0.3s;
-}
-
-.tab.active {
-    color: #ffffff;
-}
-
-.tab.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background-color: #00d4aa;
-}
 
 /* Exchange Form */
 .exchange-form {
