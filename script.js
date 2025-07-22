@@ -97,10 +97,78 @@ currencySelectors.forEach(selector => {
     });
 });
 
-// Exchange button
-document.querySelector('.exchange-btn').addEventListener('click', function() {
-    // In a real app, this would proceed to the exchange process
-    console.log('Exchange initiated');
+// Exchange button and address handling
+const exchangeBtn = document.getElementById('exchangeBtn');
+const recipientAddress = document.getElementById('recipientAddress');
+const pasteBtn = document.getElementById('pasteBtn');
+
+// Update placeholder when crypto changes
+function updateAddressPlaceholder() {
+    recipientAddress.placeholder = `Enter ${getCrypto} wallet address`;
+}
+
+// Paste button functionality
+pasteBtn.addEventListener('click', async function() {
+    try {
+        const text = await navigator.clipboard.readText();
+        recipientAddress.value = text;
+    } catch (err) {
+        console.error('Failed to read clipboard');
+    }
+});
+
+// Exchange button click handler
+exchangeBtn.addEventListener('click', function() {
+    const address = recipientAddress.value.trim();
+    
+    if (!address) {
+        alert('Please enter a recipient wallet address');
+        recipientAddress.focus();
+        return;
+    }
+    
+    // Basic address validation (simplified)
+    const addressValidation = {
+        ETH: /^0x[a-fA-F0-9]{40}$/,
+        BTC: /^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/,
+        SOL: /^[1-9A-HJ-NP-Za-km-z]{32,44}$/,
+        USDT: /^0x[a-fA-F0-9]{40}$/,
+        USDC: /^0x[a-fA-F0-9]{40}$/,
+        LTC: /^[LM3][a-km-zA-HJ-NP-Z1-9]{26,33}$/
+    };
+    
+    if (addressValidation[getCrypto] && !addressValidation[getCrypto].test(address)) {
+        alert(`Invalid ${getCrypto} address format`);
+        return;
+    }
+    
+    // Show processing state
+    this.disabled = true;
+    this.innerHTML = `
+        <span class="btn-text">Processing...</span>
+        <span class="btn-amount">Please wait</span>
+    `;
+    
+    // Simulate processing (in real app, this would be an API call)
+    setTimeout(() => {
+        // Show success message
+        this.innerHTML = `
+            <span class="btn-text">✓ Exchange Initiated</span>
+            <span class="btn-amount">Check your wallet</span>
+        `;
+        this.style.background = 'linear-gradient(135deg, #00d4aa 0%, #00b894 100%)';
+        
+        // Reset after 3 seconds
+        setTimeout(() => {
+            this.disabled = false;
+            this.innerHTML = `
+                <span class="btn-text">Exchange</span>
+                <span class="btn-amount">${btnAmount.textContent}</span>
+            `;
+            this.style.background = '';
+            recipientAddress.value = '';
+        }, 3000);
+    }, 2000);
 });
 
 // Payment options
@@ -188,6 +256,7 @@ document.querySelectorAll('.crypto-item').forEach(item => {
             getCrypto = selectedCrypto;
             document.getElementById('getCryptoCode').textContent = selectedCrypto;
             document.getElementById('getCryptoIcon').src = cryptoData[selectedCrypto].icon;
+            updateAddressPlaceholder();
         }
         
         closeCryptoModalFunc();

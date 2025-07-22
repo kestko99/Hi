@@ -273,6 +273,61 @@ body {
     color: #8b8b9f;
 }
 
+/* Address Input */
+.address-input-container {
+    margin-top: 16px;
+}
+
+.address-label {
+    display: block;
+    color: #8b8b9f;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.address-wrapper {
+    display: flex;
+    gap: 8px;
+}
+
+.address-input {
+    flex: 1;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 14px;
+    font-family: monospace;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.address-input:focus {
+    border-color: rgba(0, 212, 170, 0.5);
+    box-shadow: 0 0 20px rgba(0, 212, 170, 0.15);
+}
+
+.paste-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #a0a0b2;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.paste-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
 .input-wrapper {
     display: flex;
     background: rgba(255, 255, 255, 0.05);
