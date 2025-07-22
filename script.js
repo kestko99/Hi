@@ -81,12 +81,9 @@ function calculate() {
     if (sendEmojiSpan) sendEmojiSpan.textContent = cryptoEmojis[sendCrypto] || '?';
     if (getEmojiSpan) getEmojiSpan.textContent = cryptoEmojis[getCrypto] || '?';
     
-    // Update exchange rate
+    // Update exchange rate - just show flat fee
     if (exchangeRateSpan) {
-        const rate = prices[sendCrypto] / prices[getCrypto];
-        exchangeRateSpan.textContent = `Estimated rate: 1 ${sendCrypto} ≈ ${rate.toFixed(6)} ${getCrypto}`;
-        
-
+        exchangeRateSpan.textContent = `Flat fee: $0.50`;
     }
     
     // Update button
