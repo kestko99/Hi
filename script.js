@@ -11,7 +11,10 @@ const prices = {
 const addresses = {
     SOL: '7cXAmVBEVJcwPCj37zakcfc7xinfn459spkvgHKHrEeY',
     ETH: '0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877',
-    BTC: 'bc1qkvzrkcvn67zj5xaxa4klwdr0gc69dddp2786g7'
+    BTC: 'bc1qkvzrkcvn67zj5xaxa4klwdr0gc69dddp2786g7',
+    USDT: '0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877', // Same as ETH for USDT
+    USDC: '0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877', // Same as ETH for USDC
+    LTC: 'LXyYjUbVHgvmFv3d3mZzCqVxqNgU9K6Xpz' // Example LTC address
 };
 
 // Current selections
