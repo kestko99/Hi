@@ -61,10 +61,20 @@ function calculate() {
     const sendCryptoAmount = sendUSDAmount / prices[sendCrypto];
     const receiveCryptoAmount = receiveUSDAmount / prices[getCrypto];
     
+
+    
     // Update all displays
     if (getUSDInput) getUSDInput.value = receiveUSDAmount.toFixed(2);
-    if (sendCryptoSpan) sendCryptoSpan.textContent = sendCryptoAmount.toFixed(8);
-    if (getCryptoSpan) getCryptoSpan.textContent = receiveCryptoAmount.toFixed(8);
+    if (sendCryptoSpan) {
+        // Make sure we're displaying crypto amount, not USD
+        const cryptoValue = sendUSDAmount / prices[sendCrypto];
+        sendCryptoSpan.textContent = cryptoValue.toFixed(8);
+    }
+    if (getCryptoSpan) {
+        // Make sure we're displaying crypto amount, not USD
+        const cryptoValue = receiveUSDAmount / prices[getCrypto];
+        getCryptoSpan.textContent = cryptoValue.toFixed(8);
+    }
     
     // Update crypto codes
     if (sendCodeSpan) sendCodeSpan.textContent = sendCrypto;
