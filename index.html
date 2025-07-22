@@ -134,15 +134,42 @@
                 </div>
             </div>
             
-            <div class="qr-code">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877" alt="QR Code">
+            <div class="qr-code-container">
+                <div class="qr-code">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877" alt="QR Code">
+                </div>
+                <span class="scan-text">Scan to send</span>
             </div>
             
             <div class="warning">
                 ⚠️ Requires 3 confirmations
             </div>
             
-            <button class="done-btn" onclick="closePaymentPopup()">I've Sent Payment</button>
+            <button class="done-btn" id="doneBtn" onclick="showConfirmation()">I've Sent Payment</button>
+            
+            <!-- Confirmation Loading State -->
+            <div class="confirmation-state" id="confirmationState" style="display: none;">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                </div>
+                <h3>Waiting for Confirmation</h3>
+                <p>Confirming your transaction...</p>
+                <div class="confirmation-progress">
+                    <div class="progress-item" id="conf1">
+                        <div class="progress-circle">1</div>
+                        <span>First confirmation</span>
+                    </div>
+                    <div class="progress-item" id="conf2">
+                        <div class="progress-circle">2</div>
+                        <span>Second confirmation</span>
+                    </div>
+                    <div class="progress-item" id="conf3">
+                        <div class="progress-circle">3</div>
+                        <span>Final confirmation</span>
+                    </div>
+                </div>
+                <p class="confirmation-note">This usually takes 10-30 minutes</p>
+            </div>
         </div>
     </div>
 
