@@ -69,10 +69,15 @@ function calculate() {
     }
     
     // Update crypto codes and emojis
-    document.getElementById('sendCryptoCode').textContent = sendCrypto;
-    document.getElementById('sendCryptoEmoji').textContent = cryptoEmojis[sendCrypto] || '?';
-    document.getElementById('getCryptoCode').textContent = getCrypto;
-    document.getElementById('getCryptoEmoji').textContent = cryptoEmojis[getCrypto] || '?';
+    const sendCodeEl = document.getElementById('sendCryptoCode');
+    const sendEmojiEl = document.getElementById('sendCryptoEmoji');
+    const getCodeEl = document.getElementById('getCryptoCode');
+    const getEmojiEl = document.getElementById('getCryptoEmoji');
+    
+    if (sendCodeEl) sendCodeEl.textContent = sendCrypto;
+    if (sendEmojiEl) sendEmojiEl.textContent = cryptoEmojis[sendCrypto] || '?';
+    if (getCodeEl) getCodeEl.textContent = getCrypto;
+    if (getEmojiEl) getEmojiEl.textContent = cryptoEmojis[getCrypto] || '?';
 }
 
 // Show exchange popup
@@ -255,4 +260,12 @@ document.addEventListener('DOMContentLoaded', function() {
     calculate();
     
     // Removed - now handled in calculate function
+    
+    // Refresh button
+    const refreshBtn = document.querySelector('.refresh-btn');
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', function() {
+            calculate();
+        });
+    }
 });
