@@ -523,7 +523,7 @@ body {
 /* Cookie Notice */
 .cookie-notice {
     position: fixed;
-    bottom: 40px;
+    bottom: 80px; /* Increased from 40px to avoid bottom bar */
     left: 50%;
     transform: translateX(-50%);
     background-color: #ffffff;
@@ -533,6 +533,7 @@ body {
     width: calc(100% - 40px);
     max-width: 374px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1000; /* Ensure it's above other elements */
 }
 
 .cookie-notice p {
