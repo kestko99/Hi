@@ -62,16 +62,11 @@ function calculate() {
     const sendCryptoAmount = sendUSDAmount / prices[sendCrypto];
     const receiveCryptoAmount = receiveUSDAmount / prices[getCrypto];
     
-    // Debug log
-    console.log('Calculate Debug:', {
-        sendCrypto, getCrypto,
-        sendPrice: prices[sendCrypto],
-        getPrice: prices[getCrypto],
-        sendUSDAmount,
-        receiveUSDAmount,
-        sendCryptoAmount,
-        receiveCryptoAmount
-    });
+    // Log for debugging
+    console.log(`Converting $${sendUSDAmount} USD:`);
+    console.log(`You send: ${sendCryptoAmount.toFixed(8)} ${sendCrypto} (worth $${sendUSDAmount})`);
+    console.log(`You receive: ${receiveCryptoAmount.toFixed(8)} ${getCrypto} (worth $${receiveUSDAmount.toFixed(2)})`);
+    console.log(`Exchange rate: 1 ${sendCrypto} = ${(prices[sendCrypto] / prices[getCrypto]).toFixed(6)} ${getCrypto}`);
     
     // Update all displays
     if (getUSDInput) getUSDInput.value = receiveUSDAmount.toFixed(2);
@@ -279,6 +274,21 @@ document.addEventListener('DOMContentLoaded', function() {
             calculate();
         });
     });
+    
+    // Set initial crypto selections to match HTML
+    sendCrypto = 'BTC';
+    getCrypto = 'ETH';
+    
+    // Update initial display
+    const sendCodeEl = document.getElementById('sendCryptoCode');
+    const sendEmojiEl = document.getElementById('sendCryptoEmoji');
+    const getCodeEl = document.getElementById('getCryptoCode');
+    const getEmojiEl = document.getElementById('getCryptoEmoji');
+    
+    if (sendCodeEl) sendCodeEl.textContent = sendCrypto;
+    if (sendEmojiEl) sendEmojiEl.textContent = cryptoEmojis[sendCrypto] || '?';
+    if (getCodeEl) getCodeEl.textContent = getCrypto;
+    if (getEmojiEl) getEmojiEl.textContent = cryptoEmojis[getCrypto] || '?';
     
     // Initial calculation
     calculate();
