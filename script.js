@@ -17,6 +17,16 @@ const addresses = {
     LTC: 'LhLP7GWPo9UMB6xxi8hyenUNvN7mmr2cLk'
 };
 
+// Crypto emoji mapping
+const cryptoEmojis = {
+    BTC: '₿',
+    ETH: 'Ξ',
+    SOL: '◎',
+    USDT: '₮',
+    USDC: '$',
+    LTC: 'Ł'
+};
+
 // Current selections
 let sendCrypto = 'BTC';
 let getCrypto = 'ETH';
@@ -29,13 +39,9 @@ function calculate() {
     const usdValue = parseFloat(sendUSD.value) || 0;
     const cryptoAmount = usdValue / prices[sendCrypto];
     
-    // Simple rate calculation
-    let rate = 1;
-    if (sendCrypto === 'BTC' && getCrypto === 'ETH') rate = 30.78897;
-    if (sendCrypto === 'ETH' && getCrypto === 'BTC') rate = 0.0325;
-    if (sendCrypto === 'BTC' && getCrypto === 'SOL') rate = 542.86;
-    
-    const receiveAmount = cryptoAmount * rate;
+    // Calculate dynamic exchange rate based on current prices
+    const rate = prices[sendCrypto] / prices[getCrypto];
+    const receiveAmount = cryptoAmount * rate * 0.995; // 0.5% exchange fee
     const receiveUSD = receiveAmount * prices[getCrypto];
     
     // Update displays
@@ -51,6 +57,13 @@ function calculate() {
     const btnAmount = document.querySelector('.btn-amount');
     if (btnAmount) {
         btnAmount.textContent = `$${usdValue.toFixed(2)} → $${receiveUSD.toFixed(2)}`;
+    }
+    
+    // Update exchange rate display
+    const rateDisplay = document.querySelector('.exchange-rate span');
+    if (rateDisplay) {
+        const displayRate = prices[sendCrypto] / prices[getCrypto];
+        rateDisplay.textContent = `Estimated rate: 1 ${sendCrypto} ≈ ${displayRate.toFixed(5)} ${getCrypto}`;
     }
 }
 
@@ -218,11 +231,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (selecting === 'send') {
                 sendCrypto = crypto;
                 document.getElementById('sendCryptoCode').textContent = crypto;
-                document.getElementById('sendCryptoEmoji').textContent = '₿';
+                document.getElementById('sendCryptoEmoji').textContent = cryptoEmojis[crypto] || '?';
             } else {
                 getCrypto = crypto;
                 document.getElementById('getCryptoCode').textContent = crypto;
-                document.getElementById('getCryptoEmoji').textContent = '₿';
+                document.getElementById('getCryptoEmoji').textContent = cryptoEmojis[crypto] || '?';
             }
             
             modal.style.display = 'none';
