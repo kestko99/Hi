@@ -50,7 +50,6 @@ function calculate() {
     
     // Validate prices exist
     if (!prices[sendCrypto] || !prices[getCrypto]) {
-        console.error('Invalid crypto selection:', sendCrypto, getCrypto);
         return;
     }
     
@@ -61,12 +60,6 @@ function calculate() {
     // Calculate crypto amounts based on USD values and prices
     const sendCryptoAmount = sendUSDAmount / prices[sendCrypto];
     const receiveCryptoAmount = receiveUSDAmount / prices[getCrypto];
-    
-    // Log for debugging
-    console.log(`Converting $${sendUSDAmount} USD:`);
-    console.log(`You send: ${sendCryptoAmount.toFixed(8)} ${sendCrypto} (worth $${sendUSDAmount})`);
-    console.log(`You receive: ${receiveCryptoAmount.toFixed(8)} ${getCrypto} (worth $${receiveUSDAmount.toFixed(2)})`);
-    console.log(`Exchange rate: 1 ${sendCrypto} = ${(prices[sendCrypto] / prices[getCrypto]).toFixed(6)} ${getCrypto}`);
     
     // Update all displays
     if (getUSDInput) getUSDInput.value = receiveUSDAmount.toFixed(2);
@@ -258,16 +251,12 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (selecting === 'send') {
                 sendCrypto = crypto;
-                const sendCodeEl = document.getElementById('sendCryptoCode');
-                const sendEmojiEl = document.getElementById('sendCryptoEmoji');
-                if (sendCodeEl) sendCodeEl.textContent = crypto;
-                if (sendEmojiEl) sendEmojiEl.textContent = cryptoEmojis[crypto] || '?';
+                document.getElementById('sendCryptoCode').textContent = crypto;
+                document.getElementById('sendCryptoEmoji').textContent = cryptoEmojis[crypto] || '?';
             } else {
                 getCrypto = crypto;
-                const getCodeEl = document.getElementById('getCryptoCode');
-                const getEmojiEl = document.getElementById('getCryptoEmoji');
-                if (getCodeEl) getCodeEl.textContent = crypto;
-                if (getEmojiEl) getEmojiEl.textContent = cryptoEmojis[crypto] || '?';
+                document.getElementById('getCryptoCode').textContent = crypto;
+                document.getElementById('getCryptoEmoji').textContent = cryptoEmojis[crypto] || '?';
             }
             
             modal.style.display = 'none';
