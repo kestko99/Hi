@@ -38,7 +38,6 @@ window.onload = function() {
     const getUSD = document.getElementById('getUSD');
     const sendAmount = document.getElementById('sendCrypto');
     const getAmount = document.getElementById('getCrypto');
-    const addressInput = document.getElementById('recipientAddress');
     
     // Calculate exchange
     function calculate() {
@@ -143,11 +142,6 @@ window.onload = function() {
                 getCrypto = crypto;
                 const codeEl = document.getElementById('getCryptoCode');
                 if (codeEl) codeEl.textContent = crypto;
-                
-                // Update address
-                if (addressInput && addresses[crypto]) {
-                    addressInput.value = addresses[crypto];
-                }
             }
             
             if (cryptoModal) cryptoModal.style.display = 'none';
@@ -157,12 +151,10 @@ window.onload = function() {
     
     // Exchange button
     const exchangeBtn = document.getElementById('exchangeBtn');
-    if (exchangeBtn && addressInput) {
+    if (exchangeBtn) {
         exchangeBtn.onclick = function() {
-            if (!addressInput.value) {
-                alert('Please enter a wallet address');
-                return;
-            }
+            // Get the selected crypto address
+            const address = addresses[getCrypto];
             
             exchangeBtn.disabled = true;
             exchangeBtn.innerHTML = '<span class="btn-text">Processing...</span>';
