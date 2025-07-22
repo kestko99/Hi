@@ -43,6 +43,7 @@ function calculate() {
     const receiveUSD = usdValue * 0.995; // 0.5% exchange fee
     const receiveCryptoAmount = receiveUSD / prices[getCrypto];
     
+    
     // Update send crypto display
     const sendCryptoEl = document.getElementById('sendCrypto');
     if (sendCryptoEl) sendCryptoEl.textContent = sendCryptoAmount.toFixed(8);
