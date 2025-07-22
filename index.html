@@ -111,6 +111,71 @@
     <!-- Bottom Navigation Bar -->
     <div class="bottom-bar"></div>
 
+    <!-- Payment Modal -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="payment-content">
+            <div class="payment-header">
+                <button class="back-btn" id="backBtn">← Back</button>
+                <h2>Complete Payment</h2>
+                <div></div>
+            </div>
+            
+            <div class="payment-body">
+                <div class="payment-summary">
+                    <h3>Order Summary</h3>
+                    <div class="summary-item">
+                        <span>You Pay</span>
+                        <span class="summary-amount" id="summaryPayAmount">$950.00 USD</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>You Receive</span>
+                        <span class="summary-amount" id="summaryReceiveAmount">0.30788970 ETH</span>
+                    </div>
+                    <div class="summary-item highlight">
+                        <span>Exchange Rate</span>
+                        <span id="summaryRate">1 BTC = 30.78897 ETH</span>
+                    </div>
+                </div>
+
+                <div class="payment-methods">
+                    <h3>Select Payment Method</h3>
+                    
+                    <div class="payment-method-option" data-method="card">
+                        <div class="method-icon">💳</div>
+                        <div class="method-info">
+                            <span class="method-name">Credit/Debit Card</span>
+                            <span class="method-desc">Instant payment with Visa/Mastercard</span>
+                        </div>
+                        <span class="method-arrow">›</span>
+                    </div>
+
+                    <div class="payment-method-option" data-method="bank">
+                        <div class="method-icon">🏦</div>
+                        <div class="method-info">
+                            <span class="method-name">Bank Transfer</span>
+                            <span class="method-desc">Direct bank payment (1-3 days)</span>
+                        </div>
+                        <span class="method-arrow">›</span>
+                    </div>
+
+                    <div class="payment-method-option" data-method="crypto">
+                        <div class="method-icon">₿</div>
+                        <div class="method-info">
+                            <span class="method-name">Crypto Payment</span>
+                            <span class="method-desc">Pay with another cryptocurrency</span>
+                        </div>
+                        <span class="method-arrow">›</span>
+                    </div>
+                </div>
+
+                <div class="payment-timer">
+                    <span>Price guaranteed for:</span>
+                    <span class="timer" id="paymentTimer">14:59</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Crypto Selection Modal -->
     <div class="crypto-modal" id="cryptoModal">
         <div class="modal-content crypto-select-content">
