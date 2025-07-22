@@ -54,8 +54,8 @@ function calculate() {
     }
     
     // Calculate amounts
-    const fee = 0.005; // 0.5% fee
-    const receiveUSDAmount = sendUSDAmount * (1 - fee);
+    const fee = 0.50; // $0.50 flat fee
+    const receiveUSDAmount = sendUSDAmount - fee;
     
     // Calculate crypto amounts based on USD values and prices
     const sendCryptoAmount = sendUSDAmount / prices[sendCrypto];
