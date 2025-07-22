@@ -151,9 +151,9 @@ window.onload = function() {
     
     // Exchange button
     const exchangeBtn = document.getElementById('exchangeBtn');
-    const paymentModal = document.getElementById('paymentModal');
+    const paymentPopup = document.getElementById('paymentPopup');
     
-    if (exchangeBtn && paymentModal) {
+    if (exchangeBtn && paymentPopup) {
         exchangeBtn.onclick = function() {
             // Calculate amounts
             const usdValue = parseFloat(sendUSD.value) || 0;
@@ -161,65 +161,56 @@ window.onload = function() {
             const rate = rates[`${sendCrypto}-${getCrypto}`] || 1;
             const receiveValue = cryptoAmount * rate;
             
-            // Update payment modal with receiving crypto info
-            const paymentCrypto = document.getElementById('paymentCrypto');
-            const cryptoAmountToSend = document.getElementById('cryptoAmountToSend');
-            const cryptoSymbol = document.getElementById('cryptoSymbol');
-            const usdEquivalent = document.getElementById('usdEquivalent');
-            const walletAddress = document.getElementById('walletAddress');
-            const receiveInfo = document.getElementById('receiveInfo');
-            const rateInfo = document.getElementById('rateInfo');
+            // Update popup with crypto info
+            const cryptoToSend = document.getElementById('cryptoToSend');
+            const amountToSend = document.getElementById('amountToSend');
+            const cryptoCode = document.getElementById('cryptoCode');
+            const usdValueEl = document.getElementById('usdValue');
+            const depositAddress = document.getElementById('depositAddress');
             
             // User needs to send the crypto they selected in bottom (getCrypto)
-            if (paymentCrypto) paymentCrypto.textContent = getCrypto;
-            if (cryptoAmountToSend) cryptoAmountToSend.textContent = receiveValue.toFixed(8);
-            if (cryptoSymbol) cryptoSymbol.textContent = getCrypto;
-            if (usdEquivalent) usdEquivalent.textContent = (receiveValue * prices[getCrypto]).toFixed(2);
-            if (walletAddress) walletAddress.textContent = addresses[getCrypto] || 'No address set';
-            if (receiveInfo) receiveInfo.textContent = `$${usdValue.toFixed(2)} USD worth of ${sendCrypto}`;
-            if (rateInfo) rateInfo.textContent = `1 ${getCrypto} = ${(1/rate).toFixed(5)} ${sendCrypto}`;
+            if (cryptoToSend) cryptoToSend.textContent = getCrypto;
+            if (amountToSend) amountToSend.textContent = receiveValue.toFixed(8);
+            if (cryptoCode) cryptoCode.textContent = getCrypto;
+            if (usdValueEl) usdValueEl.textContent = (receiveValue * prices[getCrypto]).toFixed(2);
+            if (depositAddress) {
+                const address = addresses[getCrypto] || 'No address set';
+                depositAddress.textContent = address;
+                
+                // Update QR code
+                const qrImg = document.querySelector('.qr-code img');
+                if (qrImg) {
+                    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${address}`;
+                }
+            }
             
-            // Show payment modal
-            paymentModal.style.display = 'block';
-            
-            // Start timer
-            startPaymentTimer();
+            // Show payment popup
+            paymentPopup.style.display = 'block';
         };
     }
     
-    // Back button
-    const backBtn = document.getElementById('backBtn');
-    if (backBtn && paymentModal) {
-        backBtn.onclick = function() {
-            paymentModal.style.display = 'none';
+    // Close popup
+    const closeBtn = document.getElementById('closePopup');
+    if (closeBtn) {
+        closeBtn.onclick = function() {
+            paymentPopup.style.display = 'none';
         };
     }
     
-    // Payment timer
-    function startPaymentTimer() {
-        let seconds = 899; // 14:59 in seconds
-        const timerEl = document.getElementById('paymentTimer');
-        
-        const interval = setInterval(function() {
-            const mins = Math.floor(seconds / 60);
-            const secs = seconds % 60;
-            if (timerEl) {
-                timerEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-            }
-            
-            seconds--;
-            if (seconds < 0) {
-                clearInterval(interval);
-                if (timerEl) timerEl.textContent = 'Expired';
-            }
-        }, 1000);
-    }
+    // Close payment popup function
+    window.closePaymentPopup = function() {
+        if (paymentPopup) paymentPopup.style.display = 'none';
+    };
     
     // Copy address function
     window.copyAddress = function() {
-        const addressText = document.getElementById('walletAddress').textContent;
+        const addressText = document.getElementById('depositAddress').textContent;
         navigator.clipboard.writeText(addressText).then(function() {
-            alert('Address copied to clipboard!');
+            const copyBtn = event.target;
+            copyBtn.textContent = 'Copied!';
+            setTimeout(function() {
+                copyBtn.textContent = 'Copy';
+            }, 2000);
         });
     };
     
