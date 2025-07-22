@@ -40,7 +40,6 @@ const getCryptoElement = document.getElementById('getCrypto');
 const refreshBtn = document.querySelector('.refresh-btn');
 const acceptBtn = document.querySelector('.accept-btn');
 const cookieNotice = document.querySelector('.cookie-notice');
-const tabs = document.querySelectorAll('.tab');
 const exchangeBtn = document.querySelector('.exchange-btn');
 const btnAmount = document.querySelector('.btn-amount');
 
@@ -86,17 +85,11 @@ refreshBtn.addEventListener('click', function() {
 });
 
 // Cookie notice
-acceptBtn.addEventListener('click', function() {
-    cookieNotice.style.display = 'none';
-});
-
-// Tab switching
-tabs.forEach(tab => {
-    tab.addEventListener('click', function() {
-        tabs.forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
+if (acceptBtn && cookieNotice) {
+    acceptBtn.addEventListener('click', function() {
+        cookieNotice.style.display = 'none';
     });
-});
+}
 
 // Currency selector dropdowns
 const currencySelectors = document.querySelectorAll('.currency-selector');
@@ -268,11 +261,11 @@ document.querySelectorAll('.crypto-item').forEach(item => {
         if (currentSelectionType === 'send') {
             sendCrypto = selectedCrypto;
             document.getElementById('sendCryptoCode').textContent = selectedCrypto;
-            document.getElementById('sendCryptoIcon').src = cryptoData[selectedCrypto].icon;
+            document.getElementById('sendCryptoEmoji').textContent = cryptoData[selectedCrypto].emoji;
         } else {
             getCrypto = selectedCrypto;
             document.getElementById('getCryptoCode').textContent = selectedCrypto;
-            document.getElementById('getCryptoIcon').src = cryptoData[selectedCrypto].icon;
+            document.getElementById('getCryptoEmoji').textContent = cryptoData[selectedCrypto].emoji;
             updateAddressPlaceholder();
         }
         
