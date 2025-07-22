@@ -245,4 +245,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initial calculation
     calculate();
+    
+    // Set initial emojis
+    document.getElementById('sendCryptoEmoji').textContent = cryptoEmojis[sendCrypto] || '?';
+    document.getElementById('getCryptoEmoji').textContent = cryptoEmojis[getCrypto] || '?';
 });
