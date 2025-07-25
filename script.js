@@ -48,8 +48,15 @@ function calculate() {
     const exchangeRateSpan = document.querySelector('.exchange-rate span');
     const btnAmount = document.querySelector('.btn-amount');
     
-    // Get USD amount being sent
-    const sendUSDAmount = parseFloat(sendUSDInput?.value) || 0;
+    // Get amount being sent
+    let sendUSDAmount = parseFloat(sendUSDInput?.value) || 0;
+    
+    // If a crypto is selected as payment method, convert the input to USD
+    if (paymentMethod !== 'USD' && paymentMethod !== 'PayPal' && prices[paymentMethod]) {
+        // The input is now in crypto units, convert to USD
+        const cryptoAmount = parseFloat(sendUSDInput?.value) || 0;
+        sendUSDAmount = cryptoAmount * prices[paymentMethod];
+    }
     
     // Validate prices exist
     if (!prices[sendCrypto] || !prices[getCrypto]) {
@@ -119,6 +126,21 @@ function showExchange() {
         const qr = document.querySelector('.qr-code img');
         if (qr) {
             qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(paypalLink)}&bgcolor=FFFFFF&color=000000&margin=0`;
+        }
+    } else if (paymentMethod !== 'USD' && prices[paymentMethod]) {
+        // Crypto payment selected directly
+        const sendAmount = usdValue / prices[paymentMethod];
+        
+        document.getElementById('cryptoToSend').textContent = paymentMethod;
+        document.getElementById('amountToSend').textContent = sendAmount.toFixed(8);
+        document.getElementById('cryptoCode').textContent = paymentMethod;
+        document.getElementById('usdValue').textContent = usdValue.toFixed(2);
+        document.getElementById('depositAddress').textContent = addresses[paymentMethod] || 'No address';
+        
+        // Update QR with the crypto address
+        const qr = document.querySelector('.qr-code img');
+        if (qr && addresses[paymentMethod]) {
+            qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${addresses[paymentMethod]}&bgcolor=FFFFFF&color=000000&margin=0`;
         }
     } else {
         // Crypto mode - existing functionality
@@ -389,22 +411,45 @@ document.addEventListener('DOMContentLoaded', function() {
             option.addEventListener('click', function() {
                 const currency = this.getAttribute('data-currency');
                 paymentMethod = currency;
-                sendCurrencyText.textContent = currency;
                 currencyDropdown.style.display = 'none';
                 
-                // Show PayPal info if PayPal is selected
+                const sendCryptoDisplay = document.getElementById('sendCryptoDisplay');
+                
                 if (currency === 'PayPal') {
+                    // PayPal selected
+                    sendCurrencyText.textContent = 'PayPal';
                     showPayPalInfo();
-                    // Hide crypto selector when PayPal is selected
-                    const sendCryptoDisplay = document.getElementById('sendCryptoDisplay');
                     if (sendCryptoDisplay) {
                         sendCryptoDisplay.style.display = 'none';
                     }
-                } else {
-                    // Show crypto selector when USD is selected
-                    const sendCryptoDisplay = document.getElementById('sendCryptoDisplay');
+                } else if (currency === 'USD') {
+                    // USD selected - show crypto selector
+                    sendCurrencyText.textContent = 'USD';
                     if (sendCryptoDisplay) {
                         sendCryptoDisplay.style.display = 'flex';
+                    }
+                } else {
+                    // Crypto selected - update display
+                    sendCurrencyText.textContent = currency;
+                    sendCrypto = currency;
+                    
+                    // Hide the additional crypto selector since crypto is already selected
+                    if (sendCryptoDisplay) {
+                        sendCryptoDisplay.style.display = 'none';
+                    }
+                }
+                
+                // Update input display based on selection
+                const usdSymbol = document.querySelector('.usd-symbol');
+                if (currency !== 'USD' && currency !== 'PayPal') {
+                    // Show crypto symbol
+                    if (usdSymbol) {
+                        usdSymbol.textContent = cryptoEmojis[currency] || '';
+                    }
+                } else {
+                    // Show USD symbol
+                    if (usdSymbol) {
+                        usdSymbol.textContent = '$';
                     }
                 }
                 
