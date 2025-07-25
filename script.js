@@ -32,6 +32,7 @@ let sendCrypto = 'BTC';
 let getCrypto = 'ETH';
 let selectingFor = 'send'; // Track which field is being selected for
 let isFiatMode = false; // Track if in fiat payment mode
+let paymentMethod = 'USD'; // Track payment method (USD or PayPal)
 
 // Calculate exchange amounts
 function calculate() {
@@ -103,8 +104,8 @@ function showExchange() {
     const sendUSD = document.getElementById('sendUSD');
     const usdValue = parseFloat(sendUSD.value) || 0;
     
-    if (isFiatMode) {
-        // Fiat mode - show PayPal payment info
+    if (isFiatMode || paymentMethod === 'PayPal') {
+        // Fiat mode or PayPal payment - show PayPal payment info
         document.getElementById('cryptoToSend').textContent = 'USD';
         document.getElementById('amountToSend').textContent = usdValue.toFixed(2);
         document.getElementById('cryptoCode').textContent = 'USD';
@@ -333,9 +334,21 @@ document.addEventListener('DOMContentLoaded', function() {
             fiatTab.classList.remove('active');
             isFiatMode = false;
             
+            // Reset payment method to USD when switching to crypto tab
+            paymentMethod = 'USD';
+            if (sendCurrencyText) {
+                sendCurrencyText.textContent = 'USD';
+            }
+            
             // Show crypto selector for "You Send" section
             if (sendCryptoSelector) {
                 sendCryptoSelector.style.display = 'flex';
+            }
+            
+            // Show crypto display
+            const sendCryptoDisplay = document.getElementById('sendCryptoDisplay');
+            if (sendCryptoDisplay) {
+                sendCryptoDisplay.style.display = 'flex';
             }
             
             calculate();
@@ -354,4 +367,83 @@ document.addEventListener('DOMContentLoaded', function() {
             calculate();
         });
     }
+    
+    // Currency selector (USD/PayPal) functionality
+    const sendCurrencySelector = document.getElementById('sendCurrencySelector');
+    const currencyDropdown = document.getElementById('currencyDropdown');
+    const sendCurrencyText = document.getElementById('sendCurrencyText');
+    
+    if (sendCurrencySelector && currencyDropdown) {
+        // Show dropdown when clicking selector
+        sendCurrencySelector.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const rect = sendCurrencySelector.getBoundingClientRect();
+            currencyDropdown.style.top = rect.bottom + 5 + 'px';
+            currencyDropdown.style.left = rect.left + 'px';
+            currencyDropdown.style.display = currencyDropdown.style.display === 'block' ? 'none' : 'block';
+        });
+        
+        // Handle currency option selection
+        const currencyOptions = currencyDropdown.querySelectorAll('.currency-option');
+        currencyOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const currency = this.getAttribute('data-currency');
+                paymentMethod = currency;
+                sendCurrencyText.textContent = currency;
+                currencyDropdown.style.display = 'none';
+                
+                // Show PayPal info if PayPal is selected
+                if (currency === 'PayPal') {
+                    showPayPalInfo();
+                    // Hide crypto selector when PayPal is selected
+                    const sendCryptoDisplay = document.getElementById('sendCryptoDisplay');
+                    if (sendCryptoDisplay) {
+                        sendCryptoDisplay.style.display = 'none';
+                    }
+                } else {
+                    // Show crypto selector when USD is selected
+                    const sendCryptoDisplay = document.getElementById('sendCryptoDisplay');
+                    if (sendCryptoDisplay) {
+                        sendCryptoDisplay.style.display = 'flex';
+                    }
+                }
+                
+                calculate();
+            });
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!sendCurrencySelector.contains(e.target) && !currencyDropdown.contains(e.target)) {
+                currencyDropdown.style.display = 'none';
+            }
+        });
+    }
 });
+
+// Show PayPal info modal
+function showPayPalInfo() {
+    const modal = document.getElementById('paypalInfoModal');
+    if (modal) {
+        modal.style.display = 'flex';
+    }
+}
+
+// Close PayPal info modal
+function closePayPalInfo() {
+    const modal = document.getElementById('paypalInfoModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Copy PayPal link
+function copyPayPalLink() {
+    const link = document.getElementById('paypalLink').textContent;
+    navigator.clipboard.writeText(link).then(() => {
+        event.target.textContent = 'Copied!';
+        setTimeout(() => {
+            event.target.textContent = 'Copy';
+        }, 2000);
+    });
+}

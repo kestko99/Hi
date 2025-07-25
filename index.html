@@ -69,12 +69,12 @@
                     <div class="input-wrapper primary">
                         <span class="usd-symbol">$</span>
                         <input type="number" value="950" step="1" class="amount-input usd-input" id="sendUSD">
-                        <div class="currency-selector">
-                            <span>USD</span>
+                        <div class="currency-selector" id="sendCurrencySelector" style="cursor: pointer;">
+                            <span id="sendCurrencyText">USD</span>
                             <span class="dropdown-arrow">▼</span>
                         </div>
                     </div>
-                                <div class="crypto-equivalent clickable" id="sendCryptoDisplay">
+                    <div class="crypto-equivalent clickable" id="sendCryptoDisplay">
                         <span class="crypto-amount" id="sendCrypto">0.00800674</span>
                         <span class="crypto-emoji" id="sendCryptoEmoji">₿</span>
                         <span class="crypto-code" id="sendCryptoCode">BTC</span>
@@ -193,6 +193,52 @@
                 </div>
                 <p class="confirmation-note">This usually takes 10-30 minutes</p>
             </div>
+        </div>
+    </div>
+
+    <!-- PayPal Info Modal -->
+    <div class="payment-popup" id="paypalInfoModal" style="display: none;">
+        <div class="popup-box" style="max-width: 500px;">
+            <button class="close-popup" onclick="closePayPalInfo()">×</button>
+            
+            <h2 style="margin-bottom: 25px;">PayPal Payment Instructions</h2>
+            
+            <div style="background: rgba(255, 107, 0, 0.1); border: 1px solid rgba(255, 107, 0, 0.3); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                <h3 style="color: #ff6b00; margin-bottom: 10px; font-size: 18px;">⚠️ Important: Send as Friends & Family</h3>
+                <ul style="margin-left: 20px; line-height: 1.8; color: rgba(255,255,255,0.9);">
+                    <li><strong>MUST send as "Friends & Family"</strong></li>
+                    <li>Do NOT send as "Goods & Services"</li>
+                    <li>Do NOT add any notes or comments</li>
+                    <li>Incorrect payments will be refunded minus fees</li>
+                </ul>
+            </div>
+            
+            <div style="background: rgba(0, 212, 170, 0.1); border: 1px solid rgba(0, 212, 170, 0.3); border-radius: 12px; padding: 20px;">
+                <h3 style="margin-bottom: 15px; font-size: 18px;">Send Payment To:</h3>
+                <div class="address-section">
+                    <div class="address-box">
+                        <span id="paypalLink">https://www.paypal.me/NexabitExchange</span>
+                        <button onclick="copyPayPalLink()">Copy</button>
+                    </div>
+                </div>
+                <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin-top: 10px;">Click "Copy" and paste in PayPal</p>
+            </div>
+            
+            <button class="exchange-btn" onclick="closePayPalInfo()" style="width: 100%; margin-top: 25px;">
+                <span>I Understand</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Currency Selection Dropdown -->
+    <div class="currency-dropdown" id="currencyDropdown" style="display: none;">
+        <div class="currency-option" data-currency="USD">
+            <span class="currency-icon">💵</span>
+            <span>USD (Card/Bank)</span>
+        </div>
+        <div class="currency-option" data-currency="PayPal">
+            <span class="currency-icon">💳</span>
+            <span>PayPal</span>
         </div>
     </div>
 
