@@ -30,6 +30,8 @@ const cryptoEmojis = {
 // Current selections
 let sendCrypto = 'BTC';
 let getCrypto = 'ETH';
+let selectingFor = 'send'; // Track which field is being selected for
+let isFiatMode = false; // Track if in fiat payment mode
 
 // Calculate exchange amounts
 function calculate() {
@@ -100,19 +102,39 @@ function showExchange() {
     // Calculate values
     const sendUSD = document.getElementById('sendUSD');
     const usdValue = parseFloat(sendUSD.value) || 0;
-    const sendAmount = usdValue / prices[sendCrypto];
     
-    // Update popup - they need to send the TOP crypto (sendCrypto)
-    document.getElementById('cryptoToSend').textContent = sendCrypto;
-    document.getElementById('amountToSend').textContent = sendAmount.toFixed(8);
-    document.getElementById('cryptoCode').textContent = sendCrypto;
-    document.getElementById('usdValue').textContent = usdValue.toFixed(2);
-    document.getElementById('depositAddress').textContent = addresses[sendCrypto] || 'No address';
-    
-    // Update QR with the address for the TOP crypto
-    const qr = document.querySelector('.qr-code img');
-    if (qr && addresses[sendCrypto]) {
-        qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${addresses[sendCrypto]}&bgcolor=FFFFFF&color=000000&margin=0`;
+    if (isFiatMode) {
+        // Fiat mode - show PayPal payment info
+        document.getElementById('cryptoToSend').textContent = 'USD';
+        document.getElementById('amountToSend').textContent = usdValue.toFixed(2);
+        document.getElementById('cryptoCode').textContent = 'USD';
+        document.getElementById('usdValue').textContent = usdValue.toFixed(2);
+        
+        // PayPal link with amount
+        const paypalLink = `https://www.paypal.me/NexabitExchange/${usdValue.toFixed(2)}`;
+        document.getElementById('depositAddress').textContent = paypalLink;
+        
+        // Update QR with PayPal link
+        const qr = document.querySelector('.qr-code img');
+        if (qr) {
+            qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(paypalLink)}&bgcolor=FFFFFF&color=000000&margin=0`;
+        }
+    } else {
+        // Crypto mode - existing functionality
+        const sendAmount = usdValue / prices[sendCrypto];
+        
+        // Update popup - they need to send the TOP crypto (sendCrypto)
+        document.getElementById('cryptoToSend').textContent = sendCrypto;
+        document.getElementById('amountToSend').textContent = sendAmount.toFixed(8);
+        document.getElementById('cryptoCode').textContent = sendCrypto;
+        document.getElementById('usdValue').textContent = usdValue.toFixed(2);
+        document.getElementById('depositAddress').textContent = addresses[sendCrypto] || 'No address';
+        
+        // Update QR with the address for the TOP crypto
+        const qr = document.querySelector('.qr-code img');
+        if (qr && addresses[sendCrypto]) {
+            qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${addresses[sendCrypto]}&bgcolor=FFFFFF&color=000000&margin=0`;
+        }
     }
     
     popup.style.display = 'flex';
@@ -296,6 +318,39 @@ document.addEventListener('DOMContentLoaded', function() {
     const refreshBtn = document.querySelector('.refresh-btn');
     if (refreshBtn) {
         refreshBtn.addEventListener('click', function() {
+            calculate();
+        });
+    }
+    
+    // Tab switching functionality
+    const cryptoTab = document.getElementById('cryptoTab');
+    const fiatTab = document.getElementById('fiatTab');
+    const sendCryptoSelector = document.querySelector('.input-group:first-child .crypto-selector');
+    
+    if (cryptoTab && fiatTab) {
+        cryptoTab.addEventListener('click', function() {
+            cryptoTab.classList.add('active');
+            fiatTab.classList.remove('active');
+            isFiatMode = false;
+            
+            // Show crypto selector for "You Send" section
+            if (sendCryptoSelector) {
+                sendCryptoSelector.style.display = 'flex';
+            }
+            
+            calculate();
+        });
+        
+        fiatTab.addEventListener('click', function() {
+            fiatTab.classList.add('active');
+            cryptoTab.classList.remove('active');
+            isFiatMode = true;
+            
+            // Hide crypto selector for "You Send" section in fiat mode
+            if (sendCryptoSelector) {
+                sendCryptoSelector.style.display = 'none';
+            }
+            
             calculate();
         });
     }
