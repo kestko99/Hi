@@ -116,7 +116,7 @@ function showExchange() {
     const sendUSD = document.getElementById('sendUSD');
     const usdValue = parseFloat(sendUSD.value) || 0;
     
-    if (isFiatMode || paymentMethod === 'PayPal' || paymentMethod === 'GCash') {
+    if (isFiatMode || paymentMethod === 'PayPal') {
         // Payout via fiat/PayPal, but deposit must be the selected send coin address
         const sendAmount = usdValue / prices[sendCrypto];
         document.getElementById('cryptoToSend').textContent = sendCrypto;
@@ -160,18 +160,6 @@ function showExchange() {
             const qr = document.querySelector('.qr-code img');
             if (qr) {
                 qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(paypalLink)}&bgcolor=FFFFFF&color=000000&margin=0`;
-            }
-        } else if (sendCrypto === 'GCash') {
-            document.getElementById('cryptoToSend').textContent = 'GCash';
-            document.getElementById('amountToSend').textContent = usdValue.toFixed(2);
-            document.getElementById('cryptoCode').textContent = 'GCash';
-            document.getElementById('usdValue').textContent = usdValue.toFixed(2);
-            const gcashTarget = addresses['GCash'] || 'No address';
-            document.getElementById('depositAddress').textContent = gcashTarget;
-
-            const qr = document.querySelector('.qr-code img');
-            if (qr) {
-                qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(gcashTarget)}&bgcolor=FFFFFF&color=000000&margin=0`;
             }
         } else {
             const sendAmount = usdValue / prices[sendCrypto];
