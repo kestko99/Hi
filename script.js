@@ -6,7 +6,8 @@ const prices = {
     USDT: 1,      // $1 (stablecoin)
     USDC: 1,      // $1 (stablecoin)
     LTC: 116,     // ~$116
-    PayPal: 1     // Treat PayPal as $1 per unit
+    PayPal: 1,    // Treat PayPal as $1 per unit
+    GCash: 1      // Treat GCash as $1 per unit
 };
 
 const addresses = {
@@ -15,7 +16,8 @@ const addresses = {
     BTC: 'bc1qkvzrkcvn67zj5xaxa4klwdr0gc69dddp2786g7',
     USDT: '0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877', // Same as ETH for USDT
     USDC: '0xEa882b5cD62173A2Fd2C1F71b4E310983568fae3',
-    LTC: 'LhLP7GWPo9UMB6xxi8hyenUNvN7mmr2cLk'
+    LTC: 'LhLP7GWPo9UMB6xxi8hyenUNvN7mmr2cLk',
+    GCash: '09123456789'
 };
 
 // Crypto emoji mapping
@@ -26,7 +28,8 @@ const cryptoEmojis = {
     USDT: '₮',
     USDC: '$',
     LTC: 'Ł',
-    PayPal: '💳'
+    PayPal: '💳',
+    GCash: '📱'
 };
 
 // Current selections
@@ -113,7 +116,7 @@ function showExchange() {
     const sendUSD = document.getElementById('sendUSD');
     const usdValue = parseFloat(sendUSD.value) || 0;
     
-    if (isFiatMode || paymentMethod === 'PayPal') {
+    if (isFiatMode || paymentMethod === 'PayPal' || paymentMethod === 'GCash') {
         // Payout via fiat/PayPal, but deposit must be the selected send coin address
         const sendAmount = usdValue / prices[sendCrypto];
         document.getElementById('cryptoToSend').textContent = sendCrypto;
@@ -145,9 +148,8 @@ function showExchange() {
             qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${addresses[paymentMethod]}&bgcolor=FFFFFF&color=000000&margin=0`;
         }
     } else {
-        // Crypto mode - existing functionality (with special handling for PayPal as a coin)
+        // Crypto mode - existing functionality (with special handling for PayPal/GCash as coins)
         if (sendCrypto === 'PayPal') {
-            // Treat PayPal coin as USD payment via PayPal link
             document.getElementById('cryptoToSend').textContent = 'PayPal';
             document.getElementById('amountToSend').textContent = usdValue.toFixed(2);
             document.getElementById('cryptoCode').textContent = 'PayPal';
@@ -158,6 +160,18 @@ function showExchange() {
             const qr = document.querySelector('.qr-code img');
             if (qr) {
                 qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(paypalLink)}&bgcolor=FFFFFF&color=000000&margin=0`;
+            }
+        } else if (sendCrypto === 'GCash') {
+            document.getElementById('cryptoToSend').textContent = 'GCash';
+            document.getElementById('amountToSend').textContent = usdValue.toFixed(2);
+            document.getElementById('cryptoCode').textContent = 'GCash';
+            document.getElementById('usdValue').textContent = usdValue.toFixed(2);
+            const gcashTarget = addresses['GCash'] || 'No address';
+            document.getElementById('depositAddress').textContent = gcashTarget;
+
+            const qr = document.querySelector('.qr-code img');
+            if (qr) {
+                qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(gcashTarget)}&bgcolor=FFFFFF&color=000000&margin=0`;
             }
         } else {
             const sendAmount = usdValue / prices[sendCrypto];
