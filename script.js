@@ -119,7 +119,7 @@ function showExchange() {
         document.getElementById('usdValue').textContent = usdValue.toFixed(2);
         
         // PayPal link with amount
-        const paypalLink = `https://www.paypal.me/NexabitExchange/${usdValue.toFixed(2)}`;
+        const paypalLink = `https://paypal.me/NexaBit/${usdValue.toFixed(2)}`;
         document.getElementById('depositAddress').textContent = paypalLink;
         
         // Update QR with PayPal link
