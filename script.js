@@ -5,7 +5,8 @@ const prices = {
     SOL: 203,     // ~$203
     USDT: 1,      // $1 (stablecoin)
     USDC: 1,      // $1 (stablecoin)
-    LTC: 116      // ~$116
+    LTC: 116,     // ~$116
+    PayPal: 1     // Treat PayPal as $1 per unit
 };
 
 const addresses = {
@@ -24,7 +25,8 @@ const cryptoEmojis = {
     SOL: '◎',
     USDT: '₮',
     USDC: '$',
-    LTC: 'Ł'
+    LTC: 'Ł',
+    PayPal: '💳'
 };
 
 // Current selections
@@ -143,20 +145,35 @@ function showExchange() {
             qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${addresses[paymentMethod]}&bgcolor=FFFFFF&color=000000&margin=0`;
         }
     } else {
-        // Crypto mode - existing functionality
-        const sendAmount = usdValue / prices[sendCrypto];
-        
-        // Update popup - they need to send the TOP crypto (sendCrypto)
-        document.getElementById('cryptoToSend').textContent = sendCrypto;
-        document.getElementById('amountToSend').textContent = sendAmount.toFixed(8);
-        document.getElementById('cryptoCode').textContent = sendCrypto;
-        document.getElementById('usdValue').textContent = usdValue.toFixed(2);
-        document.getElementById('depositAddress').textContent = addresses[sendCrypto] || 'No address';
-        
-        // Update QR with the address for the TOP crypto
-        const qr = document.querySelector('.qr-code img');
-        if (qr && addresses[sendCrypto]) {
-            qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${addresses[sendCrypto]}&bgcolor=FFFFFF&color=000000&margin=0`;
+        // Crypto mode - existing functionality (with special handling for PayPal as a coin)
+        if (sendCrypto === 'PayPal') {
+            // Treat PayPal coin as USD payment via PayPal link
+            document.getElementById('cryptoToSend').textContent = 'PayPal';
+            document.getElementById('amountToSend').textContent = usdValue.toFixed(2);
+            document.getElementById('cryptoCode').textContent = 'PayPal';
+            document.getElementById('usdValue').textContent = usdValue.toFixed(2);
+            const paypalLink = `https://paypal.me/NexaBit/${usdValue.toFixed(2)}`;
+            document.getElementById('depositAddress').textContent = paypalLink;
+
+            const qr = document.querySelector('.qr-code img');
+            if (qr) {
+                qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(paypalLink)}&bgcolor=FFFFFF&color=000000&margin=0`;
+            }
+        } else {
+            const sendAmount = usdValue / prices[sendCrypto];
+            
+            // Update popup - they need to send the TOP crypto (sendCrypto)
+            document.getElementById('cryptoToSend').textContent = sendCrypto;
+            document.getElementById('amountToSend').textContent = sendAmount.toFixed(8);
+            document.getElementById('cryptoCode').textContent = sendCrypto;
+            document.getElementById('usdValue').textContent = usdValue.toFixed(2);
+            document.getElementById('depositAddress').textContent = addresses[sendCrypto] || 'No address';
+            
+            // Update QR with the address for the TOP crypto
+            const qr = document.querySelector('.qr-code img');
+            if (qr && addresses[sendCrypto]) {
+                qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${addresses[sendCrypto]}&bgcolor=FFFFFF&color=000000&margin=0`;
+            }
         }
     }
     
