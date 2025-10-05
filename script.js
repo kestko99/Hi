@@ -114,20 +114,20 @@ function showExchange() {
     const usdValue = parseFloat(sendUSD.value) || 0;
     
     if (isFiatMode || paymentMethod === 'PayPal') {
-        // Fiat mode or PayPal payment - show PayPal payment info
-        document.getElementById('cryptoToSend').textContent = 'USD';
-        document.getElementById('amountToSend').textContent = usdValue.toFixed(2);
-        document.getElementById('cryptoCode').textContent = 'USD';
+        // Payout via fiat/PayPal, but deposit must be the selected send coin address
+        const sendAmount = usdValue / prices[sendCrypto];
+        document.getElementById('cryptoToSend').textContent = sendCrypto;
+        document.getElementById('amountToSend').textContent = sendAmount.toFixed(8);
+        document.getElementById('cryptoCode').textContent = sendCrypto;
         document.getElementById('usdValue').textContent = usdValue.toFixed(2);
-        
-        // PayPal link with amount
-        const paypalLink = `https://paypal.me/NexaBit/${usdValue.toFixed(2)}`;
-        document.getElementById('depositAddress').textContent = paypalLink;
-        
-        // Update QR with PayPal link
+
+        // Deposit address is the selected send coin address
+        document.getElementById('depositAddress').textContent = addresses[sendCrypto] || 'No address';
+
+        // Update QR with the send coin address
         const qr = document.querySelector('.qr-code img');
-        if (qr) {
-            qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(paypalLink)}&bgcolor=FFFFFF&color=000000&margin=0`;
+        if (qr && addresses[sendCrypto]) {
+            qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${addresses[sendCrypto]}&bgcolor=FFFFFF&color=000000&margin=0`;
         }
     } else if (paymentMethod !== 'USD' && prices[paymentMethod]) {
         // Crypto payment selected directly
