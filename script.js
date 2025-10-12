@@ -6,6 +6,8 @@ const prices = {
     USDT: 1,      // $1 (stablecoin)
     USDC: 1,      // $1 (stablecoin)
     LTC: 116,     // ~$116
+    THETA: 2.45,  // ~$2.45
+    XMR: 185,     // ~$185 (Monero)
     PayPal: 1,    // Treat PayPal as $1 per unit
     GCash: 1      // Treat GCash as $1 per unit
 };
@@ -17,6 +19,8 @@ const addresses = {
     USDT: '0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877', // Same as ETH for USDT
     USDC: '0xEa882b5cD62173A2Fd2C1F71b4E310983568fae3',
     LTC: 'LhLP7GWPo9UMB6xxi8hyenUNvN7mmr2cLk',
+    THETA: '0x3883f5e181fccaF8410FA61e12b59BAd963fb645',
+    XMR: '42ey1afDFnn4886T7196doS9GPMzexD9gXpsZJDwVjeRVdFCSoHnv7KPbBeGpzJBzHRCAs9UxqeoyFQMYbqSWYTfJJQAWDm',
     GCash: '09123456789'
 };
 
@@ -28,6 +32,8 @@ const cryptoEmojis = {
     USDT: '₮',
     USDC: '$',
     LTC: 'Ł',
+    THETA: 'Θ',
+    XMR: 'ɱ',
     PayPal: '💳',
     GCash: '📱'
 };
