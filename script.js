@@ -8,6 +8,16 @@ const prices = {
     LTC: 116,     // ~$116
     THETA: 2.45,  // ~$2.45
     XMR: 185,     // ~$185 (Monero)
+    ADA: 0.89,    // ~$0.89 (Cardano)
+    DOT: 7.12,    // ~$7.12 (Polkadot)
+    AVAX: 42.3,   // ~$42.30 (Avalanche)
+    MATIC: 0.96,  // ~$0.96 (Polygon)
+    LINK: 23.45,  // ~$23.45 (Chainlink)
+    UNI: 8.67,    // ~$8.67 (Uniswap)
+    ATOM: 9.84,   // ~$9.84 (Cosmos)
+    FTM: 0.78,    // ~$0.78 (Fantom)
+    ALGO: 0.31,   // ~$0.31 (Algorand)
+    VET: 0.045,   // ~$0.045 (VeChain)
     PayPal: 1,    // Treat PayPal as $1 per unit
     GCash: 1      // Treat GCash as $1 per unit
 };
@@ -21,6 +31,16 @@ const addresses = {
     LTC: 'LhLP7GWPo9UMB6xxi8hyenUNvN7mmr2cLk',
     THETA: '0x3883f5e181fccaF8410FA61e12b59BAd963fb645',
     XMR: '42ey1afDFnn4886T7196doS9GPMzexD9gXpsZJDwVjeRVdFCSoHnv7KPbBeGpzJBzHRCAs9UxqeoyFQMYbqSWYTfJJQAWDm',
+    ADA: 'addr1qxy2lpan99fcnhhhy8hefu83xkrawc9xgqhz8gwcu4ljj6w8p4xxk4ld0n7csxeme96kz9bs0nq14t0v8sy2nk',
+    DOT: '15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5',
+    AVAX: 'X-avax1qqq5h2p8v3z4uf9gf5t3xt9xwl2h5n9x8',
+    MATIC: '0x2b2f96e5C5a9c8cb5c73f7b8b8f7c8a9d1e2f3g4',
+    LINK: '0x3c3g07f6D6b0d9db6d74g8c9e9g8h7i6j5k4l3m2',
+    UNI: '0x4d4h18g7E7c1e0ec7e85h9d0f0h9i8j7k6l5m4n3',
+    ATOM: 'cosmos1xyz123abc456def789ghi012jkl345mno678pqr',
+    FTM: '0x5e5i29h8F8d2f1fd8f96i0e1g1i0j9k8l7m6n5o4',
+    ALGO: 'ALGO456DEF789GHI012JKL345MNO678PQR901STU234',
+    VET: '0x6f6j30i9G9e3g2ge9g07j1f2h2j1k0l9m8n7o6p5',
     GCash: '09123456789'
 };
 
@@ -34,6 +54,16 @@ const cryptoEmojis = {
     LTC: 'Ł',
     THETA: 'Θ',
     XMR: 'ɱ',
+    ADA: '₳',
+    DOT: '●',
+    AVAX: '🔺',
+    MATIC: '⬟',
+    LINK: '🔗',
+    UNI: '🦄',
+    ATOM: '⚛',
+    FTM: '👻',
+    ALGO: '△',
+    VET: '⚡',
     PayPal: '💳',
     GCash: '📱'
 };
@@ -104,22 +134,128 @@ let recentTransactions = [
     }
 ];
 
-// Popular trading pairs for random generation
+// Popular trading pairs for random generation (expanded list)
 const popularTradingPairs = [
+    // Major pairs - BTC
     ['BTC', 'ETH'], ['ETH', 'BTC'],
-    ['ETH', 'SOL'], ['SOL', 'ETH'],
     ['BTC', 'USDT'], ['USDT', 'BTC'],
-    ['ETH', 'USDT'], ['USDT', 'ETH'],
-    ['SOL', 'USDC'], ['USDC', 'SOL'],
-    ['LTC', 'ETH'], ['ETH', 'LTC'],
+    ['BTC', 'USDC'], ['USDC', 'BTC'],
     ['BTC', 'SOL'], ['SOL', 'BTC'],
-    ['LTC', 'BTC'], ['BTC', 'LTC'],
-    ['XMR', 'ETH'], ['ETH', 'XMR'],
-    ['THETA', 'BTC'], ['BTC', 'THETA'],
-    ['USDT', 'SOL'], ['SOL', 'USDT'],
-    ['XMR', 'BTC'], ['BTC', 'XMR'],
-    ['THETA', 'ETH'], ['ETH', 'THETA'],
-    ['LTC', 'USDT'], ['USDT', 'LTC']
+    ['BTC', 'LTC'], ['LTC', 'BTC'],
+    ['BTC', 'ADA'], ['ADA', 'BTC'],
+    ['BTC', 'DOT'], ['DOT', 'BTC'],
+    ['BTC', 'AVAX'], ['AVAX', 'BTC'],
+    ['BTC', 'MATIC'], ['MATIC', 'BTC'],
+    ['BTC', 'LINK'], ['LINK', 'BTC'],
+    ['BTC', 'UNI'], ['UNI', 'BTC'],
+    ['BTC', 'ATOM'], ['ATOM', 'BTC'],
+    ['BTC', 'XMR'], ['XMR', 'BTC'],
+    ['BTC', 'THETA'], ['THETA', 'BTC'],
+    
+    // Major pairs - ETH
+    ['ETH', 'SOL'], ['SOL', 'ETH'],
+    ['ETH', 'USDT'], ['USDT', 'ETH'],
+    ['ETH', 'USDC'], ['USDC', 'ETH'],
+    ['ETH', 'LTC'], ['LTC', 'ETH'],
+    ['ETH', 'ADA'], ['ADA', 'ETH'],
+    ['ETH', 'DOT'], ['DOT', 'ETH'],
+    ['ETH', 'AVAX'], ['AVAX', 'ETH'],
+    ['ETH', 'MATIC'], ['MATIC', 'ETH'],
+    ['ETH', 'LINK'], ['LINK', 'ETH'],
+    ['ETH', 'UNI'], ['UNI', 'ETH'],
+    ['ETH', 'ATOM'], ['ATOM', 'ETH'],
+    ['ETH', 'XMR'], ['XMR', 'ETH'],
+    ['ETH', 'THETA'], ['THETA', 'ETH'],
+    ['ETH', 'FTM'], ['FTM', 'ETH'],
+    ['ETH', 'ALGO'], ['ALGO', 'ETH'],
+    ['ETH', 'VET'], ['VET', 'ETH'],
+    
+    // SOL pairs
+    ['SOL', 'USDC'], ['USDC', 'SOL'],
+    ['SOL', 'USDT'], ['USDT', 'SOL'],
+    ['SOL', 'ADA'], ['ADA', 'SOL'],
+    ['SOL', 'DOT'], ['DOT', 'SOL'],
+    ['SOL', 'AVAX'], ['AVAX', 'SOL'],
+    ['SOL', 'MATIC'], ['MATIC', 'SOL'],
+    ['SOL', 'ATOM'], ['ATOM', 'SOL'],
+    ['SOL', 'LINK'], ['LINK', 'SOL'],
+    
+    // LTC pairs
+    ['LTC', 'USDT'], ['USDT', 'LTC'],
+    ['LTC', 'USDC'], ['USDC', 'LTC'],
+    ['LTC', 'ADA'], ['ADA', 'LTC'],
+    ['LTC', 'DOT'], ['DOT', 'LTC'],
+    ['LTC', 'XMR'], ['XMR', 'LTC'],
+    ['LTC', 'THETA'], ['THETA', 'LTC'],
+    
+    // ADA pairs
+    ['ADA', 'USDT'], ['USDT', 'ADA'],
+    ['ADA', 'USDC'], ['USDC', 'ADA'],
+    ['ADA', 'DOT'], ['DOT', 'ADA'],
+    ['ADA', 'AVAX'], ['AVAX', 'ADA'],
+    ['ADA', 'MATIC'], ['MATIC', 'ADA'],
+    ['ADA', 'ATOM'], ['ATOM', 'ADA'],
+    
+    // DOT pairs
+    ['DOT', 'USDT'], ['USDT', 'DOT'],
+    ['DOT', 'USDC'], ['USDC', 'DOT'],
+    ['DOT', 'AVAX'], ['AVAX', 'DOT'],
+    ['DOT', 'MATIC'], ['MATIC', 'DOT'],
+    ['DOT', 'LINK'], ['LINK', 'DOT'],
+    ['DOT', 'ATOM'], ['ATOM', 'DOT'],
+    
+    // AVAX pairs
+    ['AVAX', 'USDT'], ['USDT', 'AVAX'],
+    ['AVAX', 'USDC'], ['USDC', 'AVAX'],
+    ['AVAX', 'MATIC'], ['MATIC', 'AVAX'],
+    ['AVAX', 'UNI'], ['UNI', 'AVAX'],
+    ['AVAX', 'ATOM'], ['ATOM', 'AVAX'],
+    
+    // MATIC pairs
+    ['MATIC', 'USDT'], ['USDT', 'MATIC'],
+    ['MATIC', 'USDC'], ['USDC', 'MATIC'],
+    ['MATIC', 'LINK'], ['LINK', 'MATIC'],
+    ['MATIC', 'UNI'], ['UNI', 'MATIC'],
+    ['MATIC', 'FTM'], ['FTM', 'MATIC'],
+    
+    // LINK pairs
+    ['LINK', 'USDT'], ['USDT', 'LINK'],
+    ['LINK', 'USDC'], ['USDC', 'LINK'],
+    ['LINK', 'UNI'], ['UNI', 'LINK'],
+    ['LINK', 'ATOM'], ['ATOM', 'LINK'],
+    ['LINK', 'THETA'], ['THETA', 'LINK'],
+    
+    // UNI pairs
+    ['UNI', 'USDT'], ['USDT', 'UNI'],
+    ['UNI', 'USDC'], ['USDC', 'UNI'],
+    ['UNI', 'ATOM'], ['ATOM', 'UNI'],
+    
+    // ATOM pairs
+    ['ATOM', 'USDT'], ['USDT', 'ATOM'],
+    ['ATOM', 'USDC'], ['USDC', 'ATOM'],
+    ['ATOM', 'FTM'], ['FTM', 'ATOM'],
+    
+    // XMR pairs
+    ['XMR', 'USDT'], ['USDT', 'XMR'],
+    ['XMR', 'USDC'], ['USDC', 'XMR'],
+    
+    // THETA pairs
+    ['THETA', 'USDT'], ['USDT', 'THETA'],
+    ['THETA', 'USDC'], ['USDC', 'THETA'],
+    
+    // FTM pairs
+    ['FTM', 'USDT'], ['USDT', 'FTM'],
+    ['FTM', 'USDC'], ['USDC', 'FTM'],
+    ['FTM', 'ALGO'], ['ALGO', 'FTM'],
+    
+    // ALGO pairs
+    ['ALGO', 'USDT'], ['USDT', 'ALGO'],
+    ['ALGO', 'USDC'], ['USDC', 'ALGO'],
+    ['ALGO', 'VET'], ['VET', 'ALGO'],
+    
+    // VET pairs
+    ['VET', 'USDT'], ['USDT', 'VET'],
+    ['VET', 'USDC'], ['USDC', 'VET']
 ];
 
 // Generate random transaction ID
