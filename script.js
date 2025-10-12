@@ -45,6 +45,120 @@ let selectingFor = 'send'; // Track which field is being selected for
 let isFiatMode = false; // Track if in fiat payment mode
 let paymentMethod = 'USD'; // Track payment method (USD or PayPal)
 
+// Mock transaction data
+const recentTransactions = [
+    {
+        id: 'tx_001',
+        fromCrypto: 'BTC',
+        toCrypto: 'ETH',
+        fromAmount: 0.008,
+        toAmount: 0.255,
+        usdValue: 950,
+        status: 'completed',
+        timestamp: new Date(Date.now() - 1000 * 60 * 15), // 15 minutes ago
+        txHash: '0x1a2b3c4d5e6f7890abcdef1234567890'
+    },
+    {
+        id: 'tx_002',
+        fromCrypto: 'ETH',
+        toCrypto: 'SOL',
+        fromAmount: 1.35,
+        toAmount: 24.63,
+        usdValue: 4995,
+        status: 'pending',
+        timestamp: new Date(Date.now() - 1000 * 60 * 45), // 45 minutes ago
+        txHash: '0x9876543210fedcba0987654321'
+    },
+    {
+        id: 'tx_003',
+        fromCrypto: 'USDT',
+        toCrypto: 'BTC',
+        fromAmount: 2500,
+        toAmount: 0.021,
+        usdValue: 2500,
+        status: 'completed',
+        timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2), // 2 hours ago
+        txHash: '0xabcd1234efgh5678ijkl9012'
+    },
+    {
+        id: 'tx_004',
+        fromCrypto: 'SOL',
+        toCrypto: 'USDC',
+        fromAmount: 15.5,
+        toAmount: 3146.5,
+        usdValue: 3147,
+        status: 'completed',
+        timestamp: new Date(Date.now() - 1000 * 60 * 60 * 6), // 6 hours ago
+        txHash: '0x5555aaaa6666bbbb7777cccc'
+    },
+    {
+        id: 'tx_005',
+        fromCrypto: 'LTC',
+        toCrypto: 'XMR',
+        fromAmount: 5.2,
+        toAmount: 3.27,
+        usdValue: 603,
+        status: 'failed',
+        timestamp: new Date(Date.now() - 1000 * 60 * 60 * 12), // 12 hours ago
+        txHash: '0x9999dddd8888eeee7777ffff'
+    }
+];
+
+// Function to format time ago
+function timeAgo(date) {
+    const now = new Date();
+    const diff = now - date;
+    const minutes = Math.floor(diff / (1000 * 60));
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    
+    if (minutes < 60) {
+        return `${minutes}m ago`;
+    } else if (hours < 24) {
+        return `${hours}h ago`;
+    } else {
+        return `${days}d ago`;
+    }
+}
+
+// Function to render transactions
+function renderTransactions() {
+    const transactionsList = document.getElementById('transactionsList');
+    if (!transactionsList) return;
+    
+    const transactionsHTML = recentTransactions.slice(0, 3).map(tx => {
+        const statusClass = tx.status === 'completed' ? 'completed' : 
+                           tx.status === 'pending' ? 'pending' : 'failed';
+        
+        return `
+            <div class="transaction-item">
+                <div class="transaction-main">
+                    <div class="transaction-pair">
+                        <div class="crypto-from">
+                            <span class="crypto-emoji">${cryptoEmojis[tx.fromCrypto] || '?'}</span>
+                            <span class="crypto-symbol">${tx.fromCrypto}</span>
+                            <span class="crypto-amount">${tx.fromAmount}</span>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="crypto-to">
+                            <span class="crypto-emoji">${cryptoEmojis[tx.toCrypto] || '?'}</span>
+                            <span class="crypto-symbol">${tx.toCrypto}</span>
+                            <span class="crypto-amount">${tx.toAmount}</span>
+                        </div>
+                    </div>
+                    <div class="transaction-meta">
+                        <span class="transaction-status ${statusClass}">${tx.status}</span>
+                        <span class="transaction-time">${timeAgo(tx.timestamp)}</span>
+                    </div>
+                </div>
+                <div class="transaction-value">$${tx.usdValue.toLocaleString()}</div>
+            </div>
+        `;
+    }).join('');
+    
+    transactionsList.innerHTML = transactionsHTML;
+}
+
 // Calculate exchange amounts
 function calculate() {
     // Get all elements
@@ -356,6 +470,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initial calculation
     calculate();
+    
+    // Render transactions
+    renderTransactions();
     
     // Force update display with correct values
     setTimeout(() => {

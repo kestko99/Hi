@@ -117,6 +117,15 @@
             </button>
         </div>
 
+        <!-- Recent Transactions Section -->
+        <div class="recent-transactions-section">
+            <h3>Recent Transactions</h3>
+            <div class="transactions-list" id="transactionsList">
+                <!-- Transactions will be populated by JavaScript -->
+            </div>
+            <button class="view-all-btn" id="viewAllBtn">View All Transactions</button>
+        </div>
+
         <!-- Buy Crypto Section -->
         <div class="buy-crypto-section">
             <h3>Buy crypto with</h3>
@@ -264,6 +273,14 @@
             <span class="currency-icon">Ł</span>
             <span>Litecoin</span>
         </div>
+        <div class="currency-option" data-currency="THETA">
+            <span class="currency-icon">Θ</span>
+            <span>Theta Network</span>
+        </div>
+        <div class="currency-option" data-currency="XMR">
+            <span class="currency-icon">ɱ</span>
+            <span>Monero</span>
+        </div>
     </div>
 
     <!-- Crypto Selection Modal -->
@@ -348,6 +365,24 @@
                             <span class="crypto-symbol">LTC</span>
                         </div>
                         <span class="crypto-price">$116</span>
+                    </div>
+                    
+                    <div class="crypto-item" data-crypto="THETA" data-price="2.45">
+                        <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/theta.png" alt="THETA">
+                        <div class="crypto-info">
+                            <span class="crypto-name">Theta Network</span>
+                            <span class="crypto-symbol">THETA</span>
+                        </div>
+                        <span class="crypto-price">$2.45</span>
+                    </div>
+                    
+                    <div class="crypto-item" data-crypto="XMR" data-price="185">
+                        <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/xmr.png" alt="XMR">
+                        <div class="crypto-info">
+                            <span class="crypto-name">Monero</span>
+                            <span class="crypto-symbol">XMR</span>
+                        </div>
+                        <span class="crypto-price">$185</span>
                     </div>
                 </div>
             </div>
