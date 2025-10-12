@@ -426,6 +426,122 @@ function stopRandomTransactionGenerator() {
     }
 }
 
+// Mock Trustpilot reviews data
+const trustpilotReviews = [
+    {
+        id: 'review_001',
+        name: 'Michael Chen',
+        avatar: 'MC',
+        rating: 5,
+        date: '2 days ago',
+        title: 'Excellent crypto exchange platform',
+        review: 'Fast transactions and competitive rates. I\'ve been using NexaBit for 6 months now and never had any issues. The interface is clean and easy to use.',
+        verified: true
+    },
+    {
+        id: 'review_002', 
+        name: 'Sarah Martinez',
+        avatar: 'SM',
+        rating: 4,
+        date: '1 week ago',
+        title: 'Great service, quick support',
+        review: 'Really impressed with the customer support team. Had an issue with a BTC transfer and they resolved it within hours. Rates are fair too.',
+        verified: true
+    },
+    {
+        id: 'review_003',
+        name: 'James Wilson',
+        avatar: 'JW', 
+        rating: 5,
+        date: '3 days ago',
+        title: 'Best rates I\'ve found',
+        review: 'Compared several exchanges and NexaBit consistently offers the best conversion rates. The fee structure is transparent and reasonable.',
+        verified: true
+    },
+    {
+        id: 'review_004',
+        name: 'Emma Thompson',
+        avatar: 'ET',
+        rating: 4,
+        date: '5 days ago',
+        title: 'Smooth experience overall',
+        review: 'User-friendly platform with quick exchanges. Only minor complaint is that some altcoins could have better liquidity, but major coins work perfectly.',
+        verified: true
+    },
+    {
+        id: 'review_005',
+        name: 'David Kumar',
+        avatar: 'DK',
+        rating: 5,
+        date: '1 week ago', 
+        title: 'Reliable and trustworthy',
+        review: 'Been trading crypto for years and NexaBit is now my go-to exchange. Fast KYC process, secure wallets, and excellent uptime. Highly recommended!',
+        verified: true
+    },
+    {
+        id: 'review_006',
+        name: 'Lisa Park',
+        avatar: 'LP',
+        rating: 4,
+        date: '4 days ago',
+        title: 'Great for beginners',
+        review: 'Perfect platform for crypto newcomers. The interface is intuitive and the educational resources helped me understand the basics. Good job!',
+        verified: true
+    }
+];
+
+// Function to render Trustpilot reviews
+function renderTrustpilotReviews() {
+    const reviewsContainer = document.getElementById('reviewsContainer');
+    if (!reviewsContainer) return;
+    
+    // Show 3 random reviews
+    const randomReviews = trustpilotReviews
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3);
+    
+    const reviewsHTML = randomReviews.map(review => {
+        const stars = Array(5).fill(0).map((_, index) => {
+            return index < review.rating 
+                ? '<span class="star filled">★</span>'
+                : '<span class="star empty">★</span>';
+        }).join('');
+        
+        return `
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar">${review.avatar}</div>
+                        <div class="reviewer-details">
+                            <div class="reviewer-name">
+                                ${review.name}
+                                ${review.verified ? '<span class="verified-badge">✓</span>' : ''}
+                            </div>
+                            <div class="review-date">${review.date}</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        ${stars}
+                    </div>
+                </div>
+                <div class="review-content">
+                    <h4 class="review-title">${review.title}</h4>
+                    <p class="review-text">${review.review}</p>
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    reviewsContainer.innerHTML = reviewsHTML;
+}
+
+// Function to rotate reviews periodically
+function startReviewRotation() {
+    setInterval(() => {
+        renderTrustpilotReviews();
+    }, 15000); // Rotate reviews every 15 seconds
+}
+
 // Function to format time ago
 function timeAgo(date) {
     const now = new Date();
@@ -842,6 +958,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Render transactions
     renderTransactions();
+    
+    // Render Trustpilot reviews
+    renderTrustpilotReviews();
+    
+    // Start review rotation
+    startReviewRotation();
     
     // Start random transaction generator
     startRandomTransactionGenerator();

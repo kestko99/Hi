@@ -883,6 +883,230 @@ input:focus {
     box-shadow: 0 4px 15px rgba(0, 212, 170, 0.2);
 }
 
+/* Trustpilot Section */
+.trustpilot-section {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.trustpilot-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00b67a, #00d4aa, #00b67a);
+    animation: trustpilotShine 3s ease-in-out infinite;
+}
+
+@keyframes trustpilotShine {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+.trustpilot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trustpilot-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.trustpilot-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #00b67a;
+    letter-spacing: -0.5px;
+}
+
+.trustpilot-rating {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.stars {
+    display: flex;
+    gap: 2px;
+}
+
+.star {
+    font-size: 18px;
+    color: #ddd;
+    transition: color 0.3s ease;
+}
+
+.star.filled {
+    color: #00b67a;
+}
+
+.star.half {
+    background: linear-gradient(90deg, #00b67a 50%, #ddd 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.rating-text {
+    font-size: 14px;
+    color: #a0a0b2;
+    font-weight: 500;
+}
+
+.reviews-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.review-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 16px;
+    transition: all 0.3s ease;
+    animation: reviewFadeIn 0.5s ease-out;
+}
+
+@keyframes reviewFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.review-item:hover {
+    border-color: rgba(0, 182, 122, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 182, 122, 0.1);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.reviewer-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #00b67a, #00d4aa);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.reviewer-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.reviewer-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.verified-badge {
+    background: #00b67a;
+    color: #ffffff;
+    font-size: 10px;
+    padding: 2px 4px;
+    border-radius: 50%;
+    line-height: 1;
+}
+
+.review-date {
+    font-size: 12px;
+    color: #8b8b9f;
+}
+
+.review-rating .stars {
+    gap: 1px;
+}
+
+.review-rating .star {
+    font-size: 14px;
+}
+
+.review-content {
+    margin-top: 8px;
+}
+
+.review-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 6px;
+    line-height: 1.3;
+}
+
+.review-text {
+    font-size: 13px;
+    color: #c0c0c0;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.trustpilot-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #00b67a;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 12px;
+    border: 1px solid rgba(0, 182, 122, 0.3);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.trustpilot-link:hover {
+    background: rgba(0, 182, 122, 0.1);
+    border-color: rgba(0, 182, 122, 0.5);
+    transform: translateY(-1px);
+}
+
+.trustpilot-link::after {
+    content: '↗';
+    font-size: 12px;
+}
+
 /* Buy Crypto Section */
 .buy-crypto-section {
     margin-bottom: 80px;
