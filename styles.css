@@ -786,6 +786,33 @@ input:focus {
     50% { opacity: 0.6; }
 }
 
+@keyframes newTransaction {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+        box-shadow: 0 0 0 rgba(0, 212, 170, 0);
+    }
+    50% {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 8px 30px rgba(0, 212, 170, 0.3);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        box-shadow: 0 4px 20px rgba(0, 212, 170, 0.1);
+    }
+}
+
+.transaction-item.new-transaction {
+    border-color: rgba(0, 212, 170, 0.5) !important;
+    background: linear-gradient(135deg, rgba(0, 212, 170, 0.08) 0%, rgba(0, 212, 170, 0.04) 100%) !important;
+}
+
+.transaction-item.new-transaction::before {
+    left: 0 !important;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 170, 0.8), transparent) !important;
+}
+
 .transaction-time {
     font-size: 12px;
     color: #6b7280;

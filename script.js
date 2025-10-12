@@ -46,7 +46,7 @@ let isFiatMode = false; // Track if in fiat payment mode
 let paymentMethod = 'USD'; // Track payment method (USD or PayPal)
 
 // Mock transaction data
-const recentTransactions = [
+let recentTransactions = [
     {
         id: 'tx_001',
         fromCrypto: 'BTC',
@@ -104,6 +104,120 @@ const recentTransactions = [
     }
 ];
 
+// Popular trading pairs for random generation
+const popularTradingPairs = [
+    ['BTC', 'ETH'], ['ETH', 'BTC'],
+    ['ETH', 'SOL'], ['SOL', 'ETH'],
+    ['BTC', 'USDT'], ['USDT', 'BTC'],
+    ['ETH', 'USDT'], ['USDT', 'ETH'],
+    ['SOL', 'USDC'], ['USDC', 'SOL'],
+    ['LTC', 'ETH'], ['ETH', 'LTC'],
+    ['BTC', 'SOL'], ['SOL', 'BTC'],
+    ['LTC', 'BTC'], ['BTC', 'LTC'],
+    ['XMR', 'ETH'], ['ETH', 'XMR'],
+    ['THETA', 'BTC'], ['BTC', 'THETA'],
+    ['USDT', 'SOL'], ['SOL', 'USDT'],
+    ['XMR', 'BTC'], ['BTC', 'XMR'],
+    ['THETA', 'ETH'], ['ETH', 'THETA'],
+    ['LTC', 'USDT'], ['USDT', 'LTC']
+];
+
+// Generate random transaction ID
+function generateTxId() {
+    return 'tx_' + Math.random().toString(36).substr(2, 9);
+}
+
+// Generate random transaction hash
+function generateTxHash() {
+    const chars = '0123456789abcdef';
+    let hash = '0x';
+    for (let i = 0; i < 32; i++) {
+        hash += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return hash;
+}
+
+// Generate realistic transaction amounts
+function generateTransactionAmounts(fromCrypto, toCrypto) {
+    const fromPrice = prices[fromCrypto];
+    const toPrice = prices[toCrypto];
+    
+    // Generate random USD value between $50 and $5000
+    const usdValue = Math.random() * (5000 - 50) + 50;
+    
+    const fromAmount = usdValue / fromPrice;
+    const toAmount = (usdValue * 0.995) / toPrice; // 0.5% fee
+    
+    // Format amounts based on crypto type
+    const formatAmount = (amount, crypto) => {
+        if (['USDT', 'USDC'].includes(crypto)) {
+            return Math.round(amount * 100) / 100; // 2 decimal places for stablecoins
+        } else if (['BTC', 'ETH'].includes(crypto)) {
+            return Math.round(amount * 100000000) / 100000000; // 8 decimal places for major coins
+        } else {
+            return Math.round(amount * 1000000) / 1000000; // 6 decimal places for others
+        }
+    };
+    
+    return {
+        fromAmount: formatAmount(fromAmount, fromCrypto),
+        toAmount: formatAmount(toAmount, toCrypto),
+        usdValue: Math.round(usdValue)
+    };
+}
+
+// Generate random transaction status
+function generateRandomStatus() {
+    const statuses = ['completed', 'pending', 'completed', 'completed']; // Higher chance of completed
+    return statuses[Math.floor(Math.random() * statuses.length)];
+}
+
+// Generate a new random transaction
+function generateRandomTransaction() {
+    const randomPair = popularTradingPairs[Math.floor(Math.random() * popularTradingPairs.length)];
+    const [fromCrypto, toCrypto] = randomPair;
+    const amounts = generateTransactionAmounts(fromCrypto, toCrypto);
+    
+    const newTransaction = {
+        id: generateTxId(),
+        fromCrypto,
+        toCrypto,
+        fromAmount: amounts.fromAmount,
+        toAmount: amounts.toAmount,
+        usdValue: amounts.usdValue,
+        status: generateRandomStatus(),
+        timestamp: new Date(),
+        txHash: generateTxHash()
+    };
+    
+    // Add to beginning of array and keep only last 20 transactions
+    recentTransactions.unshift(newTransaction);
+    if (recentTransactions.length > 20) {
+        recentTransactions = recentTransactions.slice(0, 20);
+    }
+    
+    return newTransaction;
+}
+
+// Start random transaction generator
+let transactionInterval;
+
+function startRandomTransactionGenerator() {
+    transactionInterval = setInterval(() => {
+        const newTx = generateRandomTransaction();
+        console.log(`New transaction generated: ${newTx.fromCrypto} → ${newTx.toCrypto} ($${newTx.usdValue})`);
+        
+        // Re-render transactions with animation
+        renderTransactionsWithAnimation();
+    }, 5000); // Every 5 seconds
+}
+
+function stopRandomTransactionGenerator() {
+    if (transactionInterval) {
+        clearInterval(transactionInterval);
+    }
+}
+
 // Function to format time ago
 function timeAgo(date) {
     const now = new Date();
@@ -121,17 +235,52 @@ function timeAgo(date) {
     }
 }
 
+// Function to render transactions with animation
+function renderTransactionsWithAnimation() {
+    const transactionsList = document.getElementById('transactionsList');
+    if (!transactionsList) return;
+    
+    // Add fade-out animation to existing transactions
+    const existingItems = transactionsList.querySelectorAll('.transaction-item');
+    existingItems.forEach(item => {
+        item.style.transition = 'all 0.3s ease';
+        item.style.opacity = '0.7';
+        item.style.transform = 'translateX(-10px)';
+    });
+    
+    // Render new transactions after animation
+    setTimeout(() => {
+        renderTransactions();
+        
+        // Add fade-in animation to new transactions
+        const newItems = transactionsList.querySelectorAll('.transaction-item');
+        newItems.forEach((item, index) => {
+            if (index === 0) {
+                // Highlight the newest transaction
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(-20px)';
+                item.style.animation = 'newTransaction 0.6s ease-out forwards';
+            } else {
+                item.style.opacity = '1';
+                item.style.transform = 'translateX(0)';
+            }
+        });
+    }, 150);
+}
+
 // Function to render transactions
 function renderTransactions() {
     const transactionsList = document.getElementById('transactionsList');
     if (!transactionsList) return;
     
-    const transactionsHTML = recentTransactions.slice(0, 3).map(tx => {
+    const transactionsHTML = recentTransactions.slice(0, 3).map((tx, index) => {
         const statusClass = tx.status === 'completed' ? 'completed' : 
                            tx.status === 'pending' ? 'pending' : 'failed';
         
+        const isNew = index === 0 && tx.timestamp > new Date(Date.now() - 10000); // New if less than 10 seconds old
+        
         return `
-            <div class="transaction-item">
+            <div class="transaction-item ${isNew ? 'new-transaction' : ''}" data-tx-id="${tx.id}">
                 <div class="transaction-main">
                     <div class="transaction-pair">
                         <div class="crypto-from">
@@ -473,6 +622,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Render transactions
     renderTransactions();
+    
+    // Start random transaction generator
+    startRandomTransactionGenerator();
     
     // Force update display with correct values
     setTimeout(() => {
