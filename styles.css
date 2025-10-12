@@ -813,6 +813,33 @@ input:focus {
     background: linear-gradient(90deg, transparent, rgba(0, 212, 170, 0.8), transparent) !important;
 }
 
+.transaction-size {
+    font-size: 14px;
+    margin-left: 8px;
+    opacity: 0.8;
+    cursor: help;
+}
+
+.transaction-item.transaction-whale,
+.transaction-item.transaction-mega {
+    border-color: rgba(255, 215, 0, 0.4) !important;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.06) 0%, rgba(255, 215, 0, 0.03) 100%) !important;
+}
+
+.transaction-item.transaction-whale::before,
+.transaction-item.transaction-mega::before {
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.6), transparent) !important;
+}
+
+.transaction-item.transaction-large {
+    border-color: rgba(138, 43, 226, 0.3) !important;
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.05) 0%, rgba(138, 43, 226, 0.02) 100%) !important;
+}
+
+.transaction-item.transaction-medium {
+    border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
 .transaction-time {
     font-size: 12px;
     color: #6b7280;

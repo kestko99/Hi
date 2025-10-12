@@ -273,32 +273,91 @@ function generateTxHash() {
     return hash;
 }
 
-// Generate realistic transaction amounts
+// Generate realistic transaction amounts with more randomization
 function generateTransactionAmounts(fromCrypto, toCrypto) {
     const fromPrice = prices[fromCrypto];
     const toPrice = prices[toCrypto];
     
-    // Generate random USD value between $50 and $5000
-    const usdValue = Math.random() * (5000 - 50) + 50;
+    // Define transaction size categories with different probability weights
+    const transactionTypes = [
+        { name: 'micro', range: [10, 100], weight: 30 },      // Small retail trades
+        { name: 'small', range: [100, 500], weight: 25 },     // Regular retail
+        { name: 'medium', range: [500, 2000], weight: 20 },   // Serious traders
+        { name: 'large', range: [2000, 10000], weight: 15 },  // High volume
+        { name: 'whale', range: [10000, 50000], weight: 7 },  // Whale trades
+        { name: 'mega', range: [50000, 200000], weight: 3 }   // Institutional
+    ];
     
+    // Weighted random selection of transaction type
+    const totalWeight = transactionTypes.reduce((sum, type) => sum + type.weight, 0);
+    let randomWeight = Math.random() * totalWeight;
+    let selectedType = transactionTypes[0];
+    
+    for (const type of transactionTypes) {
+        randomWeight -= type.weight;
+        if (randomWeight <= 0) {
+            selectedType = type;
+            break;
+        }
+    }
+    
+    // Generate random USD value within the selected range
+    const [minUsd, maxUsd] = selectedType.range;
+    const usdValue = Math.random() * (maxUsd - minUsd) + minUsd;
+    
+    // Add some randomness to the exchange rate (±2% variation)
+    const rateVariation = 0.98 + (Math.random() * 0.04); // 0.98 to 1.02
+    const effectiveToPrice = toPrice * rateVariation;
+    
+    // Calculate amounts with 0.3-0.8% random fee
+    const feePercent = 0.003 + (Math.random() * 0.005); // 0.3% to 0.8%
     const fromAmount = usdValue / fromPrice;
-    const toAmount = (usdValue * 0.995) / toPrice; // 0.5% fee
+    const toAmount = (usdValue * (1 - feePercent)) / effectiveToPrice;
     
-    // Format amounts based on crypto type
+    // Format amounts based on crypto type and value
     const formatAmount = (amount, crypto) => {
         if (['USDT', 'USDC'].includes(crypto)) {
             return Math.round(amount * 100) / 100; // 2 decimal places for stablecoins
-        } else if (['BTC', 'ETH'].includes(crypto)) {
-            return Math.round(amount * 100000000) / 100000000; // 8 decimal places for major coins
+        } else if (['BTC'].includes(crypto)) {
+            if (amount < 0.001) {
+                return Math.round(amount * 100000000) / 100000000; // 8 decimals for small BTC amounts
+            } else {
+                return Math.round(amount * 100000) / 100000; // 5 decimals for larger BTC amounts
+            }
+        } else if (['ETH'].includes(crypto)) {
+            if (amount < 0.01) {
+                return Math.round(amount * 1000000) / 1000000; // 6 decimals for small ETH amounts
+            } else {
+                return Math.round(amount * 10000) / 10000; // 4 decimals for larger ETH amounts
+            }
+        } else if (['SOL', 'DOT', 'AVAX', 'LINK', 'UNI', 'ATOM'].includes(crypto)) {
+            if (amount < 1) {
+                return Math.round(amount * 1000000) / 1000000; // 6 decimals for small amounts
+            } else {
+                return Math.round(amount * 1000) / 1000; // 3 decimals for larger amounts
+            }
+        } else if (['THETA', 'ADA', 'MATIC', 'FTM', 'ALGO', 'VET'].includes(crypto)) {
+            if (amount < 10) {
+                return Math.round(amount * 100000) / 100000; // 5 decimals for small amounts
+            } else {
+                return Math.round(amount * 100) / 100; // 2 decimals for larger amounts
+            }
         } else {
-            return Math.round(amount * 1000000) / 1000000; // 6 decimal places for others
+            // Default formatting for other cryptos
+            if (amount < 1) {
+                return Math.round(amount * 1000000) / 1000000; // 6 decimals
+            } else {
+                return Math.round(amount * 1000) / 1000; // 3 decimals
+            }
         }
     };
     
     return {
         fromAmount: formatAmount(fromAmount, fromCrypto),
         toAmount: formatAmount(toAmount, toCrypto),
-        usdValue: Math.round(usdValue)
+        usdValue: Math.round(usdValue),
+        transactionType: selectedType.name,
+        fee: (feePercent * 100).toFixed(2) + '%'
     };
 }
 
@@ -321,6 +380,8 @@ function generateRandomTransaction() {
         fromAmount: amounts.fromAmount,
         toAmount: amounts.toAmount,
         usdValue: amounts.usdValue,
+        transactionType: amounts.transactionType,
+        fee: amounts.fee,
         status: generateRandomStatus(),
         timestamp: new Date(),
         txHash: generateTxHash()
@@ -341,7 +402,18 @@ let transactionInterval;
 function startRandomTransactionGenerator() {
     transactionInterval = setInterval(() => {
         const newTx = generateRandomTransaction();
-        console.log(`New transaction generated: ${newTx.fromCrypto} → ${newTx.toCrypto} ($${newTx.usdValue})`);
+        
+        // Enhanced console logging with transaction details
+        const sizeEmoji = {
+            'micro': '🔸',
+            'small': '🔹',
+            'medium': '💎', 
+            'large': '🚀',
+            'whale': '🐋',
+            'mega': '🏛️'
+        };
+        
+        console.log(`${sizeEmoji[newTx.transactionType] || '💰'} New ${newTx.transactionType} transaction: ${newTx.fromCrypto} → ${newTx.toCrypto} | $${newTx.usdValue.toLocaleString()} | Fee: ${newTx.fee}`);
         
         // Re-render transactions with animation
         renderTransactionsWithAnimation();
@@ -415,8 +487,19 @@ function renderTransactions() {
         
         const isNew = index === 0 && tx.timestamp > new Date(Date.now() - 10000); // New if less than 10 seconds old
         
+        // Add size indicator for transaction types
+        const sizeClass = tx.transactionType ? `transaction-${tx.transactionType}` : '';
+        const sizeEmoji = {
+            'micro': '🔸',
+            'small': '🔹', 
+            'medium': '💎',
+            'large': '🚀',
+            'whale': '🐋',
+            'mega': '🏛️'
+        };
+        
         return `
-            <div class="transaction-item ${isNew ? 'new-transaction' : ''}" data-tx-id="${tx.id}">
+            <div class="transaction-item ${isNew ? 'new-transaction' : ''} ${sizeClass}" data-tx-id="${tx.id}">
                 <div class="transaction-main">
                     <div class="transaction-pair">
                         <div class="crypto-from">
@@ -434,6 +517,7 @@ function renderTransactions() {
                     <div class="transaction-meta">
                         <span class="transaction-status ${statusClass}">${tx.status}</span>
                         <span class="transaction-time">${timeAgo(tx.timestamp)}</span>
+                        ${tx.transactionType ? `<span class="transaction-size" title="${tx.transactionType} transaction">${sizeEmoji[tx.transactionType] || ''}</span>` : ''}
                     </div>
                 </div>
                 <div class="transaction-value">$${tx.usdValue.toLocaleString()}</div>
