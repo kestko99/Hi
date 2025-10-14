@@ -6,6 +6,18 @@ const prices = {
     USDT: 1,      // $1 (stablecoin)
     USDC: 1,      // $1 (stablecoin)
     LTC: 116,     // ~$116
+    THETA: 2.45,  // ~$2.45
+    XMR: 185,     // ~$185 (Monero)
+    ADA: 0.89,    // ~$0.89 (Cardano)
+    DOT: 7.12,    // ~$7.12 (Polkadot)
+    AVAX: 42.3,   // ~$42.30 (Avalanche)
+    MATIC: 0.96,  // ~$0.96 (Polygon)
+    LINK: 23.45,  // ~$23.45 (Chainlink)
+    UNI: 8.67,    // ~$8.67 (Uniswap)
+    ATOM: 9.84,   // ~$9.84 (Cosmos)
+    FTM: 0.78,    // ~$0.78 (Fantom)
+    ALGO: 0.31,   // ~$0.31 (Algorand)
+    VET: 0.045,   // ~$0.045 (VeChain)
     PayPal: 1,    // Treat PayPal as $1 per unit
     GCash: 1      // Treat GCash as $1 per unit
 };
@@ -17,6 +29,18 @@ const addresses = {
     USDT: '0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877', // Same as ETH for USDT
     USDC: '0xEa882b5cD62173A2Fd2C1F71b4E310983568fae3',
     LTC: 'LhLP7GWPo9UMB6xxi8hyenUNvN7mmr2cLk',
+    THETA: '0x3883f5e181fccaF8410FA61e12b59BAd963fb645',
+    XMR: '42ey1afDFnn4886T7196doS9GPMzexD9gXpsZJDwVjeRVdFCSoHnv7KPbBeGpzJBzHRCAs9UxqeoyFQMYbqSWYTfJJQAWDm',
+    ADA: 'addr1qxy2lpan99fcnhhhy8hefu83xkrawc9xgqhz8gwcu4ljj6w8p4xxk4ld0n7csxeme96kz9bs0nq14t0v8sy2nk',
+    DOT: '15oF4uVJwmo4TdGW7VfQxNLavjCXviqxT9S1MgbjMNHr6Sp5',
+    AVAX: 'X-avax1qqq5h2p8v3z4uf9gf5t3xt9xwl2h5n9x8',
+    MATIC: '0x2b2f96e5C5a9c8cb5c73f7b8b8f7c8a9d1e2f3g4',
+    LINK: '0x3c3g07f6D6b0d9db6d74g8c9e9g8h7i6j5k4l3m2',
+    UNI: '0x4d4h18g7E7c1e0ec7e85h9d0f0h9i8j7k6l5m4n3',
+    ATOM: 'cosmos1xyz123abc456def789ghi012jkl345mno678pqr',
+    FTM: '0x5e5i29h8F8d2f1fd8f96i0e1g1i0j9k8l7m6n5o4',
+    ALGO: 'ALGO456DEF789GHI012JKL345MNO678PQR901STU234',
+    VET: '0x6f6j30i9G9e3g2ge9g07j1f2h2j1k0l9m8n7o6p5',
     GCash: '09123456789'
 };
 
@@ -28,6 +52,18 @@ const cryptoEmojis = {
     USDT: '₮',
     USDC: '$',
     LTC: 'Ł',
+    THETA: 'Θ',
+    XMR: 'ɱ',
+    ADA: '₳',
+    DOT: '●',
+    AVAX: '🔺',
+    MATIC: '⬟',
+    LINK: '🔗',
+    UNI: '🦄',
+    ATOM: '⚛',
+    FTM: '👻',
+    ALGO: '△',
+    VET: '⚡',
     PayPal: '💳',
     GCash: '📱'
 };
@@ -38,6 +74,575 @@ let getCrypto = 'ETH';
 let selectingFor = 'send'; // Track which field is being selected for
 let isFiatMode = false; // Track if in fiat payment mode
 let paymentMethod = 'USD'; // Track payment method (USD or PayPal)
+
+// Mock transaction data
+let recentTransactions = [
+    {
+        id: 'tx_001',
+        fromCrypto: 'BTC',
+        toCrypto: 'ETH',
+        fromAmount: 0.008,
+        toAmount: 0.255,
+        usdValue: 950,
+        status: 'completed',
+        timestamp: new Date(Date.now() - 1000 * 60 * 15), // 15 minutes ago
+        txHash: '0x1a2b3c4d5e6f7890abcdef1234567890'
+    },
+    {
+        id: 'tx_002',
+        fromCrypto: 'ETH',
+        toCrypto: 'SOL',
+        fromAmount: 1.35,
+        toAmount: 24.63,
+        usdValue: 4995,
+        status: 'pending',
+        timestamp: new Date(Date.now() - 1000 * 60 * 45), // 45 minutes ago
+        txHash: '0x9876543210fedcba0987654321'
+    },
+    {
+        id: 'tx_003',
+        fromCrypto: 'USDT',
+        toCrypto: 'BTC',
+        fromAmount: 2500,
+        toAmount: 0.021,
+        usdValue: 2500,
+        status: 'completed',
+        timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2), // 2 hours ago
+        txHash: '0xabcd1234efgh5678ijkl9012'
+    },
+    {
+        id: 'tx_004',
+        fromCrypto: 'SOL',
+        toCrypto: 'USDC',
+        fromAmount: 15.5,
+        toAmount: 3146.5,
+        usdValue: 3147,
+        status: 'completed',
+        timestamp: new Date(Date.now() - 1000 * 60 * 60 * 6), // 6 hours ago
+        txHash: '0x5555aaaa6666bbbb7777cccc'
+    },
+    {
+        id: 'tx_005',
+        fromCrypto: 'LTC',
+        toCrypto: 'XMR',
+        fromAmount: 5.2,
+        toAmount: 3.27,
+        usdValue: 603,
+        status: 'failed',
+        timestamp: new Date(Date.now() - 1000 * 60 * 60 * 12), // 12 hours ago
+        txHash: '0x9999dddd8888eeee7777ffff'
+    }
+];
+
+// Popular trading pairs for random generation (expanded list)
+const popularTradingPairs = [
+    // Major pairs - BTC
+    ['BTC', 'ETH'], ['ETH', 'BTC'],
+    ['BTC', 'USDT'], ['USDT', 'BTC'],
+    ['BTC', 'USDC'], ['USDC', 'BTC'],
+    ['BTC', 'SOL'], ['SOL', 'BTC'],
+    ['BTC', 'LTC'], ['LTC', 'BTC'],
+    ['BTC', 'ADA'], ['ADA', 'BTC'],
+    ['BTC', 'DOT'], ['DOT', 'BTC'],
+    ['BTC', 'AVAX'], ['AVAX', 'BTC'],
+    ['BTC', 'MATIC'], ['MATIC', 'BTC'],
+    ['BTC', 'LINK'], ['LINK', 'BTC'],
+    ['BTC', 'UNI'], ['UNI', 'BTC'],
+    ['BTC', 'ATOM'], ['ATOM', 'BTC'],
+    ['BTC', 'XMR'], ['XMR', 'BTC'],
+    ['BTC', 'THETA'], ['THETA', 'BTC'],
+    
+    // Major pairs - ETH
+    ['ETH', 'SOL'], ['SOL', 'ETH'],
+    ['ETH', 'USDT'], ['USDT', 'ETH'],
+    ['ETH', 'USDC'], ['USDC', 'ETH'],
+    ['ETH', 'LTC'], ['LTC', 'ETH'],
+    ['ETH', 'ADA'], ['ADA', 'ETH'],
+    ['ETH', 'DOT'], ['DOT', 'ETH'],
+    ['ETH', 'AVAX'], ['AVAX', 'ETH'],
+    ['ETH', 'MATIC'], ['MATIC', 'ETH'],
+    ['ETH', 'LINK'], ['LINK', 'ETH'],
+    ['ETH', 'UNI'], ['UNI', 'ETH'],
+    ['ETH', 'ATOM'], ['ATOM', 'ETH'],
+    ['ETH', 'XMR'], ['XMR', 'ETH'],
+    ['ETH', 'THETA'], ['THETA', 'ETH'],
+    ['ETH', 'FTM'], ['FTM', 'ETH'],
+    ['ETH', 'ALGO'], ['ALGO', 'ETH'],
+    ['ETH', 'VET'], ['VET', 'ETH'],
+    
+    // SOL pairs
+    ['SOL', 'USDC'], ['USDC', 'SOL'],
+    ['SOL', 'USDT'], ['USDT', 'SOL'],
+    ['SOL', 'ADA'], ['ADA', 'SOL'],
+    ['SOL', 'DOT'], ['DOT', 'SOL'],
+    ['SOL', 'AVAX'], ['AVAX', 'SOL'],
+    ['SOL', 'MATIC'], ['MATIC', 'SOL'],
+    ['SOL', 'ATOM'], ['ATOM', 'SOL'],
+    ['SOL', 'LINK'], ['LINK', 'SOL'],
+    
+    // LTC pairs
+    ['LTC', 'USDT'], ['USDT', 'LTC'],
+    ['LTC', 'USDC'], ['USDC', 'LTC'],
+    ['LTC', 'ADA'], ['ADA', 'LTC'],
+    ['LTC', 'DOT'], ['DOT', 'LTC'],
+    ['LTC', 'XMR'], ['XMR', 'LTC'],
+    ['LTC', 'THETA'], ['THETA', 'LTC'],
+    
+    // ADA pairs
+    ['ADA', 'USDT'], ['USDT', 'ADA'],
+    ['ADA', 'USDC'], ['USDC', 'ADA'],
+    ['ADA', 'DOT'], ['DOT', 'ADA'],
+    ['ADA', 'AVAX'], ['AVAX', 'ADA'],
+    ['ADA', 'MATIC'], ['MATIC', 'ADA'],
+    ['ADA', 'ATOM'], ['ATOM', 'ADA'],
+    
+    // DOT pairs
+    ['DOT', 'USDT'], ['USDT', 'DOT'],
+    ['DOT', 'USDC'], ['USDC', 'DOT'],
+    ['DOT', 'AVAX'], ['AVAX', 'DOT'],
+    ['DOT', 'MATIC'], ['MATIC', 'DOT'],
+    ['DOT', 'LINK'], ['LINK', 'DOT'],
+    ['DOT', 'ATOM'], ['ATOM', 'DOT'],
+    
+    // AVAX pairs
+    ['AVAX', 'USDT'], ['USDT', 'AVAX'],
+    ['AVAX', 'USDC'], ['USDC', 'AVAX'],
+    ['AVAX', 'MATIC'], ['MATIC', 'AVAX'],
+    ['AVAX', 'UNI'], ['UNI', 'AVAX'],
+    ['AVAX', 'ATOM'], ['ATOM', 'AVAX'],
+    
+    // MATIC pairs
+    ['MATIC', 'USDT'], ['USDT', 'MATIC'],
+    ['MATIC', 'USDC'], ['USDC', 'MATIC'],
+    ['MATIC', 'LINK'], ['LINK', 'MATIC'],
+    ['MATIC', 'UNI'], ['UNI', 'MATIC'],
+    ['MATIC', 'FTM'], ['FTM', 'MATIC'],
+    
+    // LINK pairs
+    ['LINK', 'USDT'], ['USDT', 'LINK'],
+    ['LINK', 'USDC'], ['USDC', 'LINK'],
+    ['LINK', 'UNI'], ['UNI', 'LINK'],
+    ['LINK', 'ATOM'], ['ATOM', 'LINK'],
+    ['LINK', 'THETA'], ['THETA', 'LINK'],
+    
+    // UNI pairs
+    ['UNI', 'USDT'], ['USDT', 'UNI'],
+    ['UNI', 'USDC'], ['USDC', 'UNI'],
+    ['UNI', 'ATOM'], ['ATOM', 'UNI'],
+    
+    // ATOM pairs
+    ['ATOM', 'USDT'], ['USDT', 'ATOM'],
+    ['ATOM', 'USDC'], ['USDC', 'ATOM'],
+    ['ATOM', 'FTM'], ['FTM', 'ATOM'],
+    
+    // XMR pairs
+    ['XMR', 'USDT'], ['USDT', 'XMR'],
+    ['XMR', 'USDC'], ['USDC', 'XMR'],
+    
+    // THETA pairs
+    ['THETA', 'USDT'], ['USDT', 'THETA'],
+    ['THETA', 'USDC'], ['USDC', 'THETA'],
+    
+    // FTM pairs
+    ['FTM', 'USDT'], ['USDT', 'FTM'],
+    ['FTM', 'USDC'], ['USDC', 'FTM'],
+    ['FTM', 'ALGO'], ['ALGO', 'FTM'],
+    
+    // ALGO pairs
+    ['ALGO', 'USDT'], ['USDT', 'ALGO'],
+    ['ALGO', 'USDC'], ['USDC', 'ALGO'],
+    ['ALGO', 'VET'], ['VET', 'ALGO'],
+    
+    // VET pairs
+    ['VET', 'USDT'], ['USDT', 'VET'],
+    ['VET', 'USDC'], ['USDC', 'VET']
+];
+
+// Generate random transaction ID
+function generateTxId() {
+    return 'tx_' + Math.random().toString(36).substr(2, 9);
+}
+
+// Generate random transaction hash
+function generateTxHash() {
+    const chars = '0123456789abcdef';
+    let hash = '0x';
+    for (let i = 0; i < 32; i++) {
+        hash += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return hash;
+}
+
+// Generate realistic transaction amounts with more randomization
+function generateTransactionAmounts(fromCrypto, toCrypto) {
+    const fromPrice = prices[fromCrypto];
+    const toPrice = prices[toCrypto];
+    
+    // Define transaction size categories with different probability weights
+    const transactionTypes = [
+        { name: 'micro', range: [10, 100], weight: 30 },      // Small retail trades
+        { name: 'small', range: [100, 500], weight: 25 },     // Regular retail
+        { name: 'medium', range: [500, 2000], weight: 20 },   // Serious traders
+        { name: 'large', range: [2000, 10000], weight: 15 },  // High volume
+        { name: 'whale', range: [10000, 50000], weight: 7 },  // Whale trades
+        { name: 'mega', range: [50000, 200000], weight: 3 }   // Institutional
+    ];
+    
+    // Weighted random selection of transaction type
+    const totalWeight = transactionTypes.reduce((sum, type) => sum + type.weight, 0);
+    let randomWeight = Math.random() * totalWeight;
+    let selectedType = transactionTypes[0];
+    
+    for (const type of transactionTypes) {
+        randomWeight -= type.weight;
+        if (randomWeight <= 0) {
+            selectedType = type;
+            break;
+        }
+    }
+    
+    // Generate random USD value within the selected range
+    const [minUsd, maxUsd] = selectedType.range;
+    const usdValue = Math.random() * (maxUsd - minUsd) + minUsd;
+    
+    // Add some randomness to the exchange rate (±2% variation)
+    const rateVariation = 0.98 + (Math.random() * 0.04); // 0.98 to 1.02
+    const effectiveToPrice = toPrice * rateVariation;
+    
+    // Calculate amounts with 0.3-0.8% random fee
+    const feePercent = 0.003 + (Math.random() * 0.005); // 0.3% to 0.8%
+    const fromAmount = usdValue / fromPrice;
+    const toAmount = (usdValue * (1 - feePercent)) / effectiveToPrice;
+    
+    // Format amounts based on crypto type and value
+    const formatAmount = (amount, crypto) => {
+        if (['USDT', 'USDC'].includes(crypto)) {
+            return Math.round(amount * 100) / 100; // 2 decimal places for stablecoins
+        } else if (['BTC'].includes(crypto)) {
+            if (amount < 0.001) {
+                return Math.round(amount * 100000000) / 100000000; // 8 decimals for small BTC amounts
+            } else {
+                return Math.round(amount * 100000) / 100000; // 5 decimals for larger BTC amounts
+            }
+        } else if (['ETH'].includes(crypto)) {
+            if (amount < 0.01) {
+                return Math.round(amount * 1000000) / 1000000; // 6 decimals for small ETH amounts
+            } else {
+                return Math.round(amount * 10000) / 10000; // 4 decimals for larger ETH amounts
+            }
+        } else if (['SOL', 'DOT', 'AVAX', 'LINK', 'UNI', 'ATOM'].includes(crypto)) {
+            if (amount < 1) {
+                return Math.round(amount * 1000000) / 1000000; // 6 decimals for small amounts
+            } else {
+                return Math.round(amount * 1000) / 1000; // 3 decimals for larger amounts
+            }
+        } else if (['THETA', 'ADA', 'MATIC', 'FTM', 'ALGO', 'VET'].includes(crypto)) {
+            if (amount < 10) {
+                return Math.round(amount * 100000) / 100000; // 5 decimals for small amounts
+            } else {
+                return Math.round(amount * 100) / 100; // 2 decimals for larger amounts
+            }
+        } else {
+            // Default formatting for other cryptos
+            if (amount < 1) {
+                return Math.round(amount * 1000000) / 1000000; // 6 decimals
+            } else {
+                return Math.round(amount * 1000) / 1000; // 3 decimals
+            }
+        }
+    };
+    
+    return {
+        fromAmount: formatAmount(fromAmount, fromCrypto),
+        toAmount: formatAmount(toAmount, toCrypto),
+        usdValue: Math.round(usdValue),
+        transactionType: selectedType.name,
+        fee: (feePercent * 100).toFixed(2) + '%'
+    };
+}
+
+// Generate random transaction status
+function generateRandomStatus() {
+    const statuses = ['completed', 'pending', 'completed', 'completed']; // Higher chance of completed
+    return statuses[Math.floor(Math.random() * statuses.length)];
+}
+
+// Generate a new random transaction
+function generateRandomTransaction() {
+    const randomPair = popularTradingPairs[Math.floor(Math.random() * popularTradingPairs.length)];
+    const [fromCrypto, toCrypto] = randomPair;
+    const amounts = generateTransactionAmounts(fromCrypto, toCrypto);
+    
+    const newTransaction = {
+        id: generateTxId(),
+        fromCrypto,
+        toCrypto,
+        fromAmount: amounts.fromAmount,
+        toAmount: amounts.toAmount,
+        usdValue: amounts.usdValue,
+        transactionType: amounts.transactionType,
+        fee: amounts.fee,
+        status: generateRandomStatus(),
+        timestamp: new Date(),
+        txHash: generateTxHash()
+    };
+    
+    // Add to beginning of array and keep only last 20 transactions
+    recentTransactions.unshift(newTransaction);
+    if (recentTransactions.length > 20) {
+        recentTransactions = recentTransactions.slice(0, 20);
+    }
+    
+    return newTransaction;
+}
+
+// Start random transaction generator
+let transactionInterval;
+
+function startRandomTransactionGenerator() {
+    transactionInterval = setInterval(() => {
+        const newTx = generateRandomTransaction();
+        
+        // Enhanced console logging with transaction details
+        const sizeEmoji = {
+            'micro': '🔸',
+            'small': '🔹',
+            'medium': '💎', 
+            'large': '🚀',
+            'whale': '🐋',
+            'mega': '🏛️'
+        };
+        
+        console.log(`${sizeEmoji[newTx.transactionType] || '💰'} New ${newTx.transactionType} transaction: ${newTx.fromCrypto} → ${newTx.toCrypto} | $${newTx.usdValue.toLocaleString()} | Fee: ${newTx.fee}`);
+        
+        // Re-render transactions with animation
+        renderTransactionsWithAnimation();
+    }, 5000); // Every 5 seconds
+}
+
+function stopRandomTransactionGenerator() {
+    if (transactionInterval) {
+        clearInterval(transactionInterval);
+    }
+}
+
+// Mock Trustpilot reviews data
+const trustpilotReviews = [
+    {
+        id: 'review_001',
+        name: 'Michael Chen',
+        avatar: 'MC',
+        rating: 5,
+        date: '2 days ago',
+        title: 'Excellent crypto exchange platform',
+        review: 'Fast transactions and competitive rates. I\'ve been using NexaBit for 6 months now and never had any issues. The interface is clean and easy to use.',
+        verified: true
+    },
+    {
+        id: 'review_002', 
+        name: 'Sarah Martinez',
+        avatar: 'SM',
+        rating: 4,
+        date: '1 week ago',
+        title: 'Great service, quick support',
+        review: 'Really impressed with the customer support team. Had an issue with a BTC transfer and they resolved it within hours. Rates are fair too.',
+        verified: true
+    },
+    {
+        id: 'review_003',
+        name: 'James Wilson',
+        avatar: 'JW', 
+        rating: 5,
+        date: '3 days ago',
+        title: 'Best rates I\'ve found',
+        review: 'Compared several exchanges and NexaBit consistently offers the best conversion rates. The fee structure is transparent and reasonable.',
+        verified: true
+    },
+    {
+        id: 'review_004',
+        name: 'Emma Thompson',
+        avatar: 'ET',
+        rating: 4,
+        date: '5 days ago',
+        title: 'Smooth experience overall',
+        review: 'User-friendly platform with quick exchanges. Only minor complaint is that some altcoins could have better liquidity, but major coins work perfectly.',
+        verified: true
+    },
+    {
+        id: 'review_005',
+        name: 'David Kumar',
+        avatar: 'DK',
+        rating: 5,
+        date: '1 week ago', 
+        title: 'Reliable and trustworthy',
+        review: 'Been trading crypto for years and NexaBit is now my go-to exchange. Fast KYC process, secure wallets, and excellent uptime. Highly recommended!',
+        verified: true
+    },
+    {
+        id: 'review_006',
+        name: 'Lisa Park',
+        avatar: 'LP',
+        rating: 4,
+        date: '4 days ago',
+        title: 'Great for beginners',
+        review: 'Perfect platform for crypto newcomers. The interface is intuitive and the educational resources helped me understand the basics. Good job!',
+        verified: true
+    }
+];
+
+// Function to render Trustpilot reviews
+function renderTrustpilotReviews() {
+    const reviewsContainer = document.getElementById('reviewsContainer');
+    if (!reviewsContainer) return;
+    
+    // Show 3 random reviews
+    const randomReviews = trustpilotReviews
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3);
+    
+    const reviewsHTML = randomReviews.map(review => {
+        const stars = Array(5).fill(0).map((_, index) => {
+            return index < review.rating 
+                ? '<span class="star filled">★</span>'
+                : '<span class="star empty">★</span>';
+        }).join('');
+        
+        return `
+            <div class="review-item">
+                <div class="review-header">
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar">${review.avatar}</div>
+                        <div class="reviewer-details">
+                            <div class="reviewer-name">
+                                ${review.name}
+                                ${review.verified ? '<span class="verified-badge">✓</span>' : ''}
+                            </div>
+                            <div class="review-date">${review.date}</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        ${stars}
+                    </div>
+                </div>
+                <div class="review-content">
+                    <h4 class="review-title">${review.title}</h4>
+                    <p class="review-text">${review.review}</p>
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    reviewsContainer.innerHTML = reviewsHTML;
+}
+
+// Function to rotate reviews periodically
+function startReviewRotation() {
+    setInterval(() => {
+        renderTrustpilotReviews();
+    }, 15000); // Rotate reviews every 15 seconds
+}
+
+// Function to format time ago
+function timeAgo(date) {
+    const now = new Date();
+    const diff = now - date;
+    const minutes = Math.floor(diff / (1000 * 60));
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    
+    if (minutes < 60) {
+        return `${minutes}m ago`;
+    } else if (hours < 24) {
+        return `${hours}h ago`;
+    } else {
+        return `${days}d ago`;
+    }
+}
+
+// Function to render transactions with animation
+function renderTransactionsWithAnimation() {
+    const transactionsList = document.getElementById('transactionsList');
+    if (!transactionsList) return;
+    
+    // Add fade-out animation to existing transactions
+    const existingItems = transactionsList.querySelectorAll('.transaction-item');
+    existingItems.forEach(item => {
+        item.style.transition = 'all 0.3s ease';
+        item.style.opacity = '0.7';
+        item.style.transform = 'translateX(-10px)';
+    });
+    
+    // Render new transactions after animation
+    setTimeout(() => {
+        renderTransactions();
+        
+        // Add fade-in animation to new transactions
+        const newItems = transactionsList.querySelectorAll('.transaction-item');
+        newItems.forEach((item, index) => {
+            if (index === 0) {
+                // Highlight the newest transaction
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(-20px)';
+                item.style.animation = 'newTransaction 0.6s ease-out forwards';
+            } else {
+                item.style.opacity = '1';
+                item.style.transform = 'translateX(0)';
+            }
+        });
+    }, 150);
+}
+
+// Function to render transactions
+function renderTransactions() {
+    const transactionsList = document.getElementById('transactionsList');
+    if (!transactionsList) return;
+    
+    const transactionsHTML = recentTransactions.slice(0, 3).map((tx, index) => {
+        const statusClass = tx.status === 'completed' ? 'completed' : 
+                           tx.status === 'pending' ? 'pending' : 'failed';
+        
+        const isNew = index === 0 && tx.timestamp > new Date(Date.now() - 10000); // New if less than 10 seconds old
+        
+        // Add size indicator for transaction types
+        const sizeClass = tx.transactionType ? `transaction-${tx.transactionType}` : '';
+        const sizeEmoji = {
+            'micro': '🔸',
+            'small': '🔹', 
+            'medium': '💎',
+            'large': '🚀',
+            'whale': '🐋',
+            'mega': '🏛️'
+        };
+        
+        return `
+            <div class="transaction-item ${isNew ? 'new-transaction' : ''} ${sizeClass}" data-tx-id="${tx.id}">
+                <div class="transaction-main">
+                    <div class="transaction-pair">
+                        <div class="crypto-from">
+                            <span class="crypto-emoji">${cryptoEmojis[tx.fromCrypto] || '?'}</span>
+                            <span class="crypto-symbol">${tx.fromCrypto}</span>
+                            <span class="crypto-amount">${tx.fromAmount}</span>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="crypto-to">
+                            <span class="crypto-emoji">${cryptoEmojis[tx.toCrypto] || '?'}</span>
+                            <span class="crypto-symbol">${tx.toCrypto}</span>
+                            <span class="crypto-amount">${tx.toAmount}</span>
+                        </div>
+                    </div>
+                    <div class="transaction-meta">
+                        <span class="transaction-status ${statusClass}">${tx.status}</span>
+                        <span class="transaction-time">${timeAgo(tx.timestamp)}</span>
+                        ${tx.transactionType ? `<span class="transaction-size" title="${tx.transactionType} transaction">${sizeEmoji[tx.transactionType] || ''}</span>` : ''}
+                    </div>
+                </div>
+                <div class="transaction-value">$${tx.usdValue.toLocaleString()}</div>
+            </div>
+        `;
+    }).join('');
+    
+    transactionsList.innerHTML = transactionsHTML;
+}
 
 // Calculate exchange amounts
 function calculate() {
@@ -350,6 +955,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initial calculation
     calculate();
+    
+    // Render transactions
+    renderTransactions();
+    
+    // Render Trustpilot reviews
+    renderTrustpilotReviews();
+    
+    // Start review rotation
+    startReviewRotation();
+    
+    // Start random transaction generator
+    startRandomTransactionGenerator();
     
     // Force update display with correct values
     setTimeout(() => {
