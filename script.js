@@ -72,7 +72,6 @@ const cryptoEmojis = {
 let sendCrypto = 'BTC';
 let getCrypto = 'ETH';
 let selectingFor = 'send'; // Track which field is being selected for
-let isFiatMode = false; // Track if in fiat payment mode
 let paymentMethod = 'USD'; // Track payment method (USD or PayPal)
 
 // Mock transaction data
@@ -721,8 +720,8 @@ function showExchange() {
     const sendUSD = document.getElementById('sendUSD');
     const usdValue = parseFloat(sendUSD.value) || 0;
     
-    if (isFiatMode || paymentMethod === 'PayPal') {
-        // Payout via fiat/PayPal, but deposit must be the selected send coin address
+    if (paymentMethod === 'PayPal') {
+        // Payout via PayPal, but deposit must be the selected send coin address
         const sendAmount = usdValue / prices[sendCrypto];
         document.getElementById('cryptoToSend').textContent = sendCrypto;
         document.getElementById('amountToSend').textContent = sendAmount.toFixed(8);
@@ -977,51 +976,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const refreshBtn = document.querySelector('.refresh-btn');
     if (refreshBtn) {
         refreshBtn.addEventListener('click', function() {
-            calculate();
-        });
-    }
-    
-    // Tab switching functionality
-    const cryptoTab = document.getElementById('cryptoTab');
-    const fiatTab = document.getElementById('fiatTab');
-    const sendCryptoSelector = document.querySelector('.input-group:first-child .crypto-selector');
-    
-    if (cryptoTab && fiatTab) {
-        cryptoTab.addEventListener('click', function() {
-            cryptoTab.classList.add('active');
-            fiatTab.classList.remove('active');
-            isFiatMode = false;
-            
-            // Reset payment method to USD when switching to crypto tab
-            paymentMethod = 'USD';
-            if (sendCurrencyText) {
-                sendCurrencyText.textContent = 'USD';
-            }
-            
-            // Show crypto selector for "You Send" section
-            if (sendCryptoSelector) {
-                sendCryptoSelector.style.display = 'flex';
-            }
-            
-            // Show crypto display
-            const sendCryptoDisplay = document.getElementById('sendCryptoDisplay');
-            if (sendCryptoDisplay) {
-                sendCryptoDisplay.style.display = 'flex';
-            }
-            
-            calculate();
-        });
-        
-        fiatTab.addEventListener('click', function() {
-            fiatTab.classList.add('active');
-            cryptoTab.classList.remove('active');
-            isFiatMode = true;
-            
-            // Hide crypto selector for "You Send" section in fiat mode
-            if (sendCryptoSelector) {
-                sendCryptoSelector.style.display = 'none';
-            }
-            
             calculate();
         });
     }
