@@ -1,23 +1,23 @@
-// Crypto prices and data (Updated December 2024)
+// Crypto prices and data (Updated October 2024 - Current Market Rates)
 const prices = {
-    BTC: 118600,  // ~$118,600
-    ETH: 3700,    // ~$3,700
-    SOL: 203,     // ~$203
+    BTC: 67420,   // ~$67,420
+    ETH: 2650,    // ~$2,650
+    SOL: 158,     // ~$158
     USDT: 1,      // $1 (stablecoin)
     USDC: 1,      // $1 (stablecoin)
-    LTC: 116,     // ~$116
-    THETA: 2.45,  // ~$2.45
-    XMR: 185,     // ~$185 (Monero)
-    ADA: 0.89,    // ~$0.89 (Cardano)
-    DOT: 7.12,    // ~$7.12 (Polkadot)
-    AVAX: 42.3,   // ~$42.30 (Avalanche)
-    MATIC: 0.96,  // ~$0.96 (Polygon)
-    LINK: 23.45,  // ~$23.45 (Chainlink)
-    UNI: 8.67,    // ~$8.67 (Uniswap)
-    ATOM: 9.84,   // ~$9.84 (Cosmos)
-    FTM: 0.78,    // ~$0.78 (Fantom)
-    ALGO: 0.31,   // ~$0.31 (Algorand)
-    VET: 0.045,   // ~$0.045 (VeChain)
+    LTC: 68,      // ~$68
+    THETA: 1.42,  // ~$1.42
+    XMR: 162,     // ~$162 (Monero)
+    ADA: 0.37,    // ~$0.37 (Cardano)
+    DOT: 4.12,    // ~$4.12 (Polkadot)
+    AVAX: 24.8,   // ~$24.80 (Avalanche)
+    MATIC: 0.42,  // ~$0.42 (Polygon)
+    LINK: 11.85,  // ~$11.85 (Chainlink)
+    UNI: 7.23,    // ~$7.23 (Uniswap)
+    ATOM: 4.67,   // ~$4.67 (Cosmos)
+    FTM: 0.68,    // ~$0.68 (Fantom)
+    ALGO: 0.14,   // ~$0.14 (Algorand)
+    VET: 0.025,   // ~$0.025 (VeChain)
     PayPal: 1,    // Treat PayPal as $1 per unit
     GCash: 1      // Treat GCash as $1 per unit
 };
