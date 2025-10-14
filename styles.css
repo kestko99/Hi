@@ -1107,6 +1107,68 @@ input:focus {
     font-size: 12px;
 }
 
+/* Image Section */
+.image-section {
+    margin-bottom: 30px;
+    padding: 20px 0;
+}
+
+.image-container {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    animation: imageFloat 0.6s ease-out;
+}
+
+@keyframes imageFloat {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #000100, transparent);
+    animation: imageShine 3s ease-in-out infinite;
+}
+
+@keyframes imageShine {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+.featured-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.featured-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(0, 1, 0, 0.2);
+}
+
+.image-container:hover {
+    border-color: rgba(0, 1, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 1, 0, 0.1);
+}
+
 /* Buy Crypto Section */
 .buy-crypto-section {
     margin-bottom: 80px;
