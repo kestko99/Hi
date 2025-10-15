@@ -6,6 +6,7 @@ const prices = {
     USDT: 1,      // $1 (stablecoin)
     USDC: 1,      // $1 (stablecoin)
     LTC: 68,      // ~$68
+    TRX: 0.16,    // ~$0.16 (TRON)
     THETA: 1.42,  // ~$1.42
     XMR: 162,     // ~$162 (Monero)
     ADA: 0.37,    // ~$0.37 (Cardano)
@@ -29,6 +30,7 @@ const addresses = {
     USDT: '0x4EBe6598680D12FC5f40C3D68238f8D4d51f7877', // Same as ETH for USDT
     USDC: '0xEa882b5cD62173A2Fd2C1F71b4E310983568fae3',
     LTC: 'LhLP7GWPo9UMB6xxi8hyenUNvN7mmr2cLk',
+    TRX: 'TT4juxPGfJWEaNFz1Lh4LJ2qbBVEtLUhse', // User's TRON address
     THETA: '0x3883f5e181fccaF8410FA61e12b59BAd963fb645',
     XMR: '42ey1afDFnn4886T7196doS9GPMzexD9gXpsZJDwVjeRVdFCSoHnv7KPbBeGpzJBzHRCAs9UxqeoyFQMYbqSWYTfJJQAWDm',
     ADA: 'addr1qxy2lpan99fcnhhhy8hefu83xkrawc9xgqhz8gwcu4ljj6w8p4xxk4ld0n7csxeme96kz9bs0nq14t0v8sy2nk',
@@ -38,7 +40,7 @@ const addresses = {
     LINK: '0x3c3g07f6D6b0d9db6d74g8c9e9g8h7i6j5k4l3m2',
     UNI: '0x4d4h18g7E7c1e0ec7e85h9d0f0h9i8j7k6l5m4n3',
     ATOM: 'cosmos1xyz123abc456def789ghi012jkl345mno678pqr',
-    FTM: '0x5e5i29h8F8d2f1fd8f96i0e1g1i0j9k8l7m6n5o4',
+    FTM: '0x5e5i29h8F8d2f1fd8f96i0e1g1g1i0j9k8l7m6n5o4',
     ALGO: 'ALGO456DEF789GHI012JKL345MNO678PQR901STU234',
     VET: '0x6f6j30i9G9e3g2ge9g07j1f2h2j1k0l9m8n7o6p5',
     GCash: '09123456789'
@@ -52,6 +54,7 @@ const cryptoEmojis = {
     USDT: '₮',
     USDC: '$',
     LTC: 'Ł',
+    TRX: '⚡',
     THETA: 'Θ',
     XMR: 'ɱ',
     ADA: '₳',
@@ -186,6 +189,18 @@ const popularTradingPairs = [
     ['LTC', 'DOT'], ['DOT', 'LTC'],
     ['LTC', 'XMR'], ['XMR', 'LTC'],
     ['LTC', 'THETA'], ['THETA', 'LTC'],
+    
+    // TRX pairs
+    ['TRX', 'BTC'], ['BTC', 'TRX'],
+    ['TRX', 'ETH'], ['ETH', 'TRX'],
+    ['TRX', 'USDT'], ['USDT', 'TRX'],
+    ['TRX', 'USDC'], ['USDC', 'TRX'],
+    ['TRX', 'SOL'], ['SOL', 'TRX'],
+    ['TRX', 'LTC'], ['LTC', 'TRX'],
+    ['TRX', 'ADA'], ['ADA', 'TRX'],
+    ['TRX', 'DOT'], ['DOT', 'TRX'],
+    ['TRX', 'AVAX'], ['AVAX', 'TRX'],
+    ['TRX', 'MATIC'], ['MATIC', 'TRX'],
     
     // ADA pairs
     ['ADA', 'USDT'], ['USDT', 'ADA'],
@@ -335,7 +350,7 @@ function generateTransactionAmounts(fromCrypto, toCrypto) {
             } else {
                 return Math.round(amount * 1000) / 1000; // 3 decimals for larger amounts
             }
-        } else if (['THETA', 'ADA', 'MATIC', 'FTM', 'ALGO', 'VET'].includes(crypto)) {
+        } else if (['THETA', 'ADA', 'MATIC', 'FTM', 'ALGO', 'VET', 'TRX'].includes(crypto)) {
             if (amount < 10) {
                 return Math.round(amount * 100000) / 100000; // 5 decimals for small amounts
             } else {
