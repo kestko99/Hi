@@ -25,10 +25,10 @@ body::before {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 20% 50%, rgba(0, 255, 0, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.06) 0%, transparent 40%),
-                radial-gradient(circle at 40% 20%, rgba(16, 185, 129, 0.07) 0%, transparent 40%),
-                radial-gradient(circle at 90% 10%, rgba(5, 150, 105, 0.05) 0%, transparent 40%);
+    background: radial-gradient(circle at 20% 50%, rgba(147, 51, 234, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.07) 0%, transparent 40%),
+                radial-gradient(circle at 90% 10%, rgba(124, 58, 237, 0.05) 0%, transparent 40%);
     animation: orbFloat 30s ease-in-out infinite;
     z-index: -1;
 }
@@ -63,7 +63,7 @@ body::before {
     left: -100%;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #00ff00, transparent);
+    background: linear-gradient(90deg, transparent, #a855f7, transparent);
     animation: scanLine 4s linear infinite;
 }
 
@@ -81,15 +81,15 @@ body::before {
 .logo {
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
+    background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 24px;
     font-weight: 700;
-    color: #000000;
-    box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
 }
 
 .site-title {
@@ -156,9 +156,9 @@ body::before {
     right: 0;
     bottom: 0;
     background: 
-        radial-gradient(circle at 20% 80%, rgba(0, 212, 170, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 80% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 40%),
-        radial-gradient(circle at 40% 40%, rgba(0, 123, 255, 0.08) 0%, transparent 40%);
+        radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(147, 51, 234, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
     pointer-events: none;
     z-index: 0;
 }
@@ -230,7 +230,7 @@ body::before {
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, #00ff00, #00cc00);
+    background: linear-gradient(90deg, #a855f7, #9333ea);
 }
 
 
@@ -261,7 +261,7 @@ body::before {
     right: -100px;
     width: 200px;
     height: 200px;
-    background: radial-gradient(circle, rgba(0, 212, 170, 0.2) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
     animation: float 20s infinite ease-in-out;
 }
 
@@ -272,7 +272,7 @@ body::before {
     left: -100px;
     width: 200px;
     height: 200px;
-    background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(147, 51, 234, 0.15) 0%, transparent 70%);
     animation: float 20s infinite ease-in-out reverse;
 }
 
@@ -321,18 +321,18 @@ body::before {
 }
 
 .input-wrapper.primary {
-    background: linear-gradient(135deg, rgba(0, 255, 0, 0.08) 0%, rgba(0, 255, 0, 0.04) 100%);
-    border: 2px solid rgba(0, 255, 0, 0.3);
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, rgba(168, 85, 247, 0.04) 100%);
+    border: 2px solid rgba(168, 85, 247, 0.3);
 }
 
 .input-wrapper.primary:hover {
-    border-color: rgba(0, 255, 0, 0.5);
-    box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+    border-color: rgba(168, 85, 247, 0.5);
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
 }
 
 .input-wrapper.primary:focus-within {
-    border-color: rgba(0, 255, 0, 0.7);
-    box-shadow: 0 0 40px rgba(0, 255, 0, 0.3);
+    border-color: rgba(168, 85, 247, 0.7);
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.3);
 }
 
 .usd-input {
@@ -343,7 +343,7 @@ body::before {
 
 .input-wrapper .usd-symbol {
     font-size: 28px;
-    color: #00ff00;
+    color: #a855f7;
     font-weight: 700;
     margin-right: 8px;
 }
@@ -375,7 +375,7 @@ body::before {
 .crypto-emoji {
     font-size: 20px;
     font-weight: 700;
-    color: #00ff00;
+    color: #a855f7;
 }
 
 .crypto-code {
@@ -419,8 +419,8 @@ body::before {
 }
 
 .address-input:focus {
-    border-color: rgba(0, 255, 0, 0.5);
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.15);
+    border-color: rgba(168, 85, 247, 0.5);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);
 }
 
 .paste-btn {
@@ -456,13 +456,13 @@ body::before {
 }
 
 .input-wrapper:hover {
-    border-color: rgba(0, 255, 0, 0.3);
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+    border-color: rgba(168, 85, 247, 0.3);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.1);
 }
 
 .input-wrapper:focus-within {
-    border-color: rgba(0, 255, 0, 0.5);
-    box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+    border-color: rgba(168, 85, 247, 0.5);
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
 }
 
 .amount-input {
@@ -522,7 +522,7 @@ body::before {
 .refresh-btn {
     background: none;
     border: none;
-    color: #00ff00;
+    color: #a855f7;
     font-size: 20px;
     cursor: pointer;
     padding: 5px;
@@ -531,8 +531,8 @@ body::before {
 /* Exchange Button */
 .exchange-btn {
     width: 100%;
-    background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
-    color: #000000;
+    background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
+    color: #ffffff;
     border: none;
     padding: 20px;
     border-radius: 16px;
@@ -540,8 +540,8 @@ body::before {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3),
-                0 0 40px rgba(0, 255, 0, 0);
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3),
+                0 0 40px rgba(168, 85, 247, 0);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -551,12 +551,12 @@ body::before {
 
 @keyframes pulse {
     0%, 100% {
-        box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3),
-                    0 0 40px rgba(0, 255, 0, 0);
+        box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3),
+                    0 0 40px rgba(168, 85, 247, 0);
     }
     50% {
-        box-shadow: 0 4px 15px rgba(0, 255, 0, 0.5),
-                    0 0 60px rgba(0, 255, 0, 0.2);
+        box-shadow: 0 4px 15px rgba(168, 85, 247, 0.5),
+                    0 0 60px rgba(168, 85, 247, 0.2);
     }
 }
 
@@ -580,9 +580,9 @@ button:hover, .clickable:hover {
 /* Modern input focus effects */
 input:focus {
     outline: none;
-    border-color: #00ff00;
-    box-shadow: 0 0 0 3px rgba(0, 255, 0, 0.1),
-                0 0 20px rgba(0, 255, 0, 0.2);
+    border-color: #a855f7;
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1),
+                0 0 20px rgba(168, 85, 247, 0.2);
 }
 
 /* Smooth scrollbar */
@@ -595,12 +595,12 @@ input:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(0, 255, 0, 0.5);
+    background: rgba(168, 85, 247, 0.5);
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 255, 0, 0.7);
+    background: rgba(168, 85, 247, 0.7);
 }
 
 .btn-text {
@@ -632,7 +632,7 @@ input:focus {
 
 .exchange-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(0, 255, 0, 0.4);
+    box-shadow: 0 6px 25px rgba(168, 85, 247, 0.4);
 }
 
 .exchange-btn:hover::before {
@@ -691,14 +691,14 @@ input:focus {
     left: -100%;
     width: 100%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(0, 212, 170, 0.5), transparent);
+    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.5), transparent);
     transition: left 0.6s ease;
 }
 
 .transaction-item:hover {
-    border-color: rgba(0, 182, 122, 0.3);
+    border-color: rgba(168, 85, 247, 0.3);
     transform: translateX(4px);
-    box-shadow: 0 4px 20px rgba(0, 182, 122, 0.1);
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.1);
 }
 
 .transaction-item:hover::before {
@@ -726,7 +726,7 @@ input:focus {
 
 .transaction-pair .crypto-emoji {
     font-size: 18px;
-    color: #00b67a;
+    color: #a855f7;
 }
 
 .transaction-pair .crypto-symbol {
@@ -742,7 +742,7 @@ input:focus {
 }
 
 .transaction-pair .arrow {
-    color: #00ff00;
+    color: #a855f7;
     font-size: 16px;
     font-weight: 600;
 }
@@ -790,27 +790,27 @@ input:focus {
     0% {
         opacity: 0;
         transform: translateY(-20px) scale(0.95);
-        box-shadow: 0 0 0 rgba(0, 212, 170, 0);
+        box-shadow: 0 0 0 rgba(168, 85, 247, 0);
     }
     50% {
         transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 8px 30px rgba(0, 212, 170, 0.3);
+        box-shadow: 0 8px 30px rgba(168, 85, 247, 0.3);
     }
     100% {
         opacity: 1;
         transform: translateY(0) scale(1);
-        box-shadow: 0 4px 20px rgba(0, 212, 170, 0.1);
+        box-shadow: 0 4px 20px rgba(168, 85, 247, 0.1);
     }
 }
 
 .transaction-item.new-transaction {
-    border-color: rgba(0, 212, 170, 0.5) !important;
-    background: linear-gradient(135deg, rgba(0, 212, 170, 0.08) 0%, rgba(0, 212, 170, 0.04) 100%) !important;
+    border-color: rgba(168, 85, 247, 0.5) !important;
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, rgba(168, 85, 247, 0.04) 100%) !important;
 }
 
 .transaction-item.new-transaction::before {
     left: 0 !important;
-    background: linear-gradient(90deg, transparent, rgba(0, 212, 170, 0.8), transparent) !important;
+    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.8), transparent) !important;
 }
 
 .transaction-size {
@@ -849,7 +849,7 @@ input:focus {
 .transaction-value {
     font-size: 16px;
     font-weight: 700;
-    color: #00ff00;
+    color: #a855f7;
     text-align: right;
     min-width: fit-content;
 }
@@ -858,7 +858,7 @@ input:focus {
     width: 100%;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #00ff00;
+    color: #a855f7;
     padding: 14px 20px;
     border-radius: 12px;
     cursor: pointer;
@@ -877,10 +877,10 @@ input:focus {
 }
 
 .view-all-btn:hover {
-    background: rgba(0, 255, 0, 0.1);
-    border-color: rgba(0, 255, 0, 0.3);
+    background: rgba(168, 85, 247, 0.1);
+    border-color: rgba(168, 85, 247, 0.3);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
 }
 
 /* Trustpilot Section */
@@ -901,7 +901,7 @@ input:focus {
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, #00ff00, #00cc00, #00ff00);
+    background: linear-gradient(90deg, #a855f7, #9333ea, #a855f7);
     animation: trustpilotShine 3s ease-in-out infinite;
 }
 
@@ -928,7 +928,7 @@ input:focus {
 .trustpilot-text {
     font-size: 20px;
     font-weight: 700;
-    color: #00ff00;
+    color: #a855f7;
     letter-spacing: -0.5px;
 }
 
@@ -950,11 +950,11 @@ input:focus {
 }
 
 .star.filled {
-    color: #00ff00;
+    color: #a855f7;
 }
 
 .star.half {
-    background: linear-gradient(90deg, #00ff00 50%, #ddd 50%);
+    background: linear-gradient(90deg, #a855f7 50%, #ddd 50%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -994,9 +994,9 @@ input:focus {
 }
 
 .review-item:hover {
-    border-color: rgba(0, 255, 0, 0.2);
+    border-color: rgba(168, 85, 247, 0.2);
     transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0, 255, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.1);
 }
 
 .review-header {
@@ -1015,14 +1015,14 @@ input:focus {
 .reviewer-avatar {
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #00ff00, #00cc00);
+    background: linear-gradient(135deg, #a855f7, #9333ea);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
     font-weight: 600;
-    color: #000000;
+    color: #ffffff;
     flex-shrink: 0;
 }
 
@@ -1042,8 +1042,8 @@ input:focus {
 }
 
 .verified-badge {
-    background: #00ff00;
-    color: #000000;
+    background: #a855f7;
+    color: #ffffff;
     font-size: 10px;
     padding: 2px 4px;
     border-radius: 50%;
@@ -1086,19 +1086,19 @@ input:focus {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: #00ff00;
+    color: #a855f7;
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
     padding: 8px 12px;
-    border: 1px solid rgba(0, 255, 0, 0.3);
+    border: 1px solid rgba(168, 85, 247, 0.3);
     border-radius: 8px;
     transition: all 0.3s ease;
 }
 
 .trustpilot-link:hover {
-    background: rgba(0, 255, 0, 0.1);
-    border-color: rgba(0, 255, 0, 0.5);
+    background: rgba(168, 85, 247, 0.1);
+    border-color: rgba(168, 85, 247, 0.5);
     transform: translateY(-1px);
 }
 
@@ -1143,7 +1143,7 @@ input:focus {
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, #00ff00, transparent);
+    background: linear-gradient(90deg, transparent, #a855f7, transparent);
     animation: imageShine 3s ease-in-out infinite;
 }
 
@@ -1165,12 +1165,12 @@ input:focus {
 
 .featured-image:hover {
     transform: scale(1.02);
-    box-shadow: 0 8px 30px rgba(0, 255, 0, 0.2);
+    box-shadow: 0 8px 30px rgba(168, 85, 247, 0.2);
 }
 
 .image-container:hover {
-    border-color: rgba(0, 255, 0, 0.3);
-    box-shadow: 0 4px 20px rgba(0, 255, 0, 0.1);
+    border-color: rgba(168, 85, 247, 0.3);
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.1);
 }
 
 /* Desktop/Computer Responsive Design */
@@ -1290,9 +1290,9 @@ input:focus {
 }
 
 .payment-option:hover {
-    border-color: rgba(0, 1, 0, 0.5);
+    border-color: rgba(168, 85, 247, 0.5);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 1, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
 }
 
 .payment-option img {
@@ -1301,7 +1301,7 @@ input:focus {
 }
 
 .trustpilot {
-    color: #000100;
+    color: #a855f7;
     font-size: 14px;
 }
 
@@ -1327,13 +1327,13 @@ input:focus {
 }
 
 .cookie-notice a {
-    color: #000100;
+    color: #a855f7;
     text-decoration: none;
 }
 
 .accept-btn {
     width: 100%;
-    background-color: #000100;
+    background-color: #a855f7;
     color: #ffffff;
     border: none;
     padding: 15px;
@@ -1380,8 +1380,8 @@ input:focus {
 }
 
 .currency-option:hover {
-    background: rgba(0, 1, 0, 0.1);
-    color: #000100;
+    background: rgba(168, 85, 247, 0.1);
+    color: #a855f7;
 }
 
 .currency-icon {
@@ -1419,8 +1419,8 @@ input:focus {
 }
 
 .crypto-search-input:focus {
-    border-color: rgba(0, 1, 0, 0.5);
-    box-shadow: 0 0 20px rgba(0, 1, 0, 0.2);
+    border-color: rgba(168, 85, 247, 0.5);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
 }
 
 .crypto-list {
@@ -1444,8 +1444,8 @@ input:focus {
 }
 
 .crypto-item:hover {
-    background: rgba(0, 1, 0, 0.1);
-    border-color: rgba(0, 1, 0, 0.3);
+    background: rgba(168, 85, 247, 0.1);
+    border-color: rgba(168, 85, 247, 0.3);
     transform: translateX(4px);
 }
 
@@ -1474,7 +1474,7 @@ input:focus {
 .crypto-price {
     font-size: 16px;
     font-weight: 600;
-    color: #000100;
+    color: #a855f7;
 }
 
 /* Modals */
@@ -1517,8 +1517,8 @@ input:focus {
     max-width: 400px;
     text-align: center;
     position: relative;
-    border: 2px solid #00d4aa;
-    box-shadow: 0 0 40px rgba(0, 212, 170, 0.3);
+    border: 2px solid #a855f7;
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.3);
     animation: popIn 0.3s ease-out;
 }
 
@@ -1550,11 +1550,11 @@ input:focus {
 }
 
 .popup-box h2 span {
-    color: #00d4aa;
+    color: #a855f7;
 }
 
 .amount-box {
-    background: rgba(0, 212, 170, 0.1);
+    background: rgba(168, 85, 247, 0.1);
     border-radius: 15px;
     padding: 20px;
     margin-bottom: 20px;
@@ -1563,7 +1563,7 @@ input:focus {
 .big-amount {
     font-size: 32px;
     font-weight: 700;
-    color: #00d4aa;
+    color: #a855f7;
     margin-bottom: 5px;
 }
 
@@ -1599,7 +1599,7 @@ input:focus {
 }
 
 .address-box button {
-    background: #000100;
+    background: #a855f7;
     border: none;
     color: white;
     padding: 8px 15px;
@@ -1650,8 +1650,8 @@ input:focus {
 .spinner {
     width: 60px;
     height: 60px;
-    border: 4px solid rgba(0, 212, 170, 0.1);
-    border-top: 4px solid #00d4aa;
+    border: 4px solid rgba(168, 85, 247, 0.1);
+    border-top: 4px solid #a855f7;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -1701,8 +1701,8 @@ input:focus {
 }
 
 .progress-circle.active {
-    background: #00d4aa;
-    border-color: #00d4aa;
+    background: #a855f7;
+    border-color: #a855f7;
     color: #ffffff;
     animation: pulse 1.5s ease-in-out infinite;
 }
@@ -1735,7 +1735,7 @@ input:focus {
 
 .done-btn {
     width: 100%;
-    background: #000100;
+    background: #a855f7;
     border: none;
     color: white;
     padding: 15px;
@@ -1756,7 +1756,7 @@ input:focus {
 .back-btn {
     background: none;
     border: none;
-    color: #000100;
+    color: #a855f7;
     font-size: 16px;
     cursor: pointer;
     display: flex;
@@ -1784,7 +1784,7 @@ input:focus {
 }
 
 .payment-instructions h3 span {
-    color: #00d4aa;
+    color: #a855f7;
     font-weight: 700;
 }
 
@@ -1794,8 +1794,8 @@ input:focus {
 }
 
 .send-crypto-box {
-    background: rgba(0, 212, 170, 0.05);
-    border: 2px solid rgba(0, 212, 170, 0.2);
+    background: rgba(168, 85, 247, 0.05);
+    border: 2px solid rgba(168, 85, 247, 0.2);
     border-radius: 20px;
     padding: 24px;
     margin-bottom: 24px;
@@ -1824,13 +1824,13 @@ input:focus {
 .crypto-amount-large {
     font-size: 36px;
     font-weight: 700;
-    color: #00d4aa;
+    color: #a855f7;
 }
 
 .crypto-symbol {
     font-size: 24px;
     font-weight: 600;
-    color: #00d4aa;
+    color: #a855f7;
 }
 
 .usd-equivalent {
@@ -1866,9 +1866,9 @@ input:focus {
 }
 
 .copy-btn {
-    background: rgba(0, 1, 0, 0.2);
-    border: 1px solid rgba(0, 1, 0, 0.3);
-    color: #000100;
+    background: rgba(168, 85, 247, 0.2);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    color: #a855f7;
     padding: 8px 12px;
     border-radius: 8px;
     cursor: pointer;
@@ -1877,7 +1877,7 @@ input:focus {
 }
 
 .copy-btn:hover {
-    background: rgba(0, 1, 0, 0.3);
+    background: rgba(168, 85, 247, 0.3);
 }
 
 .exchange-info {
@@ -1916,7 +1916,7 @@ input:focus {
     margin-left: 8px;
     font-size: 18px;
     font-weight: 600;
-    color: #00d4aa;
+    color: #a855f7;
 }
 
 .confirmation-notice {
@@ -2050,7 +2050,7 @@ input:focus {
     content: "•";
     position: absolute;
     left: 0;
-    color: #00d4aa;
+    color: #a855f7;
     font-size: 20px;
 }
 
@@ -2063,7 +2063,7 @@ input:focus {
 
 .understand-btn {
     width: 100%;
-    background: linear-gradient(135deg, #000100 0%, #000000 100%);
+    background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
     color: #ffffff;
     border: none;
     padding: 16px;
@@ -2076,7 +2076,7 @@ input:focus {
 
 .understand-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 1, 0, 0.4);
+    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
 }
 
 /* Responsive adjustments */
